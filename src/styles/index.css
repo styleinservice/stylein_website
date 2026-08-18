@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap');
+@import "lenis/dist/lenis.css";
+@import "tailwindcss";
+
+@theme {
+  --color-bg-dark: #07080a;
+  --color-stylein-red: #e50914;
+  --color-stylein-red-hover: #ff1f2d;
+  --color-stylein-red-glow: rgba(229, 9, 20, 0.4);
+
+  --font-heading: 'Outfit', 'Syne', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Smooth Scrolling Physics */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* Hide scrollbars globally */
+::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+  background: transparent;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 0.4; transform: scale3d(1, 1, 1); }
+  50% { opacity: 0.8; transform: scale3d(1.08, 1.08, 1); }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s ease-in-out infinite;
+}
+
+/* Continuous Fluid 0% to 100% Left-to-Right Laser Animation */
+@keyframes progressLineSmooth {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+.animate-progress-smooth {
+  transform-origin: left center !important;
+  animation: progressLineSmooth 1.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  will-change: transform;
+}
+
+/* Fog / Mist Dissolve Class */
+.fog-dissolve-out {
+  opacity: 0 !important;
+  transform: scale3d(1.08, 1.08, 1) !important;
+  filter: blur(20px) brightness(1.3) !important;
+  pointer-events: none !important;
+}
+
+/* Service Section Ultra-Smooth Transitions */
+@keyframes slideInUp {
+  0% { opacity: 0; transform: translateY(32px); filter: blur(8px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes slideInDown {
+  0% { opacity: 0; transform: translateY(-32px); filter: blur(8px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes fadeSlideLeft {
+  0% { opacity: 0; transform: translateX(-24px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+
+@keyframes fadeSlideRight {
+  0% { opacity: 0; transform: translateX(24px); filter: blur(6px); }
+  100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+}
+
+::selection {
+  background-color: #e50914;
+  color: #ffffff;
+}
