@@ -45,7 +45,7 @@ export default function HowItWorksSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col text-left sm:text-center items-start sm:items-center mb-10 sm:mb-16"
+          className="flex flex-col text-left sm:text-center items-start sm:items-center mb-10 sm:mb-14"
         >
           <span className="font-heading text-[0.74rem] sm:text-[0.8rem] font-semibold tracking-widest uppercase text-neutral-400 mb-2 block">
             HOW IT WORKS
@@ -59,6 +59,34 @@ export default function HowItWorksSection() {
           <p className="font-body text-neutral-300/80 text-xs sm:text-[0.88rem] lg:text-[0.92rem] leading-relaxed max-w-xl mt-2">
             Book professional automotive services in just a few steps and let our experts take care of the rest.
           </p>
+
+          {/* QR Code Download Pill Badge placed directly under text */}
+          <div className="mt-4 sm:mt-5 flex items-center justify-start sm:justify-center">
+            <a
+              href="#download"
+              className="bg-[#0d0f16]/75 backdrop-blur-2xl border border-white/15 hover:border-stylein-red/50 rounded-2xl px-4 py-2 inline-flex items-center gap-3 shadow-[0_10px_25px_rgba(0,0,0,0.7)] hover:shadow-[0_15px_35px_rgba(229,9,20,0.2)] hover:-translate-y-0.5 transition-all duration-300 group no-underline"
+              aria-label="Scan to download STYLEIN App"
+            >
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-white/12 to-white/5 border border-white/15 flex items-center justify-center p-1 group-hover:border-stylein-red/40 transition-colors">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                  <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                  <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                  <path d="M14 14h3v3h-3z" fill="#e50914" stroke="none" />
+                  <path d="M17 17h4v4h-4z" />
+                  <path d="M14 20h3" />
+                </svg>
+              </div>
+              <div className="text-left">
+                <span className="text-white text-[0.78rem] sm:text-[0.82rem] font-semibold block tracking-wide font-heading">
+                  Scan to download
+                </span>
+                <span className="text-neutral-400 text-[0.65rem] font-medium font-body block">
+                  iOS & Android
+                </span>
+              </div>
+            </a>
+          </div>
         </motion.div>
 
         {/* Steps Grid: Vertical with connected vertical line on Mobile, Horizontal on Desktop */}
