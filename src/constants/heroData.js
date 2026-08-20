@@ -1,7 +1,7 @@
 export const NAV_LINKS = [
   { id: 'services', label: 'Services', href: '#services', hasSubmenu: true },
   { id: 'brands', label: 'Brands', href: '/brands' },
-  { id: 'about', label: 'About Us', href: '#about' },
+  { id: 'about', label: 'About Us', href: '/about' },
   { id: 'faqs', label: 'FAQs', href: '#faqs' },
   { id: 'contact', label: 'Contact Us', href: '#contact' },
 ];

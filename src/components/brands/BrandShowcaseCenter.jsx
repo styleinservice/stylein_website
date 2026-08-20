@@ -18,19 +18,19 @@ export default function BrandShowcaseCenter({ brand, activeIndex, totalBrands, o
       {/* Subtle Static Ambient Glow for Max Performance */}
       <div className="absolute w-[240px] sm:w-[340px] h-[240px] sm:h-[340px] rounded-full blur-[90px] bg-[#e50914]/15 pointer-events-none" />
 
-      {/* Vehicle Image Container with Fast Touch Drag Swipe */}
+      {/* Vehicle Image Container with Touch Drag Swipe */}
       <div className="relative w-full max-w-[320px] sm:max-w-[390px] lg:max-w-[460px] flex items-center justify-center touch-pan-y cursor-grab active:cursor-grabbing">
         <AnimatePresence mode="wait">
           <motion.div
             key={`brand-img-${activeIndex}`}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.15}
+            dragElastic={0.18}
             onDragEnd={handleDragEnd}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10, transition: { duration: 0.18, ease: 'easeIn' } }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 15, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.96, transition: { duration: 0.22, ease: 'easeIn' } }}
+            transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
             className="relative z-10 w-full flex items-center justify-center will-change-transform"
           >
             <img
@@ -44,7 +44,7 @@ export default function BrandShowcaseCenter({ brand, activeIndex, totalBrands, o
         </AnimatePresence>
       </div>
 
-      {/* Mobile Progress Indicator Dots with Fast Transition */}
+      {/* Mobile Progress Indicator Dots */}
       {totalBrands && onSelect && (
         <div className="flex lg:hidden items-center gap-1.5 mt-3 z-10">
           {Array.from({ length: totalBrands }).map((_, i) => (

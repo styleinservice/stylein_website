@@ -40,10 +40,10 @@ export default function CollectionsShowcase() {
       <div className="relative z-10 max-w-[1080px] mx-auto flex flex-col items-center gap-10 sm:gap-12 w-full">
         {/* Top Service Tabs */}
         <motion.div
-          initial={{ opacity: 0, y: 25, filter: 'blur(8px)' }}
-          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="w-full flex justify-center"
         >
           <TopServiceBar
@@ -55,12 +55,12 @@ export default function CollectionsShowcase() {
 
         {/* 2-Column Balanced Grid */}
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-12">
-          {/* Left Text Column */}
+          {/* Left Text Column: Enters from Left */}
           <motion.div
-            initial={{ opacity: 0, x: -30, filter: 'blur(8px)' }}
-            whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, x: -35 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.58, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex flex-col justify-center items-start"
           >
             <ShowcaseLeft
@@ -71,12 +71,12 @@ export default function CollectionsShowcase() {
             />
           </motion.div>
 
-          {/* Right Image Column */}
+          {/* Right Image Column: Enters from Right */}
           <motion.div
-            initial={{ opacity: 0, x: 50, scale: 0.95, filter: 'blur(10px)' }}
-            whileInView={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 1.0, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, x: 35, scale: 0.94 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.58, ease: [0.16, 1, 0.3, 1] }}
             className="w-full flex items-center justify-center relative"
           >
             <ShowcaseCenter

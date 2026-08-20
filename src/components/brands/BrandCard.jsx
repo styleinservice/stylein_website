@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 22 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.28,
-      ease: [0.22, 1, 0.36, 1],
+      duration: 0.48,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
 };
@@ -24,9 +24,9 @@ export default function BrandCard({ brand, index, onSelect }) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.1, margin: '0px 0px -20px 0px' }}
-      whileHover={{ y: -4 }}
+      whileHover={{ y: -5 }}
       whileTap={{ scale: 0.98 }}
-      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
       onClick={() => onSelect(brand)}
       className="group relative rounded-3xl p-6 sm:p-7 flex flex-col justify-start bg-[#0b0d14] border border-white/[0.08] hover:border-white/[0.28] shadow-[0_15px_40px_rgba(0,0,0,0.85)] hover:shadow-[0_22px_55px_rgba(0,0,0,0.98)] cursor-pointer select-none will-change-transform"
     >

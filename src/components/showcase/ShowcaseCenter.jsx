@@ -12,17 +12,17 @@ export default function ShowcaseCenter({ collection, activeIndex }) {
       <AnimatePresence mode="wait">
         <motion.div
           key={`service-raw-${activeIndex}`}
-          initial={{ opacity: 0, scale: 0.94, y: 15, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, scale: 0.96, y: -10, filter: 'blur(6px)' }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 w-full max-w-[280px] sm:max-w-[420px] lg:max-w-[480px] flex items-center justify-center"
+          initial={{ opacity: 0, x: 35, scale: 0.94 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: 25, scale: 0.96, transition: { duration: 0.24, ease: 'easeIn' } }}
+          transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-10 w-full max-w-[280px] sm:max-w-[420px] lg:max-w-[480px] flex items-center justify-center will-change-transform"
         >
           {/* Direct Free-Floating Service Image with Smooth Transitions */}
           <img
             src={collection.image}
             alt={collection.title || collection.name}
-            className="w-full h-auto max-h-[250px] sm:max-h-[340px] lg:max-h-[380px] object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,0.95),0_0_25px_rgba(229,9,20,0.12)] transition-transform duration-500 hover:scale-105 select-none pointer-events-auto"
+            className="w-full h-auto max-h-[250px] sm:max-h-[340px] lg:max-h-[380px] object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,0.95),0_0_25px_rgba(229,9,20,0.12)] transition-transform duration-300 hover:scale-105 select-none pointer-events-auto"
             loading="lazy"
           />
         </motion.div>

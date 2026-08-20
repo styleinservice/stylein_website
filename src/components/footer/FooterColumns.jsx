@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import StyleinLogo from '../common/StyleinLogo';
 import FooterStoreBadges from './FooterStoreBadges';
-import LanguageDropdown from '../home/LanguageDropdown';
-import { HelpCircle, Phone, MessageSquare, Languages, ArrowUpRight } from 'lucide-react';
+import { HelpCircle, Phone, MessageSquare, ArrowUpRight } from 'lucide-react';
 
 const ALL_SERVICES = [
   { label: 'Car Wash', href: '#car-wash' },
@@ -15,9 +14,6 @@ const ALL_SERVICES = [
 ];
 
 export default function FooterColumns() {
-  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState('EN');
-
   return (
     <div className="flex flex-col lg:flex-row items-start justify-between gap-8 sm:gap-10 pt-2 pb-6 text-left font-body relative z-20 w-full">
       {/* Top on Mobile / Left on Desktop: Brand Logo & App Store Badges */}
@@ -28,12 +24,12 @@ export default function FooterColumns() {
         <FooterStoreBadges />
       </div>
 
-      {/* Nav Columns: 2 Columns on Mobile (Company/Support on Left, All Services on Right); 4 Columns on Desktop */}
+      {/* Nav Columns */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10 lg:gap-14 text-[0.82rem] sm:text-[0.84rem] w-full lg:w-auto">
         {/* Column 1: Company Links */}
         <div className="flex flex-col gap-2.5">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Company</span>
-          <a href="#about" className="text-neutral-300 hover:text-white no-underline transition-colors">About Us</a>
+          <a href="/about" className="text-neutral-300 hover:text-white no-underline transition-colors">About Us</a>
           <a href="#contact" className="text-neutral-300 hover:text-white no-underline transition-colors">Contact Us</a>
           <a href="#faqs" className="text-neutral-300 hover:text-white no-underline transition-colors">FAQs</a>
 
@@ -47,14 +43,6 @@ export default function FooterColumns() {
               <MessageSquare size={13} className="text-emerald-400" />
               <span>WhatsApp</span>
             </a>
-            <button
-              type="button"
-              onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-              className="flex items-center gap-1.5 text-neutral-300 hover:text-white bg-transparent border-none p-0 cursor-pointer text-[0.8rem]"
-            >
-              <Languages size={13} className="text-neutral-400" />
-              <span>{currentLang} ▾</span>
-            </button>
           </div>
         </div>
 
@@ -92,7 +80,7 @@ export default function FooterColumns() {
           </a>
         </div>
 
-        {/* Column 4 (Desktop): Support & Language */}
+        {/* Column 4 (Desktop): Support */}
         <div className="hidden sm:flex flex-col gap-3">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Support</span>
           <a href="#faqs" className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors">
@@ -107,17 +95,6 @@ export default function FooterColumns() {
             <MessageSquare size={14} className="text-emerald-400" />
             <span>WhatsApp</span>
           </a>
-          <div className="relative inline-block" onMouseEnter={() => setLangDropdownOpen(true)} onMouseLeave={() => setLangDropdownOpen(false)}>
-            <button type="button" onClick={() => setLangDropdownOpen(!langDropdownOpen)} className="flex items-center gap-1.5 text-neutral-300 hover:text-white bg-transparent border-none p-0 cursor-pointer text-[0.82rem]">
-              <Languages size={14} className="text-neutral-400" />
-              <span>{currentLang} ▾</span>
-            </button>
-            {langDropdownOpen && (
-              <div className="absolute bottom-full left-0 mb-3 z-50">
-                <LanguageDropdown currentLang={currentLang} onSelectLang={(l) => setCurrentLang(l)} onClose={() => setLangDropdownOpen(false)} />
-              </div>
-            )}
-          </div>
         </div>
       </div>
     </div>

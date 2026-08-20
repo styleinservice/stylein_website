@@ -12,11 +12,11 @@ export default function ShowcaseLeft({ collection, services = [], activeIndex, o
       <AnimatePresence mode="wait">
         <motion.div
           key={`left-${activeIndex}`}
-          initial={{ opacity: 0, y: 12, filter: 'blur(6px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, y: -10, filter: 'blur(6px)' }}
-          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col gap-3 sm:gap-3.5 items-center lg:items-start w-full"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20, transition: { duration: 0.24, ease: 'easeIn' } }}
+          transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col gap-3 sm:gap-3.5 items-center lg:items-start w-full will-change-transform"
         >
           {/* Watermark Number */}
           <span className="font-heading text-5xl sm:text-6xl lg:text-7xl font-black block leading-none select-none tracking-tight text-stylein-red/25">
@@ -35,15 +35,15 @@ export default function ShowcaseLeft({ collection, services = [], activeIndex, o
 
           {/* Description: 1-line on mobile with View more toggle (API description) */}
           <div className="max-w-md font-body flex flex-col items-center lg:items-start">
-            <p className={`text-neutral-300/85 text-[0.82rem] sm:text-[0.88rem] leading-relaxed transition-all ${isExpanded ? '' : 'line-clamp-1 lg:line-clamp-none'}`}>
+            <p className={`text-neutral-300/85 text-[0.82rem] sm:text-[0.88rem] leading-relaxed transition-all duration-300 ${isExpanded ? '' : 'line-clamp-1 lg:line-clamp-none'}`}>
               {collection.description}
             </p>
             <button
               onClick={() => setIsExpanded((p) => !p)}
-              className="lg:hidden text-stylein-red text-[0.76rem] font-bold mt-1 bg-transparent border-none p-0 cursor-pointer inline-flex items-center gap-1 hover:underline"
+              className="lg:hidden text-neutral-400 hover:text-neutral-200 text-[0.74rem] font-medium mt-1 bg-transparent border-none p-0 cursor-pointer inline-flex items-center gap-1 hover:underline active:scale-95 transition-colors"
             >
               <span>{isExpanded ? 'Show less' : 'View more...'}</span>
-              <ChevronDown size={12} className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+              <ChevronDown size={12} className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''} text-neutral-400`} />
             </button>
           </div>
 

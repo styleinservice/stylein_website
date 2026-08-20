@@ -1,20 +1,17 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
 import { SmoothScrollProvider, useSmoothScroll } from '../context/SmoothScrollContext';
-import StyleinLoader from '../components/home/StyleinLoader';
 import StyleinNavbar from '../components/home/StyleinNavbar';
 import NavMobileMenu from '../components/home/NavMobileMenu';
-import HeroSection from '../components/home/HeroSection';
-import CollectionsShowcase from '../components/showcase/CollectionsShowcase';
-import FeaturedBrandsShowcase from '../components/brands/FeaturedBrandsShowcase';
-import AppShowcaseSection from '../components/app-showcase/AppShowcaseSection';
-import FAQSection from '../components/faq/FAQSection';
-import TestimonialsSection from '../components/testimonials/TestimonialsSection';
-import GetAppBanner from '../components/download-banner/GetAppBanner';
+import AboutHero from '../components/about/AboutHero';
+import WhoWeAreSection from '../components/about/WhoWeAreSection';
+import AboutServicesSection from '../components/about/AboutServicesSection';
+import HowItWorksSection from '../components/about/HowItWorksSection';
+import OurImpactSection from '../components/about/OurImpactSection';
+import VehiclesCareSection from '../components/about/VehiclesCareSection';
 import StyleinFooter from '../components/footer/StyleinFooter';
 
-function HomeContent() {
-  const [isReady, setIsReady] = useState(false);
+function AboutPageContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
   const [capturedScrollY, setCapturedScrollY] = useState(0);
@@ -42,7 +39,6 @@ function HomeContent() {
 
   const isLockedState = mobileMenuOpen || isMenuAnimating;
 
-  // Synchronous pre-paint restoration eliminating any 1-frame Hero blink
   useLayoutEffect(() => {
     if (!isLockedState && !mobileMenuOpen) {
       const target = savedScrollRef.current;
@@ -59,13 +55,9 @@ function HomeContent() {
 
   return (
     <div className="bg-[#05060a] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
-      <div className="fixed top-1/4 left-10 w-[300px] h-[300px] rounded-full blur-[140px] bg-stylein-red/10 pointer-events-none z-0" />
-
-      <StyleinLoader onStartReveal={() => setIsReady(true)} onComplete={() => setIsReady(true)} />
-
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={handleCloseMenu} />
 
-      {/* Main Website Canvas: Viewport-Fixed Centered Floating Window */}
+      {/* Main Website Canvas: 3D Perspective Scaled Preview Window identical to Home */}
       <motion.main
         animate={
           mobileMenuOpen
@@ -97,19 +89,18 @@ function HomeContent() {
 
         <div style={{ transform: isLockedState ? `translateY(-${capturedScrollY}px)` : 'none' }} className="w-full">
           <StyleinNavbar
-            isReady={isReady}
+            isReady={true}
             mobileMenuOpen={mobileMenuOpen}
             isMenuSession={isLockedState}
             onToggleMobileMenu={handleOpenMenu}
           />
-          <div className="relative z-10 bg-[#07080a] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5">
-            <HeroSection isReady={isReady} />
-            <CollectionsShowcase />
-            <FeaturedBrandsShowcase />
-            <AppShowcaseSection />
-            <FAQSection />
-            <TestimonialsSection />
-            <GetAppBanner />
+          <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5">
+            <AboutHero />
+            <WhoWeAreSection />
+            <AboutServicesSection />
+            <HowItWorksSection />
+            <OurImpactSection />
+            <VehiclesCareSection />
           </div>
           <StyleinFooter />
         </div>
@@ -118,10 +109,10 @@ function HomeContent() {
   );
 }
 
-export default function Home() {
+export default function AboutPage() {
   return (
     <SmoothScrollProvider>
-      <HomeContent />
+      <AboutPageContent />
     </SmoothScrollProvider>
   );
 }

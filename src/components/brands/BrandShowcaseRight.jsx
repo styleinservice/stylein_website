@@ -11,10 +11,10 @@ export default function BrandShowcaseRight({ brand, activeIndex, totalBrands, on
       <AnimatePresence mode="wait">
         <motion.div
           key={`brand-right-${activeIndex}`}
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10, transition: { duration: 0.18, ease: 'easeIn' } }}
-          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0, y: -10, transition: { duration: 0.22, ease: 'easeIn' } }}
+          transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col gap-2 sm:gap-2.5 w-full max-w-sm items-center lg:items-end will-change-transform"
         >
           <div className="flex items-center gap-1.5 mb-0.5 self-center lg:self-end">

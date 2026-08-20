@@ -2,21 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import StyleinLogo from '../common/StyleinLogo';
 import NavDesktopLinks from './NavDesktopLinks';
-import LanguageDropdown from './LanguageDropdown';
-import { ChevronDown, Globe, LifeBuoy } from 'lucide-react';
+import { LifeBuoy } from 'lucide-react';
 
 export default function StyleinNavbar({ isReady = true, mobileMenuOpen, isMenuSession = false, onToggleMobileMenu }) {
   const [isAtTop, setIsAtTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mobileVisible, setMobileVisible] = useState(true);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState('EN');
 
   const lastScrollY = useRef(0);
   const frozenStateRef = useRef({ isAtTop: true, mobileVisible: true });
   const sTimeout = useRef(null);
-  const lTimeout = useRef(null);
 
   useEffect(() => {
     if (isMenuSession) {
@@ -49,11 +45,9 @@ export default function StyleinNavbar({ isReady = true, mobileMenuOpen, isMenuSe
   }, [isMenuSession]);
 
   const handleHover = (type, open) => {
-    const ref = type === 'srv' ? sTimeout : lTimeout;
-    const setter = type === 'srv' ? setServicesOpen : setLangOpen;
-    if (ref.current) clearTimeout(ref.current);
-    if (open) setter(true);
-    else ref.current = setTimeout(() => setter(false), 250);
+    if (sTimeout.current) clearTimeout(sTimeout.current);
+    if (open) setServicesOpen(true);
+    else sTimeout.current = setTimeout(() => setServicesOpen(false), 250);
   };
 
   const activeTop = isMenuSession ? frozenStateRef.current.isAtTop : isAtTop;
@@ -107,15 +101,6 @@ export default function StyleinNavbar({ isReady = true, mobileMenuOpen, isMenuSe
         <NavDesktopLinks servicesOpen={servicesOpen} setServicesOpen={setServicesOpen} handleHover={handleHover} />
 
         <div className="hidden lg:flex items-center gap-3">
-          <div className="relative py-1" onMouseEnter={() => handleHover('lang', true)} onMouseLeave={() => handleHover('lang', false)}>
-            <button onClick={() => setLangOpen((p) => !p)} className={`flex items-center gap-1.5 bg-transparent border-none text-neutral-200 text-[0.84rem] font-medium cursor-pointer hover:text-white transition-colors ${langOpen ? 'text-white' : ''}`}>
-              <Globe size={13} className="opacity-80" />
-              <span>{currentLang}</span>
-              <ChevronDown size={11} className={`opacity-70 transition-transform ${langOpen ? 'rotate-180 text-stylein-red opacity-100' : ''}`} />
-            </button>
-            {langOpen && <LanguageDropdown currentLang={currentLang} onSelectLang={(l) => setCurrentLang(l)} onClose={() => setLangOpen(false)} />}
-          </div>
-
           <a href="#rescue" className="inline-flex items-center gap-1.5 text-[#FF3B47] text-[0.84rem] font-semibold no-underline hover:text-[#ff5c66] transition-colors relative group">
             <LifeBuoy size={15} className="group-hover:scale-110 transition-transform" />
             <span>Rescue me!</span>

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SERVICES_DROPDOWN_ITEMS, LANGUAGES } from '../../constants/heroData';
-import { X, Globe, LifeBuoy, ChevronDown, ArrowRight, Check } from 'lucide-react';
+import { SERVICES_DROPDOWN_ITEMS } from '../../constants/heroData';
+import { X, LifeBuoy, ChevronDown, ArrowRight } from 'lucide-react';
 
-export default function NavMobileMenu({ isOpen, currentLang, onSelectLang, onClose }) {
+export default function NavMobileMenu({ isOpen, onClose }) {
   const [servicesExpanded, setServicesExpanded] = useState(false);
-  const [langExpanded, setLangExpanded] = useState(false);
 
   return (
     <>
@@ -63,7 +62,7 @@ export default function NavMobileMenu({ isOpen, currentLang, onSelectLang, onClo
           </a>
 
           {/* 3. About Us */}
-          <a href="#about" onClick={onClose} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide">
+          <a href="/about" onClick={onClose} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide">
             About Us
           </a>
 
@@ -77,43 +76,7 @@ export default function NavMobileMenu({ isOpen, currentLang, onSelectLang, onClo
             Contact Us
           </a>
 
-          {/* 6. Language */}
-          <div className="flex flex-col w-full">
-            <button
-              onClick={() => setLangExpanded((p) => !p)}
-              className="flex items-center gap-2 text-white text-[1.05rem] font-bold bg-transparent border-none py-1.5 cursor-pointer text-left font-heading tracking-wide w-fit group"
-            >
-              <Globe size={18} className="text-white/90 group-hover:text-stylein-red transition-colors" />
-              <span className="font-extrabold">{currentLang}</span>
-              <ChevronDown size={15} className={`transition-transform duration-300 ${langExpanded ? 'rotate-180 text-stylein-red' : 'text-neutral-400'}`} />
-            </button>
-
-            <AnimatePresence>
-              {langExpanded && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  className="flex flex-col gap-1.5 mt-1 ml-2 pl-3 border-l-2 border-stylein-red/40 overflow-hidden w-full"
-                >
-                  {LANGUAGES.map((l) => (
-                    <button
-                      key={l.code}
-                      onClick={() => { if (onSelectLang) onSelectLang(l.short); setLangExpanded(false); }}
-                      className={`flex items-center justify-between py-1.5 px-2.5 rounded-lg text-[0.84rem] bg-transparent border border-transparent text-left cursor-pointer transition-all ${
-                        currentLang === l.short ? 'text-white font-bold bg-white/10' : 'text-neutral-300 hover:text-white'
-                      }`}
-                    >
-                      <span>{l.native}</span>
-                      {currentLang === l.short && <Check size={13} className="text-stylein-red" />}
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* 7. Rescue Me */}
+          {/* 6. Rescue Me */}
           <a href="#rescue" onClick={onClose} className="inline-flex items-center gap-2 text-[#FF3B47] text-[0.98rem] font-bold no-underline py-1 mt-0.5 relative">
             <LifeBuoy size={18} className="text-[#FF3B47]" />
             <span>Rescue me!</span>

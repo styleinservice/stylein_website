@@ -12,10 +12,10 @@ export default function BrandShowcaseLeft({ brand, activeIndex, totalBrands }) {
       <AnimatePresence mode="wait">
         <motion.div
           key={`brand-left-${activeIndex}`}
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10, transition: { duration: 0.18, ease: 'easeIn' } }}
-          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0, y: -10, transition: { duration: 0.22, ease: 'easeIn' } }}
+          transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col gap-2 sm:gap-2.5 items-center lg:items-start w-full will-change-transform"
         >
           {/* Watermark Index Number (Desktop only) */}
@@ -35,15 +35,15 @@ export default function BrandShowcaseLeft({ brand, activeIndex, totalBrands }) {
 
           {/* Description */}
           <div className="max-w-sm font-body flex flex-col items-center lg:items-start">
-            <p className={`text-neutral-300/85 text-[0.78rem] sm:text-[0.82rem] leading-relaxed transition-all duration-200 ${isExpanded ? '' : 'line-clamp-2 lg:line-clamp-none'}`}>
+            <p className={`text-neutral-300/85 text-[0.78rem] sm:text-[0.82rem] leading-relaxed transition-all duration-300 ${isExpanded ? '' : 'line-clamp-2 lg:line-clamp-none'}`}>
               {brand.description}
             </p>
             <button
               onClick={() => setIsExpanded((p) => !p)}
-              className="lg:hidden text-stylein-red text-[0.74rem] font-bold mt-1 bg-transparent border-none p-0 cursor-pointer inline-flex items-center gap-1 hover:underline active:scale-95 transition-transform"
+              className="lg:hidden text-neutral-400 hover:text-neutral-200 text-[0.74rem] font-medium mt-1 bg-transparent border-none p-0 cursor-pointer inline-flex items-center gap-1 hover:underline active:scale-95 transition-colors"
             >
               <span>{isExpanded ? 'Show less' : 'View more...'}</span>
-              <ChevronDown size={12} className={`transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
+              <ChevronDown size={12} className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''} text-neutral-400`} />
             </button>
           </div>
 
@@ -51,12 +51,12 @@ export default function BrandShowcaseLeft({ brand, activeIndex, totalBrands }) {
           <div className="pt-2.5 flex items-center justify-center lg:justify-start gap-3 flex-wrap w-full">
             <a
               href="/brands"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[0.8rem] font-semibold text-white tracking-wide no-underline bg-[#0c0e14]/80 backdrop-blur-xl border border-white/10 hover:border-stylein-red/70 hover:bg-[#12151e] hover:shadow-[0_0_20px_rgba(229,9,20,0.35)] active:scale-95 transition-all duration-200 group cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[0.8rem] font-semibold text-white tracking-wide no-underline bg-[#0c0e14]/80 backdrop-blur-xl border border-white/10 hover:border-stylein-red/70 hover:bg-[#12151e] hover:shadow-[0_0_20px_rgba(229,9,20,0.35)] active:scale-95 transition-all duration-300 group cursor-pointer"
             >
               <span>Explore All Brands</span>
               <ArrowRight
                 size={13}
-                className="transition-transform duration-200 group-hover:translate-x-1 text-white/90 group-hover:text-stylein-red"
+                className="transition-transform duration-300 group-hover:translate-x-1 text-white/90 group-hover:text-stylein-red"
               />
             </a>
           </div>
