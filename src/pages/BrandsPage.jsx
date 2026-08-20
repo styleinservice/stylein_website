@@ -23,6 +23,30 @@ export default function BrandsPage() {
     }
   }, [dispatch, fetched]);
 
+  // Preload all brand images in background as soon as API response arrives
+  useEffect(() => {
+    if (allBrands && allBrands.length > 0) {
+      allBrands.forEach((b) => {
+        if (b.image) {
+          const img = new Image();
+          img.src = b.image;
+        }
+      });
+    }
+  }, [allBrands]);
+
+  // Lock scroll only while waiting for initial brand API data
+  useEffect(() => {
+    if (loading && allBrands.length === 0) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [loading, allBrands.length]);
+
   const activeBrands = allBrands
     .filter((b) => !b.deleted && b.active)
     .sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));

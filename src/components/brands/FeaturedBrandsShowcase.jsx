@@ -7,33 +7,33 @@ import BrandShowcaseCenter from './BrandShowcaseCenter';
 import BrandShowcaseRight from './BrandShowcaseRight';
 
 const headerVariants = {
-  hidden: { opacity: 0, y: 25, filter: 'blur(8px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.12 } },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.08 } },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 15, filter: 'blur(6px)' },
-  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const gridVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.15 } },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.08 } },
 };
 
 const colLeft = {
-  hidden: { opacity: 0, x: -35, filter: 'blur(10px)' },
-  visible: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] } },
+  hidden: { opacity: 0, x: -25 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.32, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const colCenter = {
-  hidden: { opacity: 0, y: 35, scale: 0.92, filter: 'blur(12px)' },
-  visible: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
+  hidden: { opacity: 0, y: 25 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.32, ease: [0.22, 1, 0.36, 1] } },
 };
 
 const colRight = {
-  hidden: { opacity: 0, x: 35, filter: 'blur(10px)' },
-  visible: { opacity: 1, x: 0, filter: 'blur(0px)', transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] } },
+  hidden: { opacity: 0, x: 25 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.32, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export default function FeaturedBrandsShowcase() {
@@ -48,6 +48,18 @@ export default function FeaturedBrandsShowcase() {
   const featuredBrands = allBrands
     .filter((b) => b.featured === true && !b.deleted && b.active)
     .sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
+
+  // Preload all featured brand images in background for instant transitions
+  useEffect(() => {
+    if (featuredBrands.length > 0) {
+      featuredBrands.forEach((b) => {
+        if (b.image) {
+          const img = new Image();
+          img.src = b.image;
+        }
+      });
+    }
+  }, [featuredBrands]);
 
   const total = featuredBrands.length;
   const currentBrand = total > 0 ? featuredBrands[activeIndex % total] : null;
@@ -67,15 +79,13 @@ export default function FeaturedBrandsShowcase() {
   return (
     <section id="featured-brands" className="relative w-full py-10 sm:py-12 lg:py-14 px-6 sm:px-10 lg:px-12 bg-[#040406] overflow-hidden border-t border-white/[0.04]">
       {/* Dynamic Ambient Red Atmosphere */}
-      <motion.div
-        animate={{ opacity: [0.6, 0.85, 0.6], scale: [0.98, 1.03, 0.98] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+      <div
         className="absolute inset-0 z-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(180,10,20,0.1) 0%, rgba(6,6,8,0.98) 55%, #040406 100%)' }}
+        style={{ background: 'radial-gradient(ellipse at 50% 40%, rgba(180,10,20,0.08) 0%, rgba(6,6,8,0.98) 55%, #040406 100%)' }}
       />
 
       <div className="relative z-10 max-w-[1160px] mx-auto flex flex-col items-center gap-5 sm:gap-7 w-full">
-        {/* Section Header with Staggered Kinetic Reveal on Viewport Entry */}
+        {/* Section Header */}
         <motion.div
           variants={headerVariants}
           initial="hidden"
@@ -94,7 +104,7 @@ export default function FeaturedBrandsShowcase() {
           </motion.p>
         </motion.div>
 
-        {/* 3-Column Luxury Showcase Grid with Staggered Viewport Entrance */}
+        {/* 3-Column Luxury Showcase Grid */}
         <motion.div
           variants={gridVariants}
           initial="hidden"

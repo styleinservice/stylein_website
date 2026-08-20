@@ -11,11 +11,11 @@ export default function BrandShowcaseRight({ brand, activeIndex, totalBrands, on
       <AnimatePresence mode="wait">
         <motion.div
           key={`brand-right-${activeIndex}`}
-          initial={{ opacity: 0, x: 20, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, x: -20, filter: 'blur(6px)' }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col gap-2 sm:gap-2.5 w-full max-w-sm items-center lg:items-end"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10, transition: { duration: 0.18, ease: 'easeIn' } }}
+          transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col gap-2 sm:gap-2.5 w-full max-w-sm items-center lg:items-end will-change-transform"
         >
           <div className="flex items-center gap-1.5 mb-0.5 self-center lg:self-end">
             <ShieldCheck size={14} className="text-stylein-red" />
@@ -25,63 +25,51 @@ export default function BrandShowcaseRight({ brand, activeIndex, totalBrands, on
           </div>
 
           {highlights.map((item, idx) => (
-            <motion.div
+            <div
               key={idx}
-              initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ duration: 0.45, delay: idx * 0.07, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ x: -4, backgroundColor: 'rgba(255,255,255,0.06)' }}
-              className="w-full p-2 sm:p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] backdrop-blur-md transition-all text-left cursor-default"
+              className="w-full p-2 sm:p-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.06] backdrop-blur-md transition-all text-left cursor-default"
             >
               <p className="font-body text-[0.72rem] sm:text-[0.76rem] text-neutral-300 leading-snug">
                 {item}
               </p>
-            </motion.div>
+            </div>
           ))}
         </motion.div>
       </AnimatePresence>
 
-      {/* Progress Dots and Next/Prev Controls with Spring Physics */}
+      {/* Progress Dots and Next/Prev Controls */}
       <div className="flex items-center gap-2.5 mt-3.5 sm:mt-4 self-center lg:self-end">
-        <motion.button
+        <button
           onClick={onPrev}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
           aria-label="Previous Brand"
-          className="w-7 h-7 rounded-full bg-white/[0.06] hover:bg-white/[0.14] border border-white/10 flex items-center justify-center text-white cursor-pointer transition-colors"
+          className="w-7 h-7 rounded-full bg-white/[0.06] hover:bg-white/[0.14] border border-white/10 flex items-center justify-center text-white cursor-pointer active:scale-95 transition-all"
         >
           <ChevronLeft size={14} />
-        </motion.button>
+        </button>
 
         <div className="flex items-center gap-1.5">
           {Array.from({ length: totalBrands }).map((_, i) => (
-            <motion.button
+            <button
               key={i}
               onClick={() => onSelect(i)}
               aria-label={`Jump to brand ${i + 1}`}
-              layout
-              animate={{
-                width: i === activeIndex ? 24 : 7,
-                backgroundColor: i === activeIndex ? '#e50914' : 'rgba(255,255,255,0.2)',
-              }}
-              transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-              className="h-1.5 rounded-full cursor-pointer border-none p-0"
+              className="h-1.5 rounded-full cursor-pointer border-none p-0 transition-all duration-300"
               style={{
+                width: i === activeIndex ? '24px' : '7px',
+                backgroundColor: i === activeIndex ? '#e50914' : 'rgba(255,255,255,0.2)',
                 boxShadow: i === activeIndex ? '0 0 8px rgba(229,9,20,0.8)' : 'none',
               }}
             />
           ))}
         </div>
 
-        <motion.button
+        <button
           onClick={onNext}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
           aria-label="Next Brand"
-          className="w-7 h-7 rounded-full bg-white/[0.06] hover:bg-white/[0.14] border border-white/10 flex items-center justify-center text-white cursor-pointer transition-colors"
+          className="w-7 h-7 rounded-full bg-white/[0.06] hover:bg-white/[0.14] border border-white/10 flex items-center justify-center text-white cursor-pointer active:scale-95 transition-all"
         >
           <ChevronRight size={14} />
-        </motion.button>
+        </button>
       </div>
     </div>
   );

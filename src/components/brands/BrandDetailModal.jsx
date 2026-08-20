@@ -26,17 +26,17 @@ export default function BrandDetailModal({ brand, onClose }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.35 }}
+      transition={{ duration: 0.2 }}
       onClick={onClose}
       className="fixed inset-0 z-[3000] bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 lg:p-8 select-none"
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.96, y: 20 }}
+        initial={{ opacity: 0, scale: 0.96, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.96, y: 20 }}
-        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        exit={{ opacity: 0, scale: 0.96, y: 10, transition: { duration: 0.18, ease: 'easeIn' } }}
+        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[1020px] max-h-[90vh] rounded-3xl bg-[#0b0d14] border border-white/[0.12] shadow-[0_25px_70px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col lg:flex-row"
+        className="relative w-full max-w-[1020px] max-h-[90vh] rounded-3xl bg-[#0b0d14] border border-white/[0.12] shadow-[0_25px_70px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col lg:flex-row will-change-transform"
       >
         {/* Top-Right Circular Close 'X' Button */}
         <button
