@@ -2,31 +2,29 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function ShowcaseCenter({ collection, activeIndex }) {
+  if (!collection) return null;
+
   return (
-    <div className="w-full lg:w-[48%] flex items-center justify-center relative my-4 lg:my-0">
-      {/* Subtle Ambient Back-Glow */}
-      <div className="absolute w-[300px] sm:w-[380px] h-[300px] sm:h-[380px] rounded-full blur-[100px] bg-[#e50914]/10 opacity-35 pointer-events-none" />
+    <div className="w-full flex items-center justify-center relative my-1 sm:my-2 lg:my-0">
+      {/* Subtle Ambient Red Glow */}
+      <div className="absolute w-[220px] sm:w-[360px] h-[220px] sm:h-[360px] rounded-full blur-[90px] bg-[#e50914]/15 opacity-50 pointer-events-none" />
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={`car-${activeIndex}`}
-          initial={{ x: 30, opacity: 0, scale: 0.95, filter: 'blur(10px)' }}
-          animate={{ x: 0, opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          exit={{ x: -30, opacity: 0, scale: 0.95, filter: 'blur(8px)' }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 w-full max-w-[540px] aspect-[16/10] rounded-3xl overflow-hidden border border-white/10 bg-[#07080a]/90 backdrop-blur-2xl shadow-[0_30px_60px_rgba(0,0,0,0.95)] group"
+          key={`service-raw-${activeIndex}`}
+          initial={{ opacity: 0, scale: 0.94, y: 15, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, scale: 0.96, y: -10, filter: 'blur(6px)' }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-10 w-full max-w-[280px] sm:max-w-[420px] lg:max-w-[480px] flex items-center justify-center"
         >
+          {/* Direct Free-Floating Service Image with Smooth Transitions */}
           <img
             src={collection.image}
-            alt={collection.name}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            alt={collection.title || collection.name}
+            className="w-full h-auto max-h-[250px] sm:max-h-[340px] lg:max-h-[380px] object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,0.95),0_0_25px_rgba(229,9,20,0.12)] transition-transform duration-500 hover:scale-105 select-none pointer-events-auto"
             loading="lazy"
           />
-
-          {/* Dark Glassy Gradient Blend to Pure Black */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050507] via-transparent to-transparent opacity-85 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050507]/60 via-transparent to-[#050507]/60 pointer-events-none" />
-          <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-3xl pointer-events-none" />
         </motion.div>
       </AnimatePresence>
     </div>

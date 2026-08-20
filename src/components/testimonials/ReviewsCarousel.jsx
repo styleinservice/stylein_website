@@ -19,7 +19,7 @@ export default function ReviewsCarousel() {
 
     const autoScroll = () => {
       if (!isPaused && !isDragging.current) {
-        scrollContainer.scrollLeft += 0.8;
+        scrollContainer.scrollLeft += 0.75;
         // Reset when scrolled past one set of items
         const halfScroll = scrollContainer.scrollWidth / 3;
         if (scrollContainer.scrollLeft >= halfScroll * 2) {
@@ -44,7 +44,7 @@ export default function ReviewsCarousel() {
     if (!isDragging.current) return;
     e.preventDefault();
     const x = e.pageX - containerRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.5; // Drag speed multiplier
+    const walk = (x - startX.current) * 1.5;
     containerRef.current.scrollLeft = scrollLeft.current - walk;
   };
 
@@ -69,7 +69,7 @@ export default function ReviewsCarousel() {
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
-        className="flex items-center gap-5 overflow-x-auto scrollbar-none cursor-grab active:cursor-grabbing w-full px-4 scroll-smooth"
+        className="flex items-center gap-3.5 sm:gap-5 overflow-x-auto scrollbar-none cursor-grab active:cursor-grabbing w-full px-4"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {items.map((review, idx) => (

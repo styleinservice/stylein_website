@@ -50,6 +50,16 @@ html.lenis, html.lenis body {
   animation: pulseSubtle 3s ease-in-out infinite;
 }
 
+/* Shimmer Wave Animation */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.8s infinite linear;
+}
+
 /* Continuous Fluid 0% to 100% Left-to-Right Laser Animation */
 @keyframes progressLineSmooth {
   0% { transform: scaleX(0); }

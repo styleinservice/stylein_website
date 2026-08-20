@@ -12,7 +12,7 @@ export default function AppShowcaseRight() {
   const springX = useSpring(x, { stiffness: 120, damping: 22 });
   const springY = useSpring(y, { stiffness: 120, damping: 22 });
 
-  // Pure Vertical Y-Axis Rotation: Top-Left & Bottom-Left are 100% EXACTLY EQUAL (Dono Barabar)
+  // Pure Vertical Y-Axis Rotation: Top-Left & Bottom-Left are 100% Equal
   const rotateY = useTransform(springX, [-0.5, 0.5], ['-30deg', '-16deg']);
   const rotateX = useTransform(springY, [-0.5, 0.5], ['0deg', '0deg']);
   const rotateZ = useTransform(springX, [-0.5, 0.5], ['0deg', '0deg']);
@@ -41,7 +41,7 @@ export default function AppShowcaseRight() {
       {/* Deep Red Subtle Ambient Glow */}
       <div className="absolute w-[340px] sm:w-[400px] h-[340px] sm:h-[400px] rounded-full blur-[110px] bg-[#e50914]/15 opacity-55 pointer-events-none" />
 
-      {/* Volumetric 3D Smartphone with Top-Left & Bottom-Left 100% Equal Depth */}
+      {/* Volumetric 3D Smartphone with Ultra-Slow Graceful Right-Slide Entrance */}
       <motion.div
         style={{
           rotateX,
@@ -49,10 +49,10 @@ export default function AppShowcaseRight() {
           rotateZ,
           transformStyle: 'preserve-3d',
         }}
-        initial={{ y: 25, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ x: 125, opacity: 0, scale: 0.92, filter: 'blur(14px)' }}
+        whileInView={{ x: 0, opacity: 1, scale: 1, filter: 'blur(0px)' }}
+        viewport={{ once: true, margin: '-50px' }}
+        transition={{ duration: 1.35, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 w-[275px] sm:w-[290px] h-[535px] sm:h-[560px] rounded-[44px]"
       >
         {/* Deep Back Chassis Layer (Natural Titanium Rail) */}

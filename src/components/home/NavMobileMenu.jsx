@@ -1,129 +1,138 @@
 import React, { useState } from 'react';
-import { NAV_LINKS, SERVICES_DROPDOWN_ITEMS, LANGUAGES } from '../../constants/heroData';
+import { motion, AnimatePresence } from 'framer-motion';
+import { SERVICES_DROPDOWN_ITEMS, LANGUAGES } from '../../constants/heroData';
 import { X, Globe, LifeBuoy, ChevronDown, ArrowRight, Check } from 'lucide-react';
 
 export default function NavMobileMenu({ isOpen, currentLang, onSelectLang, onClose }) {
   const [servicesExpanded, setServicesExpanded] = useState(false);
   const [langExpanded, setLangExpanded] = useState(false);
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-[2000] bg-[#07080a]/96 backdrop-blur-xl flex flex-col p-6 justify-between overflow-y-auto">
-      <div className="flex justify-end">
+    <>
+      {isOpen && (
         <button
           onClick={onClose}
-          aria-label="Close navigation menu"
-          className="bg-white/10 border-none rounded-full w-10 h-10 flex items-center justify-center text-white cursor-pointer hover:bg-white/20 transition-colors"
+          aria-label="Close navigation drawer"
+          className="fixed top-5 right-5 z-[2600] w-10 h-10 rounded-full bg-white/[0.1] hover:bg-white/[0.2] border border-white/20 flex items-center justify-center text-white cursor-pointer active:scale-95 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.8)] lg:hidden"
         >
-          <X size={20} />
+          <X size={20} className="text-white" />
         </button>
-      </div>
+      )}
 
-      <div className="flex flex-col gap-4 my-6">
-        {NAV_LINKS.map((item) => {
-          if (item.id === 'services') {
-            return (
-              <div key={item.id} className="flex flex-col">
-                <button
-                  onClick={() => setServicesExpanded((prev) => !prev)}
-                  className="flex items-center justify-between text-white text-xl font-semibold bg-transparent border-none p-0 cursor-pointer text-left"
-                >
-                  <span>{item.label}</span>
-                  <ChevronDown size={20} className={`transition-transform ${servicesExpanded ? 'rotate-180 text-stylein-red' : ''}`} />
-                </button>
-
-                {servicesExpanded && (
-                  <div className="flex flex-col gap-2 mt-3 ml-2 pl-3 border-l border-white/15">
-                    {SERVICES_DROPDOWN_ITEMS.map((srv) => (
-                      <a
-                        key={srv.id}
-                        href={srv.href}
-                        onClick={onClose}
-                        className="text-neutral-300 hover:text-stylein-red text-base py-1 no-underline font-medium flex items-center justify-between"
-                      >
-                        <span>{srv.title}</span>
-                      </a>
-                    ))}
-                    <a
-                      href="#all-services"
-                      onClick={onClose}
-                      className="text-stylein-red text-sm font-semibold py-1.5 no-underline flex items-center gap-1 mt-1"
-                    >
-                      <span>View All Services</span>
-                      <ArrowRight size={14} />
-                    </a>
-                  </div>
-                )}
-              </div>
-            );
-          }
-
-          return (
-            <a
-              key={item.id}
-              href={item.href}
-              onClick={onClose}
-              className="text-white text-xl font-semibold no-underline hover:text-stylein-red transition-colors"
+      <div
+        className={`fixed inset-y-0 left-0 z-20 w-[80vw] max-w-[340px] h-[100dvh] max-h-[100dvh] px-6 pt-16 pb-28 flex flex-col overflow-y-auto select-none transition-opacity duration-500 ${
+          isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="flex flex-col gap-3 pt-4 w-full">
+          {/* 1. Services Accordion */}
+          <div className="flex flex-col w-full">
+            <button
+              onClick={() => setServicesExpanded((p) => !p)}
+              className="flex items-center gap-2 text-white text-[1.05rem] font-semibold bg-transparent border-none py-1.5 cursor-pointer text-left font-heading tracking-wide w-fit group"
             >
-              {item.label}
-            </a>
-          );
-        })}
+              <span>Services</span>
+              <ChevronDown size={15} className={`transition-transform duration-300 ${servicesExpanded ? 'rotate-180 text-stylein-red' : 'text-neutral-400'}`} />
+            </button>
 
-        <a
-          href="#rescue"
-          onClick={onClose}
-          className="inline-flex items-center gap-2 text-[#ff3b47] text-lg font-semibold no-underline mt-2"
-        >
-          <LifeBuoy size={20} />
-          <span>Rescue me!</span>
-        </a>
-      </div>
-
-      {/* Language Switcher for Mobile */}
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
-          <button
-            onClick={() => setLangExpanded((prev) => !prev)}
-            className="flex items-center justify-between text-txt-muted bg-transparent border-none text-sm cursor-pointer p-0"
-          >
-            <div className="flex items-center gap-2">
-              <Globe size={18} />
-              <span>Language: {currentLang === 'EN' ? 'English' : 'العربية'}</span>
-            </div>
-            <ChevronDown size={16} className={`transition-transform ${langExpanded ? 'rotate-180 text-stylein-red' : ''}`} />
-          </button>
-
-          {langExpanded && (
-            <div className="flex flex-col gap-1.5 mt-1 pl-6">
-              {LANGUAGES.map((l) => (
-                <button
-                  key={l.code}
-                  onClick={() => {
-                    if (onSelectLang) onSelectLang(l.short);
-                    setLangExpanded(false);
-                  }}
-                  className={`flex items-center justify-between py-1.5 px-3 rounded-lg text-sm bg-transparent border border-transparent text-left cursor-pointer ${
-                    currentLang === l.short ? 'text-white bg-white/10 border-white/15' : 'text-neutral-400'
-                  }`}
+            <AnimatePresence>
+              {servicesExpanded && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="flex flex-col gap-1.5 mt-1 ml-2 pl-3 border-l-2 border-stylein-red/40 overflow-hidden w-full"
                 >
-                  <span>{l.native}</span>
-                  {currentLang === l.short && <Check size={14} className="text-stylein-red" />}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+                  {SERVICES_DROPDOWN_ITEMS.map((srv) => (
+                    <a key={srv.id} href={srv.href} onClick={onClose} className="text-neutral-300 hover:text-stylein-red text-[0.84rem] py-1 no-underline font-medium flex items-center justify-between w-full">
+                      <span>{srv.title}</span>
+                    </a>
+                  ))}
+                  <a href="#all-services" onClick={onClose} className="text-stylein-red text-[0.8rem] font-bold py-1 no-underline flex items-center gap-1 mt-0.5">
+                    <span>View All Services</span>
+                    <ArrowRight size={12} />
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
-        <a
-          href="#download"
-          onClick={onClose}
-          className="flex items-center justify-center bg-stylein-red text-white py-3.5 px-6 rounded-full font-semibold text-base no-underline w-full text-center shadow-[0_4px_14px_rgba(229,9,20,0.35)]"
-        >
-          Download app
-        </a>
+          {/* 2. Brands */}
+          <a href="/brands" onClick={onClose} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide">
+            Brands
+          </a>
+
+          {/* 3. About Us */}
+          <a href="#about" onClick={onClose} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide">
+            About Us
+          </a>
+
+          {/* 4. FAQs */}
+          <a href="#faq" onClick={onClose} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide">
+            FAQs
+          </a>
+
+          {/* 5. Contact Us */}
+          <a href="#contact" onClick={onClose} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide">
+            Contact Us
+          </a>
+
+          {/* 6. Language */}
+          <div className="flex flex-col w-full">
+            <button
+              onClick={() => setLangExpanded((p) => !p)}
+              className="flex items-center gap-2 text-white text-[1.05rem] font-bold bg-transparent border-none py-1.5 cursor-pointer text-left font-heading tracking-wide w-fit group"
+            >
+              <Globe size={18} className="text-white/90 group-hover:text-stylein-red transition-colors" />
+              <span className="font-extrabold">{currentLang}</span>
+              <ChevronDown size={15} className={`transition-transform duration-300 ${langExpanded ? 'rotate-180 text-stylein-red' : 'text-neutral-400'}`} />
+            </button>
+
+            <AnimatePresence>
+              {langExpanded && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  className="flex flex-col gap-1.5 mt-1 ml-2 pl-3 border-l-2 border-stylein-red/40 overflow-hidden w-full"
+                >
+                  {LANGUAGES.map((l) => (
+                    <button
+                      key={l.code}
+                      onClick={() => { if (onSelectLang) onSelectLang(l.short); setLangExpanded(false); }}
+                      className={`flex items-center justify-between py-1.5 px-2.5 rounded-lg text-[0.84rem] bg-transparent border border-transparent text-left cursor-pointer transition-all ${
+                        currentLang === l.short ? 'text-white font-bold bg-white/10' : 'text-neutral-300 hover:text-white'
+                      }`}
+                    >
+                      <span>{l.native}</span>
+                      {currentLang === l.short && <Check size={13} className="text-stylein-red" />}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* 7. Rescue Me */}
+          <a href="#rescue" onClick={onClose} className="inline-flex items-center gap-2 text-[#FF3B47] text-[0.98rem] font-bold no-underline py-1 mt-0.5 relative">
+            <LifeBuoy size={18} className="text-[#FF3B47]" />
+            <span>Rescue me!</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#FF3B47] animate-ping ml-1 opacity-80" />
+          </a>
+        </div>
       </div>
-    </div>
+
+      {isOpen && (
+        <div className="fixed bottom-6 left-0 right-0 z-[2550] flex justify-center items-center px-6 pointer-events-none lg:hidden">
+          <a
+            href="#download"
+            onClick={onClose}
+            className="pointer-events-auto flex items-center justify-center bg-gradient-to-r from-[#E50914] via-[#FF1F2D] to-[#E50914] text-white py-4 px-6 rounded-2xl font-extrabold text-[0.96rem] tracking-wide no-underline w-full max-w-[320px] text-center shadow-[0_6px_25px_rgba(229,9,20,0.55)] active:scale-98 transition-transform"
+          >
+            Download app
+          </a>
+        </div>
+      )}
+    </>
   );
 }

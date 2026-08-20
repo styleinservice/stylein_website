@@ -9,7 +9,7 @@ export default function FAQHeader() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className="flex flex-col items-start text-left gap-2 mb-5 sm:mb-6"
+      className="flex flex-col items-center text-center lg:items-start lg:text-left gap-2 mb-5 sm:mb-6 w-full"
     >
       {/* Category Pill */}
       <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-stylein-red/10 border border-stylein-red/25 w-fit">

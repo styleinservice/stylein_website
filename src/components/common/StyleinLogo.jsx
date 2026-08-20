@@ -6,7 +6,7 @@ export default function StyleinLogo({ className = '', size = 'medium' }) {
   
   return (
     <a 
-      href="#" 
+      href="/" 
       className={`inline-flex items-center gap-2 no-underline group select-none ${className}`}
       aria-label="STYLEIN Home"
     >

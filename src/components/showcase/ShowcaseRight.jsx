@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { collections } from '../../data/collections';
 
-export default function ShowcaseRight({ collection, activeIndex, onSelect }) {
+export default function ShowcaseRight({ collection, services = [], activeIndex, onSelect }) {
+  if (!collection) return null;
+
   return (
     <div className="w-full lg:w-[30%] flex flex-col justify-center items-start lg:items-end order-3 z-10">
       <AnimatePresence mode="wait">
@@ -14,7 +15,7 @@ export default function ShowcaseRight({ collection, activeIndex, onSelect }) {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="grid grid-cols-2 gap-2.5 sm:gap-3.5 lg:gap-5 w-full lg:w-auto"
         >
-          {collection.specs.map((spec) => (
+          {collection.specs?.map((spec) => (
             <div
               key={spec.label}
               className="text-left lg:text-right bg-white/[0.04] lg:bg-transparent p-2.5 lg:p-0 rounded-xl border border-white/5 lg:border-0 backdrop-blur-sm lg:backdrop-blur-none"
@@ -32,7 +33,7 @@ export default function ShowcaseRight({ collection, activeIndex, onSelect }) {
 
       {/* Progress Dash Indicators in Unified Red */}
       <div className="flex items-center gap-1.5 mt-4 lg:mt-6 self-center lg:self-end">
-        {collections.map((_, i) => (
+        {services.map((_, i) => (
           <button
             key={i}
             onClick={() => onSelect(i)}
