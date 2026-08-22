@@ -102,7 +102,7 @@ function HomeContent() {
             isMenuSession={isLockedState}
             onToggleMobileMenu={handleOpenMenu}
           />
-          <div className="relative z-10 bg-[#07080a] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5">
+          <div className="relative z-10 bg-[#07080a] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
             <HeroSection isReady={isReady} />
             <CollectionsShowcase />
             <FeaturedBrandsShowcase />

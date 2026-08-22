@@ -4,21 +4,30 @@ import { motion } from 'framer-motion';
 import TopServiceBar from './TopServiceBar';
 import ShowcaseLeft from './ShowcaseLeft';
 import ShowcaseCenter from './ShowcaseCenter';
+import ServicesShowcaseSkeleton from './ServicesShowcaseSkeleton';
 import { fetchHomeServices } from '../../store/services/servicesSlice';
 
 export default function CollectionsShowcase() {
   const dispatch = useDispatch();
-  const { items: services } = useSelector((state) => state.services);
+  const { items: services, loading, fetched } = useSelector((state) => state.services);
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    dispatch(fetchHomeServices());
-  }, [dispatch]);
+    if (!fetched) {
+      dispatch(fetchHomeServices());
+    }
+  }, [dispatch, fetched]);
 
   const handleSelectService = (idx) => {
     if (idx === activeIndex) return;
     setActiveIndex(idx);
   };
+
+  const isLoading = loading || !fetched || !services || services.length === 0;
+
+  if (isLoading) {
+    return <ServicesShowcaseSkeleton />;
+  }
 
   const safeIndex = activeIndex < services.length ? activeIndex : 0;
   const collection = services[safeIndex] || services[0];
@@ -26,7 +35,7 @@ export default function CollectionsShowcase() {
   return (
     <section
       id="services"
-      className="relative w-full py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:px-12 bg-[#050507] overflow-hidden"
+      className="relative w-full py-8 sm:py-12 lg:py-14 px-6 sm:px-10 lg:px-12 bg-[#050507] overflow-hidden"
     >
       {/* Deep Obsidian Black Ambient Background */}
       <div

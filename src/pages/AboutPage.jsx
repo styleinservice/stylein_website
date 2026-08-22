@@ -94,7 +94,7 @@ function AboutPageContent() {
             isMenuSession={isLockedState}
             onToggleMobileMenu={handleOpenMenu}
           />
-          <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5">
+          <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
             <AboutHero />
             <WhoWeAreSection />
             <AboutServicesSection />

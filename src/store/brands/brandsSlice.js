@@ -20,7 +20,7 @@ const brandsSlice = createSlice({
   name: 'brands',
   initialState: {
     items: [],
-    loading: false,
+    loading: true,
     error: null,
     fetched: false,
   },
@@ -38,6 +38,7 @@ const brandsSlice = createSlice({
       })
       .addCase(fetchBrands.rejected, (state, action) => {
         state.loading = false;
+        state.fetched = true;
         state.error = action.payload;
       });
   },

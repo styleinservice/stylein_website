@@ -30,7 +30,7 @@ export default function FooterColumns() {
         <div className="flex flex-col gap-2.5">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Company</span>
           <a href="/about" className="text-neutral-300 hover:text-white no-underline transition-colors">About Us</a>
-          <a href="#contact" className="text-neutral-300 hover:text-white no-underline transition-colors">Contact Us</a>
+          <a href="/contact" className="text-neutral-300 hover:text-white no-underline transition-colors">Contact Us</a>
           <a href="#faqs" className="text-neutral-300 hover:text-white no-underline transition-colors">FAQs</a>
 
           {/* Support links integrated on mobile column 1 */}

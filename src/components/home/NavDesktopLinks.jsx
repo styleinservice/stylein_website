@@ -1,9 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { NAV_LINKS } from '../../constants/heroData';
 import ServicesDropdown from './ServicesDropdown';
 import { ChevronDown } from 'lucide-react';
 
 export default function NavDesktopLinks({ servicesOpen, setServicesOpen, handleHover }) {
+  const navigate = useNavigate();
+
+  const handleLinkClick = (link, e) => {
+    if (link.id === 'services') {
+      e.preventDefault();
+      setServicesOpen((p) => !p);
+      return;
+    }
+    if (link.href.startsWith('/')) {
+      e.preventDefault();
+      navigate(link.href);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <nav className="hidden lg:flex items-center gap-4.5">
       {NAV_LINKS.map((link) => {
@@ -17,9 +33,7 @@ export default function NavDesktopLinks({ servicesOpen, setServicesOpen, handleH
           >
             <a
               href={link.href}
-              onClick={(e) => {
-                if (isServices) { e.preventDefault(); setServicesOpen((p) => !p); }
-              }}
+              onClick={(e) => handleLinkClick(link, e)}
               className={`text-neutral-200 text-[0.86rem] font-medium no-underline inline-flex items-center gap-1.5 relative group hover:text-white transition-colors cursor-pointer ${
                 isServices && servicesOpen ? 'text-white' : ''
               }`}

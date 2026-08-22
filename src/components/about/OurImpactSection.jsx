@@ -11,7 +11,7 @@ const IMPACT_STATS = [
 
 export default function OurImpactSection() {
   return (
-    <section className="relative w-full py-14 sm:py-20 lg:py-24 bg-[#040406] text-white overflow-hidden border-t border-white/[0.04]">
+    <section className="relative w-full py-10 sm:py-14 bg-[#040406] text-white overflow-hidden border-t border-white/[0.04]">
       {/* Subtle Ambient Radial Backlight */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] rounded-full blur-[160px] bg-stylein-red/5 pointer-events-none z-0" />
 

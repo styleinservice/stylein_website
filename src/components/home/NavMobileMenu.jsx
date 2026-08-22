@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SERVICES_DROPDOWN_ITEMS } from '../../constants/heroData';
 import { X, LifeBuoy, ChevronDown, ArrowRight } from 'lucide-react';
 
 export default function NavMobileMenu({ isOpen, onClose }) {
   const [servicesExpanded, setServicesExpanded] = useState(false);
+  const navigate = useNavigate();
+
+  const handleNavClick = (href, e) => {
+    onClose?.();
+    if (href.startsWith('#') || href.startsWith('/#')) {
+      return;
+    }
+    e.preventDefault();
+    navigate(href);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -24,7 +36,16 @@ export default function NavMobileMenu({ isOpen, onClose }) {
         }`}
       >
         <div className="flex flex-col gap-3 pt-4 w-full">
-          {/* 1. Services Accordion */}
+          {/* 1. Home */}
+          <a
+            href="/"
+            onClick={(e) => handleNavClick('/', e)}
+            className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer"
+          >
+            Home
+          </a>
+
+          {/* 2. Services Accordion */}
           <div className="flex flex-col w-full">
             <button
               onClick={() => setServicesExpanded((p) => !p)}
@@ -43,11 +64,24 @@ export default function NavMobileMenu({ isOpen, onClose }) {
                   className="flex flex-col gap-1.5 mt-1 ml-2 pl-3 border-l-2 border-stylein-red/40 overflow-hidden w-full"
                 >
                   {SERVICES_DROPDOWN_ITEMS.map((srv) => (
-                    <a key={srv.id} href={srv.href} onClick={onClose} className="text-neutral-300 hover:text-stylein-red text-[0.84rem] py-1 no-underline font-medium flex items-center justify-between w-full">
+                    <a
+                      key={srv.id}
+                      href={srv.href}
+                      onClick={(e) => handleNavClick(srv.href, e)}
+                      className={`text-[0.84rem] py-1 no-underline font-medium flex items-center justify-between w-full cursor-pointer ${
+                        srv.isRescue
+                          ? 'text-[#FF3B47] font-bold hover:text-red-400'
+                          : 'text-neutral-300 hover:text-stylein-red'
+                      }`}
+                    >
                       <span>{srv.title}</span>
                     </a>
                   ))}
-                  <a href="#all-services" onClick={onClose} className="text-stylein-red text-[0.8rem] font-bold py-1 no-underline flex items-center gap-1 mt-0.5">
+                  <a
+                    href="/services"
+                    onClick={(e) => handleNavClick('/services', e)}
+                    className="text-stylein-red text-[0.8rem] font-bold py-1 no-underline flex items-center gap-1 mt-0.5 cursor-pointer"
+                  >
                     <span>View All Services</span>
                     <ArrowRight size={12} />
                   </a>
@@ -56,28 +90,23 @@ export default function NavMobileMenu({ isOpen, onClose }) {
             </AnimatePresence>
           </div>
 
-          {/* 2. Brands */}
-          <a href="/brands" onClick={onClose} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide">
+          {/* 3. Brands */}
+          <a href="/brands" onClick={(e) => handleNavClick('/brands', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
             Brands
           </a>
 
-          {/* 3. About Us */}
-          <a href="/about" onClick={onClose} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide">
+          {/* 4. About Us */}
+          <a href="/about" onClick={(e) => handleNavClick('/about', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
             About Us
           </a>
 
-          {/* 4. FAQs */}
-          <a href="#faq" onClick={onClose} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide">
-            FAQs
-          </a>
-
           {/* 5. Contact Us */}
-          <a href="#contact" onClick={onClose} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide">
+          <a href="/contact" onClick={(e) => handleNavClick('/contact', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
             Contact Us
           </a>
 
           {/* 6. Rescue Me */}
-          <a href="#rescue" onClick={onClose} className="inline-flex items-center gap-2 text-[#FF3B47] text-[0.98rem] font-bold no-underline py-1 mt-0.5 relative">
+          <a href="/rescue" onClick={(e) => handleNavClick('/rescue', e)} className="inline-flex items-center gap-2 text-[#FF3B47] text-[0.98rem] font-bold no-underline py-1 mt-0.5 relative cursor-pointer">
             <LifeBuoy size={18} className="text-[#FF3B47]" />
             <span>Rescue me!</span>
             <span className="w-2.5 h-2.5 rounded-full bg-[#FF3B47] animate-ping ml-1 opacity-80" />

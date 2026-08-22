@@ -32,7 +32,7 @@ const image2Variants = {
 
 export default function WhoWeAreSection() {
   return (
-    <section className="relative w-full py-14 sm:py-20 lg:py-24 bg-[#040406] text-white overflow-hidden border-t border-white/[0.04]">
+    <section className="relative w-full py-10 sm:py-14 bg-[#040406] text-white overflow-hidden border-t border-white/[0.04]">
       <div className="max-w-[1140px] mx-auto px-6 sm:px-8 lg:px-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 sm:gap-12 lg:gap-14 xl:gap-16">
           {/* Left Column: Clean Trust-Building Content */}

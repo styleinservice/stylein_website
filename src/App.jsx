@@ -4,6 +4,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 const Home = lazy(() => import('./pages/Home'));
 const BrandsPage = lazy(() => import('./pages/BrandsPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ServicesPage = lazy(() => import('./pages/Services/index'));
+const ServiceDetailPage = lazy(() => import('./pages/ServiceDetail/index'));
+const RescuePage = lazy(() => import('./pages/Rescue/index'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
 
 export default function App() {
   return (
@@ -11,8 +15,12 @@ export default function App() {
       <Suspense fallback={<div className="min-h-screen bg-[#05060a]" />}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/services/:id" element={<ServiceDetailPage />} />
           <Route path="/brands" element={<BrandsPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/rescue" element={<RescuePage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

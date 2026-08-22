@@ -36,7 +36,7 @@ export default function VehiclesCareSection() {
     : [];
 
   return (
-    <section className="relative w-full py-14 sm:py-20 lg:py-24 bg-[#040406] text-white overflow-hidden border-t border-white/[0.04]">
+    <section className="relative w-full py-10 sm:py-14 bg-[#040406] text-white overflow-hidden border-t border-white/[0.04]">
       {/* Section Header with Left/Right Navigation Controls */}
       <div className="max-w-[1140px] mx-auto px-6 sm:px-8 lg:px-10 w-full mb-6 sm:mb-8">
         <div className="flex items-end justify-between gap-4 w-full">

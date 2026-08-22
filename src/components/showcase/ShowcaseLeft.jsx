@@ -1,11 +1,28 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 
 export default function ShowcaseLeft({ collection, services = [], activeIndex, onSelect }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
+
   if (!collection) return null;
-  const isRescue = collection.id === 'rescue' || collection.isRescue;
+
+  const isRescue = collection.id === 'rescue' || collection.isRescue || collection.name?.toLowerCase().includes('rescue') || collection.title?.toLowerCase().includes('rescue');
+  const isTyres = collection.name?.toLowerCase().includes('tyre') || collection.title?.toLowerCase().includes('tyre');
+
+  const handleCtaClick = (e) => {
+    e.preventDefault();
+    if (isRescue || isTyres) {
+      navigate('/rescue');
+    } else if (collection.serviceId) {
+      navigate(`/services/${collection.serviceId}`);
+    } else {
+      navigate('/services');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="w-full flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
@@ -23,17 +40,17 @@ export default function ShowcaseLeft({ collection, services = [], activeIndex, o
             {collection.number}
           </span>
 
-          {/* Service Title (API title: Large White Heading) */}
+          {/* Service Title */}
           <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold leading-[1.12] uppercase text-white tracking-tight">
             {collection.title}
           </h2>
 
-          {/* Headline / Tagline in Stylein Red (API redline) */}
+          {/* Headline / Tagline */}
           <p className="text-[0.75rem] sm:text-[0.82rem] font-bold tracking-wider uppercase text-stylein-red font-body">
             {collection.redline}
           </p>
 
-          {/* Description: 1-line on mobile with View more toggle (API description) */}
+          {/* Description */}
           <div className="max-w-md font-body flex flex-col items-center lg:items-start">
             <p className={`text-neutral-300/85 text-[0.82rem] sm:text-[0.88rem] leading-relaxed transition-all duration-300 ${isExpanded ? '' : 'line-clamp-1 lg:line-clamp-none'}`}>
               {collection.description}
@@ -47,26 +64,15 @@ export default function ShowcaseLeft({ collection, services = [], activeIndex, o
             </button>
           </div>
 
-          {/* Action Buttons (API buttonText) */}
+          {/* Action CTA Button */}
           <div className="pt-2 flex items-center justify-center lg:justify-start gap-3 flex-wrap w-full">
-            <a
-              href="#service-action"
+            <button
+              onClick={handleCtaClick}
               className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full text-[0.82rem] font-semibold text-white tracking-wide no-underline bg-[#0c0e14]/80 backdrop-blur-xl border border-white/10 hover:border-stylein-red/70 hover:bg-[#12151e] hover:shadow-[0_0_20px_rgba(229,9,20,0.18)] hover:-translate-y-0.5 active:scale-95 transition-all duration-300 group cursor-pointer"
             >
-              <span>{collection.buttonText || collection.cta}</span>
+              <span>{collection.buttonText || collection.cta || 'Discover Service'}</span>
               <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1 text-white/90 group-hover:text-stylein-red" />
-            </a>
-
-            {/* Secondary Button for Rescue */}
-            {isRescue && collection.ctaSecondary && (
-              <a
-                href="#learn-more"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-[0.82rem] font-medium text-neutral-300 hover:text-white tracking-wide no-underline bg-transparent border border-white/10 hover:border-stylein-red/50 hover:bg-white/[0.04] transition-all duration-300 cursor-pointer"
-              >
-                <span>{collection.ctaSecondary}</span>
-                <ArrowRight size={13} />
-              </a>
-            )}
+            </button>
           </div>
 
           {/* Progress Dash Indicators: Hidden on mobile */}

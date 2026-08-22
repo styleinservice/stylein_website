@@ -34,7 +34,7 @@ const stepVariants = {
 
 export default function HowItWorksSection() {
   return (
-    <section className="relative w-full py-14 sm:py-20 lg:py-24 bg-[#040406] text-white overflow-hidden border-t border-white/[0.04]">
+    <section className="relative w-full py-10 sm:py-14 pb-16 sm:pb-20 bg-[#040406] text-white overflow-hidden border-t border-white/[0.04]">
       {/* Subtle Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[250px] rounded-full blur-[150px] bg-stylein-red/5 pointer-events-none z-0" />
 

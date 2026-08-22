@@ -79,7 +79,7 @@ function BrandsPageContent() {
 
         <div style={{ transform: isLockedState ? `translateY(-${capturedScrollY}px)` : 'none' }} className="w-full">
           <StyleinNavbar isReady={true} mobileMenuOpen={mobileMenuOpen} isMenuSession={isLockedState} onToggleMobileMenu={handleOpenMenu} />
-          <div className="relative z-10 w-full flex flex-col items-center bg-[#05060a] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5">
+          <div className="relative z-10 w-full flex flex-col items-center bg-[#05060a] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
             <BrandsHero />
             <BrandsGrid brands={activeBrands} loading={loading} error={error} onSelectBrand={(b) => setSelectedBrand(b)} />
           </div>
