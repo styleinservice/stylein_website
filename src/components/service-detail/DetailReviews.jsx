@@ -22,7 +22,7 @@ export default function DetailReviews() {
 
   const handleScroll = (dir) => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: dir === 'left' ? -240 : 240, behavior: 'smooth' });
+      scrollRef.current.scrollBy({ left: dir === 'left' ? -250 : 250, behavior: 'smooth' });
     }
   };
 
@@ -60,25 +60,25 @@ export default function DetailReviews() {
           </div>
         </motion.div>
 
-        {/* Reviews Cards */}
+        {/* Reviews Cards: Equal Height & Horizontally Locked */}
         <div
           ref={scrollRef}
-          className="flex overflow-x-auto no-scrollbar snap-x snap-mandatory md:grid md:grid-cols-3 gap-3.5 sm:gap-5 md:gap-8 text-left pb-2"
+          className="flex items-stretch overflow-x-auto no-scrollbar snap-x snap-mandatory md:grid md:grid-cols-3 gap-3.5 sm:gap-5 md:gap-8 text-left pb-2 touch-pan-x"
         >
           {REVIEWS.map((rev, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
-              whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="w-[210px] min-w-[210px] sm:w-[245px] sm:min-w-[245px] md:w-auto md:min-w-0 shrink-0 snap-start p-4 sm:p-5 md:p-6 rounded-2xl md:rounded-[24px] bg-[#090C12] border border-white/[0.06] flex flex-col justify-between hover:border-white/15 transition-colors"
+              transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="w-[230px] min-w-[230px] sm:w-[260px] sm:min-w-[260px] md:w-auto md:min-w-0 shrink-0 snap-start p-4.5 sm:p-5 md:p-6 rounded-2xl md:rounded-[24px] bg-[#090C12] border border-white/[0.06] flex flex-col justify-between hover:border-white/15 transition-colors self-stretch"
             >
-              <p className="font-body text-neutral-300/90 text-[0.76rem] sm:text-xs md:text-[0.88rem] leading-relaxed mb-4 sm:mb-6">
+              <p className="font-body text-neutral-300/90 text-xs sm:text-[0.82rem] md:text-[0.88rem] leading-relaxed mb-4 sm:mb-6 flex-1">
                 &ldquo;{rev.text}&rdquo;
               </p>
 
-              <div className="border-t border-white/[0.06] pt-3">
+              <div className="border-t border-white/[0.06] pt-3 mt-auto">
                 <span className="font-heading text-[0.72rem] sm:text-xs md:text-sm font-bold text-white uppercase tracking-wider block">
                   {rev.author}
                 </span>
