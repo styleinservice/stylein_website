@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/axios';
-import { RESCUE_SERVICE } from '../../data/collections';
 
 export const fetchHomeServices = createAsyncThunk(
   'services/fetchHomeServices',
@@ -36,7 +35,7 @@ const servicesSlice = createSlice({
         state.loading = false;
         state.fetched = true;
         // Sort API services numerically by order ASC
-        const apiServices = [...action.payload]
+        state.items = [...action.payload]
           .sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0))
           .map((srv, index) => ({
             id: srv.id || srv.serviceId || `api-srv-${index + 1}`,
@@ -50,17 +49,12 @@ const servicesSlice = createSlice({
             image: srv.image,
             order: srv.order,
           }));
-
-        // Append Rescue as the 7th item
-        state.items = [...apiServices, { ...RESCUE_SERVICE, isRescue: true }];
       })
       .addCase(fetchHomeServices.rejected, (state, action) => {
         state.loading = false;
         state.fetched = true;
         state.error = action.payload;
-        if (state.items.length === 0) {
-          state.items = [{ ...RESCUE_SERVICE, isRescue: true }];
-        }
+        state.items = [];
       });
   },
 });
