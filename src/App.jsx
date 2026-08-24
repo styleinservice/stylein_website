@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 const Home = lazy(() => import('./pages/Home'));
 const BrandsPage = lazy(() => import('./pages/BrandsPage'));
@@ -7,7 +7,7 @@ const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ServicesPage = lazy(() => import('./pages/Services/index'));
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetail/index'));
 const RescuePage = lazy(() => import('./pages/Rescue/index'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
+const FAQPage = lazy(() => import('./pages/FAQPage'));
 
 export default function App() {
   return (
@@ -20,7 +20,8 @@ export default function App() {
           <Route path="/brands" element={<BrandsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/rescue" element={<RescuePage />} />
-          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/faqs" element={<FAQPage />} />
+          <Route path="/faq" element={<Navigate to="/faqs" replace />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

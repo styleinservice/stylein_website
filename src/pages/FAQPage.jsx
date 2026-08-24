@@ -5,15 +5,13 @@ import StyleinNavbar from '../components/home/StyleinNavbar';
 import NavMobileMenu from '../components/home/NavMobileMenu';
 import StyleinFooter from '../components/footer/StyleinFooter';
 
-import ContactHero from '../components/contact/ContactHero';
-import ContactCardsSection from '../components/contact/ContactCardsSection';
-import ContactFormSection from '../components/contact/ContactFormSection';
-import ContactMapSection from '../components/contact/ContactMapSection';
-import ContactWhySection from '../components/contact/ContactWhySection';
-import ContactRescueCTA from '../components/contact/ContactRescueCTA';
-import ContactFAQSection from '../components/contact/ContactFAQSection';
+import FAQPageHero from '../components/faq-page/FAQPageHero';
+import FAQPageAccordion from '../components/faq-page/FAQPageAccordion';
+import FAQPageSupportCards from '../components/faq-page/FAQPageSupportCards';
+import FAQPageRescueBanner from '../components/faq-page/FAQPageRescueBanner';
+import { STYLEIN_PAGE_FAQS } from '../constants/faqPageData';
 
-function ContactPageContent() {
+function FAQPageContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
   const [capturedScrollY, setCapturedScrollY] = useState(0);
@@ -21,7 +19,7 @@ function ContactPageContent() {
   const lenis = useSmoothScroll();
 
   useEffect(() => {
-    document.title = 'Contact Us | STYLEIN Luxury Automotive Care';
+    document.title = 'FAQs | STYLEIN Premium Automotive Services';
     window.scrollTo(0, 0);
   }, []);
 
@@ -91,14 +89,14 @@ function ContactPageContent() {
             onToggleMobileMenu={handleOpenMenu}
           />
 
-          <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
-            <ContactHero />
-            <ContactCardsSection />
-            <ContactFormSection />
-            <ContactMapSection />
-            <ContactWhySection />
-            <ContactRescueCTA />
-            <ContactFAQSection />
+          <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden pb-16 sm:pb-20">
+            <FAQPageHero />
+
+            <div className="w-full max-w-[960px] mx-auto px-6 sm:px-10 lg:px-12 flex flex-col items-center">
+              <FAQPageAccordion faqs={STYLEIN_PAGE_FAQS} />
+              <FAQPageRescueBanner />
+              <FAQPageSupportCards />
+            </div>
           </div>
 
           <StyleinFooter />
@@ -108,10 +106,10 @@ function ContactPageContent() {
   );
 }
 
-export default function ContactPage() {
+export default function FAQPage() {
   return (
     <SmoothScrollProvider>
-      <ContactPageContent />
+      <FAQPageContent />
     </SmoothScrollProvider>
   );
 }

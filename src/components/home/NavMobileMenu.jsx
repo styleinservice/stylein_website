@@ -100,9 +100,9 @@ export default function NavMobileMenu({ isOpen, onClose }) {
             About Us
           </a>
 
-          {/* 5. Contact Us */}
-          <a href="/contact" onClick={(e) => handleNavClick('/contact', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
-            Contact Us
+          {/* 5. FAQs */}
+          <a href="/faqs" onClick={(e) => handleNavClick('/faqs', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
+            FAQs
           </a>
 
           {/* 6. Rescue Me */}

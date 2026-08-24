@@ -30,8 +30,7 @@ export default function FooterColumns() {
         <div className="flex flex-col gap-2.5">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Company</span>
           <a href="/about" className="text-neutral-300 hover:text-white no-underline transition-colors">About Us</a>
-          <a href="/contact" className="text-neutral-300 hover:text-white no-underline transition-colors">Contact Us</a>
-          <a href="#faqs" className="text-neutral-300 hover:text-white no-underline transition-colors">FAQs</a>
+          <a href="/faqs" className="text-neutral-300 hover:text-white no-underline transition-colors">FAQs</a>
 
           {/* Support links integrated on mobile column 1 */}
           <div className="flex sm:hidden flex-col gap-2.5 pt-2 border-t border-white/5">
@@ -83,7 +82,7 @@ export default function FooterColumns() {
         {/* Column 4 (Desktop): Support */}
         <div className="hidden sm:flex flex-col gap-3">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Support</span>
-          <a href="#faqs" className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors">
+          <a href="/faqs" className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors">
             <HelpCircle size={14} className="text-neutral-400" />
             <span>FAQs</span>
           </a>

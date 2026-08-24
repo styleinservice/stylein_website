@@ -3,7 +3,7 @@ export const NAV_LINKS = [
   { id: 'services', label: 'Services', href: '#services', hasSubmenu: true },
   { id: 'brands', label: 'Brands', href: '/brands' },
   { id: 'about', label: 'About Us', href: '/about' },
-  { id: 'contact', label: 'Contact Us', href: '/contact' },
+  { id: 'faqs', label: 'FAQs', href: '/faqs' },
 ];
 
 export const DYNAMIC_PHRASES = [
