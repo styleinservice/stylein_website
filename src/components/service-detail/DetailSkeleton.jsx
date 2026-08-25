@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function DetailSkeleton() {
   return (
-    <div className="w-full min-h-screen px-6 sm:px-10 lg:px-12 py-12 max-w-[1280px] mx-auto animate-pulse flex flex-col gap-16">
+    <div className="w-full min-h-screen px-6 sm:px-10 lg:px-12 pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-12 max-w-[1280px] mx-auto animate-pulse flex flex-col gap-16">
       {/* Hero Skeleton */}
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 items-center gap-10 min-h-[60vh]">
         <div className="lg:col-span-7 flex flex-col items-start gap-4">

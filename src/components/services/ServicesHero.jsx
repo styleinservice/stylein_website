@@ -25,20 +25,20 @@ export default function ServicesHero({ totalCount, filteredCount, searchQuery, o
       variants={heroVariants}
       initial="hidden"
       animate="visible"
-      className="w-full flex flex-col items-center text-center max-w-2xl mx-auto mb-8 sm:mb-12"
+      className="w-full pt-28 sm:pt-32 md:pt-36 lg:pt-38 px-4 sm:px-6 flex flex-col items-center text-center max-w-3xl mx-auto mb-6 sm:mb-10 relative z-10"
     >
-      {/* Badge */}
+      {/* Badge with red highlight */}
       <motion.div
         variants={itemVariants}
-        className="inline-flex items-center px-3 py-0.5 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-3"
+        className="inline-flex items-center px-3.5 py-1 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.66rem] sm:text-xs font-bold tracking-widest uppercase mb-3 shadow-[0_0_20px_rgba(229,9,20,0.2)]"
       >
         <span>PREMIUM AUTOMOTIVE SERVICES</span>
       </motion.div>
 
-      {/* Scaled-down Heading with Framer Motion */}
+      {/* Scaled-down Heading with Gradient */}
       <motion.h1
         variants={itemVariants}
-        className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white uppercase tracking-tight max-w-2xl leading-[1.14]"
+        className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-[2.65rem] font-extrabold text-white uppercase tracking-tight max-w-2xl leading-[1.12]"
       >
         Automotive Care.{' '}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-stylein-red">
@@ -49,38 +49,38 @@ export default function ServicesHero({ totalCount, filteredCount, searchQuery, o
       {/* Subtitle */}
       <motion.p
         variants={itemVariants}
-        className="font-body text-neutral-400 text-xs sm:text-sm max-w-lg mt-2 leading-relaxed"
+        className="font-body text-neutral-400 text-xs sm:text-[0.86rem] md:text-sm max-w-xl mt-2.5 leading-relaxed"
       >
         Explore our complete collection of professional doorstep vehicle care services, detailing solutions, inspections, maintenance and emergency assistance.
       </motion.p>
 
       {/* Search Bar & Result Counter */}
-      <motion.div variants={itemVariants} className="w-full max-w-md mt-6 sm:mt-8 flex flex-col items-center gap-3">
+      <motion.div variants={itemVariants} className="w-full max-w-md mt-5 sm:mt-7 flex flex-col items-center gap-2.5">
         <div className="relative w-full">
           <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-500">
-            <Search size={16} />
+            <Search size={15} />
           </div>
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search services by title..."
-            className="w-full pl-10 pr-10 py-2.5 rounded-2xl bg-[#090C12] border border-white/[0.08] focus:border-stylein-red/60 text-white placeholder-neutral-500 text-xs sm:text-sm font-body outline-none transition-all shadow-[0_10px_25px_rgba(0,0,0,0.6)]"
+            className="w-full pl-9.5 pr-9.5 py-2.5 rounded-2xl bg-[#090C12] border border-white/[0.08] focus:border-stylein-red/60 text-white placeholder-neutral-500 text-xs sm:text-[0.84rem] font-body outline-none transition-all shadow-[0_10px_25px_rgba(0,0,0,0.6)]"
           />
           {searchQuery && (
             <button
               onClick={() => onSearchChange('')}
-              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-neutral-400 hover:text-white cursor-pointer"
+              className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-neutral-400 hover:text-white cursor-pointer bg-transparent border-none"
               aria-label="Clear search"
             >
-              <X size={15} />
+              <X size={14} />
             </button>
           )}
         </div>
 
-        {/* Counter */}
-        {!loading && (
-          <div className="text-[0.72rem] sm:text-xs text-neutral-400 font-medium font-body flex items-center gap-2">
+        {/* Dynamic Service Counter */}
+        {!loading && totalCount > 0 && (
+          <div className="text-[0.7rem] sm:text-xs text-neutral-400 font-medium font-body flex items-center gap-1.5 pt-0.5">
             <span className="w-1.5 h-1.5 rounded-full bg-stylein-red" />
             <span>
               Showing {filteredCount} of {totalCount} Services

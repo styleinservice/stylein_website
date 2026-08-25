@@ -39,7 +39,7 @@ export default function DetailHero({ service }) {
   const description = service.description || service.redline || '';
 
   return (
-    <section className="relative w-full pt-4 pb-4 sm:pb-6 lg:pb-8 px-6 sm:px-10 lg:px-12 overflow-hidden">
+    <section className="relative w-full pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-6 sm:pb-8 lg:pb-10 px-6 sm:px-10 lg:px-12 overflow-hidden">
       {/* Ambient Red Glow */}
       <div className="absolute top-1/2 right-[10%] -translate-y-1/2 w-[450px] h-[350px] rounded-full blur-[160px] bg-stylein-red/10 pointer-events-none z-0" />
 

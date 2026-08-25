@@ -5,13 +5,13 @@ import FooterStoreBadges from './FooterStoreBadges';
 import { HelpCircle, Phone, MessageSquare, ArrowUpRight } from 'lucide-react';
 
 const ALL_SERVICES = [
-  { label: 'Car Wash', href: '#car-wash' },
-  { label: 'Battery', href: '#battery' },
-  { label: 'Tyres', href: '#tyres' },
-  { label: 'Engine Oil', href: '#engine-oil' },
-  { label: 'Glass Coating', href: '#glass-coating' },
-  { label: 'Car Inspection', href: '#car-inspection' },
-  { label: 'Rescue', href: '#rescue', isRescue: true },
+  { label: 'Car Wash', href: '/services/6a65aa710f4632990c8c8973' },
+  { label: 'Battery', href: '/services/6a799b466c4b83aa31e54872' },
+  { label: 'Tyres', href: '/rescue' },
+  { label: 'Engine Oil', href: '/services/6a6d9260e47c7f8b06cde650' },
+  { label: 'Glass Coating', href: '/services/6a6d921ce47c7f8b06cde633' },
+  { label: 'Car Inspection', href: '/services/6a6728c9184f2d233de52e38' },
+  { label: 'Rescue', href: '/rescue', isRescue: true },
 ];
 
 export default function FooterColumns() {
@@ -46,7 +46,7 @@ export default function FooterColumns() {
               <Phone size={13} className="text-neutral-400" />
               <span>800 STYLEIN</span>
             </a>
-            <a href="#whatsapp" className="flex items-center gap-1.5 text-neutral-300 hover:text-white no-underline">
+            <a href="https://wa.me/97180078953" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-neutral-300 hover:text-white no-underline">
               <MessageSquare size={13} className="text-emerald-400" />
               <span>WhatsApp</span>
             </a>
@@ -57,11 +57,11 @@ export default function FooterColumns() {
         <div className="flex flex-col gap-2.5 sm:hidden">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Services</span>
           {ALL_SERVICES.map((item, idx) => (
-            <a key={idx} href={item.href} className={`no-underline transition-colors ${item.isRescue ? 'text-[#FF3B47] font-bold' : 'text-neutral-300 hover:text-white'}`}>
+            <a key={idx} href={item.href} onClick={(e) => handleNav(item.href, e)} className={`no-underline transition-colors cursor-pointer ${item.isRescue ? 'text-[#FF3B47] font-bold' : 'text-neutral-300 hover:text-white'}`}>
               {item.label}
             </a>
           ))}
-          <a href="#services" className="text-neutral-400 hover:text-white font-medium flex items-center gap-1 pt-0.5 no-underline text-[0.76rem]">
+          <a href="/services" onClick={(e) => handleNav('/services', e)} className="text-neutral-400 hover:text-white font-medium flex items-center gap-1 pt-0.5 no-underline text-[0.76rem] cursor-pointer">
             <span>View all</span>
             <ArrowUpRight size={11} />
           </a>
@@ -71,7 +71,7 @@ export default function FooterColumns() {
         <div className="hidden sm:flex flex-col gap-2.5">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Services</span>
           {ALL_SERVICES.slice(0, 4).map((item, idx) => (
-            <a key={idx} href={item.href} className="text-neutral-300 hover:text-white no-underline transition-colors whitespace-nowrap">{item.label}</a>
+            <a key={idx} href={item.href} onClick={(e) => handleNav(item.href, e)} className="text-neutral-300 hover:text-white no-underline transition-colors whitespace-nowrap cursor-pointer">{item.label}</a>
           ))}
         </div>
 
@@ -79,9 +79,9 @@ export default function FooterColumns() {
         <div className="hidden sm:flex flex-col gap-2.5 pt-5 sm:pt-0">
           <span className="text-transparent text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 select-none hidden sm:block">&nbsp;</span>
           {ALL_SERVICES.slice(4).map((item, idx) => (
-            <a key={idx} href={item.href} className={`no-underline transition-colors whitespace-nowrap ${item.isRescue ? 'text-[#FF3B47] font-bold' : 'text-neutral-300 hover:text-white'}`}>{item.label}</a>
+            <a key={idx} href={item.href} onClick={(e) => handleNav(item.href, e)} className={`no-underline transition-colors whitespace-nowrap cursor-pointer ${item.isRescue ? 'text-[#FF3B47] font-bold' : 'text-neutral-300 hover:text-white'}`}>{item.label}</a>
           ))}
-          <a href="#services" className="text-neutral-400 hover:text-white font-medium flex items-center gap-1 pt-0.5 no-underline text-[0.78rem]">
+          <a href="/services" onClick={(e) => handleNav('/services', e)} className="text-neutral-400 hover:text-white font-medium flex items-center gap-1 pt-0.5 no-underline text-[0.78rem] cursor-pointer">
             <span>View all</span>
             <ArrowUpRight size={12} />
           </a>
@@ -98,7 +98,7 @@ export default function FooterColumns() {
             <Phone size={14} className="text-neutral-400" />
             <span>800 STYLEIN</span>
           </a>
-          <a href="#whatsapp" className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors">
+          <a href="https://wa.me/97180078953" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors">
             <MessageSquare size={14} className="text-emerald-400" />
             <span>WhatsApp</span>
           </a>

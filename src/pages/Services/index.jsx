@@ -100,15 +100,21 @@ function ServicesContent() {
           <StyleinNavbar isReady={true} mobileMenuOpen={mobileMenuOpen} isMenuSession={isLockedState} onToggleMobileMenu={handleOpenMenu} />
 
           <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden pb-16 sm:pb-20">
-            <ServicesHero searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+            <ServicesHero
+              totalCount={services.length}
+              filteredCount={filteredServices.length}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              loading={loading}
+            />
 
-            <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-12">
+            <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
               {loading ? (
                 <ServicesSkeleton />
               ) : error ? (
                 <ServicesErrorState error={error} onRetry={fetchServices} />
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4.5 lg:gap-5">
                   {filteredServices.map((service, index) => (
                     <ServiceCard key={service._id || service.id || index} service={service} index={index} />
                   ))}
