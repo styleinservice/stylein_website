@@ -1,13 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import logoImg from '../../assets/images/stylein-official-logo.png';
 
 export default function StyleinLogo({ className = '', size = 'medium' }) {
+  const navigate = useNavigate();
   const isLarge = size === 'large';
-  
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate('/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <a 
-      href="/" 
-      className={`inline-flex items-center gap-2 no-underline group select-none ${className}`}
+    <a
+      href="/"
+      onClick={handleClick}
+      className={`inline-flex items-center gap-2 no-underline group select-none cursor-pointer ${className}`}
       aria-label="STYLEIN Home"
     >
       <img

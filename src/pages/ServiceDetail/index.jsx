@@ -15,10 +15,21 @@ import DetailSkeleton from '../../components/service-detail/DetailSkeleton';
 import DetailError from '../../components/service-detail/DetailError';
 import StyleinFooter from '../../components/footer/StyleinFooter';
 
+const detailCache = new Map();
+function getCachedDetail(id) {
+  if (detailCache.has(id)) return detailCache.get(id);
+  try {
+    const s = sessionStorage.getItem(`stylein_detail_${id}`);
+    if (s) { const p = JSON.parse(s); detailCache.set(id, p); return p; }
+  } catch (_) {}
+  return null;
+}
+
 function ServiceDetailContent() {
   const { id } = useParams();
-  const [service, setService] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const cached = getCachedDetail(id);
+  const [service, setService] = useState(() => cached || null);
+  const [loading, setLoading] = useState(() => !cached);
   const [error, setError] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
@@ -27,13 +38,16 @@ function ServiceDetailContent() {
   const lenis = useSmoothScroll();
 
   const fetchServiceDetail = useCallback(async () => {
+    const existing = getCachedDetail(id);
+    if (existing) { setService(existing); setLoading(false); return; }
     try {
       setLoading(true);
       setError(null);
       const response = await api.get(`/service/${id}`);
-
       if (response.data && response.data.success !== false) {
         const data = response.data.data || response.data.service || response.data;
+        detailCache.set(id, data);
+        try { sessionStorage.setItem(`stylein_detail_${id}`, JSON.stringify(data)); } catch (_) {}
         setService(data);
       } else {
         setService(null);
@@ -47,17 +61,13 @@ function ServiceDetailContent() {
     }
   }, [id]);
 
-  useEffect(() => {
-    fetchServiceDetail();
-  }, [fetchServiceDetail]);
+  useEffect(() => { fetchServiceDetail(); }, [fetchServiceDetail]);
 
   useEffect(() => {
     if (service) {
       document.title = `${service.title || service.serviceName || 'Service'} | STYLEIN`;
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc && service.description) {
-        metaDesc.setAttribute('content', service.description.slice(0, 160));
-      }
+      const meta = document.querySelector('meta[name="description"]');
+      if (meta && service.description) meta.setAttribute('content', service.description.slice(0, 160));
     }
   }, [service]);
 
@@ -82,8 +92,6 @@ function ServiceDetailContent() {
     }
   }, [isLockedState, mobileMenuOpen, lenis]);
 
-  const hasMultipleImages = Array.isArray(service?.servicesImages) && service.servicesImages.length > 1;
-
   return (
     <div className="bg-[#050505] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
@@ -100,21 +108,17 @@ function ServiceDetailContent() {
         <div style={{ transform: isLockedState ? `translateY(-${capturedScrollY}px)` : 'none' }} className="w-full">
           <StyleinNavbar isReady={true} mobileMenuOpen={mobileMenuOpen} isMenuSession={isLockedState} onToggleMobileMenu={handleOpenMenu} />
 
-          <div className="relative z-10 w-full bg-[#050505] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 pt-24 sm:pt-28 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
-            {loading ? (
-              <DetailSkeleton />
-            ) : error || !service ? (
-              <DetailError />
-            ) : (
+          <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
+            {loading ? <DetailSkeleton /> : error ? <DetailError error={error} onRetry={fetchServiceDetail} /> : service ? (
               <>
                 <DetailHero service={service} />
-                {hasMultipleImages && <DetailCardCarousel items={service.servicesImages} />}
+                <DetailCardCarousel service={service} />
                 <DetailStorySpotlight service={service} />
-                <DetailGetStarted getStarted={service.getStarted} serviceTitle={service.title} />
-                <DetailReviews />
-                <DetailFAQ questions={service.questionsAnswered} />
+                <DetailGetStarted service={service} />
+                <DetailReviews service={service} />
+                <DetailFAQ service={service} />
               </>
-            )}
+            ) : null}
           </div>
 
           <StyleinFooter />

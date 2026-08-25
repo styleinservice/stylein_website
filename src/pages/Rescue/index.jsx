@@ -16,7 +16,7 @@ import StyleinFooter from '../../components/footer/StyleinFooter';
 
 function RescuePageContent() {
   const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((state) => state.rescue);
+  const { data, loading, fetched, error } = useSelector((state) => state.rescue);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
   const [capturedScrollY, setCapturedScrollY] = useState(0);
@@ -28,8 +28,10 @@ function RescuePageContent() {
   }, [dispatch]);
 
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    if (!data && !fetched) {
+      loadData();
+    }
+  }, [data, fetched, loadData]);
 
   useEffect(() => {
     document.title = 'STYLEIN Rescue Services | 24/7 Roadside Assistance';

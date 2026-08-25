@@ -10,9 +10,15 @@ import ServicesSkeleton from '../../components/services/ServicesSkeleton';
 import ServicesErrorState from '../../components/services/ServicesErrorState';
 import StyleinFooter from '../../components/footer/StyleinFooter';
 
+let cachedServices = null;
+try {
+  const stored = sessionStorage.getItem('stylein_services_catalog_cache');
+  if (stored) cachedServices = JSON.parse(stored);
+} catch (_) {}
+
 function ServicesContent() {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [services, setServices] = useState(() => cachedServices || []);
+  const [loading, setLoading] = useState(() => !cachedServices || cachedServices.length === 0);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,11 +28,20 @@ function ServicesContent() {
   const lenis = useSmoothScroll();
 
   const fetchServices = useCallback(async () => {
+    if (cachedServices && cachedServices.length > 0) {
+      setLoading(false);
+      return;
+    }
     try {
       setLoading(true);
       setError(null);
       const response = await api.get('/service');
-      setServices(response.data?.data || []);
+      const data = response.data?.data || [];
+      cachedServices = data;
+      try {
+        sessionStorage.setItem('stylein_services_catalog_cache', JSON.stringify(data));
+      } catch (_) {}
+      setServices(data);
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Failed to load services');
     } finally {
@@ -64,8 +79,8 @@ function ServicesContent() {
 
   const filteredServices = useMemo(() => {
     if (!searchQuery.trim()) return services;
-    const q = searchQuery.toLowerCase().trim();
-    return services.filter((s) => (s.title || s.name || '').toLowerCase().includes(q) || (s.description || s.redline || '').toLowerCase().includes(q));
+    const q = searchQuery.toLowerCase();
+    return services.filter((s) => s.title?.toLowerCase().includes(q) || s.description?.toLowerCase().includes(q) || s.category?.toLowerCase().includes(q));
   }, [services, searchQuery]);
 
   return (
@@ -83,27 +98,19 @@ function ServicesContent() {
 
         <div style={{ transform: isLockedState ? `translateY(-${capturedScrollY}px)` : 'none' }} className="w-full">
           <StyleinNavbar isReady={true} mobileMenuOpen={mobileMenuOpen} isMenuSession={isLockedState} onToggleMobileMenu={handleOpenMenu} />
-          
-          <div className="relative z-10 w-full flex flex-col items-center bg-[#050505] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 pt-28 sm:pt-32 lg:pt-36 pb-20 sm:pb-28 px-4 sm:px-8 lg:px-12 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
-            <div className="w-full max-w-[1360px] mx-auto flex flex-col items-center">
-              <ServicesHero totalCount={services.length} filteredCount={filteredServices.length} searchQuery={searchQuery} onSearchChange={setSearchQuery} loading={loading} />
 
+          <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden pb-16 sm:pb-20">
+            <ServicesHero searchQuery={searchQuery} onSearchChange={setSearchQuery} />
+
+            <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 lg:px-12">
               {loading ? (
                 <ServicesSkeleton />
               ) : error ? (
-                <ServicesErrorState onRetry={fetchServices} />
-              ) : filteredServices.length === 0 ? (
-                <div className="w-full py-16 flex flex-col items-center justify-center text-center gap-3">
-                  <p className="text-white text-base font-bold font-heading uppercase">No services found</p>
-                  <p className="text-neutral-400 text-xs">No service matched &quot;{searchQuery}&quot;</p>
-                  <button onClick={() => setSearchQuery('')} className="mt-2 px-4 py-2 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-white text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer">
-                    Clear Search
-                  </button>
-                </div>
+                <ServicesErrorState error={error} onRetry={fetchServices} />
               ) : (
-                <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
-                  {filteredServices.map((service, idx) => (
-                    <ServiceCard key={service._id || service.serviceId || idx} service={service} index={idx} />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                  {filteredServices.map((service, index) => (
+                    <ServiceCard key={service._id || service.id || index} service={service} index={index} />
                   ))}
                 </div>
               )}

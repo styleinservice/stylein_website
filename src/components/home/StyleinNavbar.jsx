@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import StyleinLogo from '../common/StyleinLogo';
 import NavDesktopLinks from './NavDesktopLinks';
 import { LifeBuoy } from 'lucide-react';
 
 export default function StyleinNavbar({ isReady = true, mobileMenuOpen, isMenuSession = false, onToggleMobileMenu }) {
+  const navigate = useNavigate();
   const [isAtTop, setIsAtTop] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mobileVisible, setMobileVisible] = useState(true);
@@ -93,7 +95,16 @@ export default function StyleinNavbar({ isReady = true, mobileMenuOpen, isMenuSe
           <StyleinLogo />
         </div>
 
-        <a href="/rescue" aria-label="Rescue me" className="lg:hidden w-10 h-10 rounded-xl bg-[#FF3B47]/10 hover:bg-[#FF3B47]/20 border border-[#FF3B47]/30 flex items-center justify-center text-[#FF3B47] no-underline transition-all active:scale-95 shrink-0 relative">
+        <a
+          href="/rescue"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate('/rescue');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          aria-label="Rescue me"
+          className="lg:hidden w-10 h-10 rounded-xl bg-[#FF3B47]/10 hover:bg-[#FF3B47]/20 border border-[#FF3B47]/30 flex items-center justify-center text-[#FF3B47] no-underline transition-all active:scale-95 shrink-0 relative cursor-pointer"
+        >
           <LifeBuoy size={18} className="text-[#FF3B47]" />
           <span className="w-2.5 h-2.5 rounded-full bg-[#FF3B47] animate-ping absolute top-1 right-1 opacity-80 pointer-events-none" />
         </a>
@@ -101,7 +112,15 @@ export default function StyleinNavbar({ isReady = true, mobileMenuOpen, isMenuSe
         <NavDesktopLinks servicesOpen={servicesOpen} setServicesOpen={setServicesOpen} handleHover={handleHover} />
 
         <div className="hidden lg:flex items-center gap-3">
-          <a href="/rescue" className="inline-flex items-center gap-1.5 text-[#FF3B47] text-[0.84rem] font-semibold no-underline hover:text-[#ff5c66] transition-colors relative group">
+          <a
+            href="/rescue"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/rescue');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="inline-flex items-center gap-1.5 text-[#FF3B47] text-[0.84rem] font-semibold no-underline hover:text-[#ff5c66] transition-colors relative group cursor-pointer"
+          >
             <LifeBuoy size={15} className="group-hover:scale-110 transition-transform" />
             <span>Rescue me!</span>
             <span className="w-2 h-2 rounded-full bg-[#FF3B47] animate-ping absolute -top-0.5 -right-1 opacity-80 pointer-events-none" />
