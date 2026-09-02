@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { optimizeCloudinary } from '../../utils/imageOptimizer';
 
 export default function ShowcaseCenter({ collection, activeIndex }) {
   if (!collection) return null;
@@ -20,7 +21,7 @@ export default function ShowcaseCenter({ collection, activeIndex }) {
         >
           {/* Direct Free-Floating Service Image with Smooth Transitions */}
           <img
-            src={collection.image}
+            src={optimizeCloudinary(collection.image, 600)}
             alt={collection.title || collection.name}
             className="w-full h-auto max-h-[250px] sm:max-h-[340px] lg:max-h-[380px] object-contain drop-shadow-[0_15px_35px_rgba(0,0,0,0.95),0_0_25px_rgba(229,9,20,0.12)] transition-transform duration-300 hover:scale-105 select-none pointer-events-auto"
             loading="lazy"

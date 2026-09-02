@@ -1,4 +1,4 @@
-import React, { useRef, useState, useLayoutEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import FooterColumns from './FooterColumns';
 import FooterBottomBar from './FooterBottomBar';
 
@@ -6,21 +6,20 @@ export default function StyleinFooter() {
   const footerRef = useRef(null);
   const [footerHeight, setFooterHeight] = useState(0);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!footerRef.current) return;
-    const updateHeight = () => {
-      if (footerRef.current) {
-        setFooterHeight(footerRef.current.offsetHeight);
+
+    const observer = new ResizeObserver((entries) => {
+      if (entries[0]) {
+        const measured = entries[0].borderBoxSize?.[0]?.blockSize || entries[0].contentRect?.height;
+        if (measured) {
+          setFooterHeight(Math.ceil(measured));
+        }
       }
-    };
-    updateHeight();
-    const observer = new ResizeObserver(updateHeight);
+    });
+
     observer.observe(footerRef.current);
-    window.addEventListener('resize', updateHeight);
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('resize', updateHeight);
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (

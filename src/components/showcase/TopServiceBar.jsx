@@ -1,4 +1,5 @@
 import React from 'react';
+import { optimizeCloudinary } from '../../utils/imageOptimizer';
 
 export default function TopServiceBar({ services = [], activeIndex, onSelect }) {
   return (
@@ -19,14 +20,14 @@ export default function TopServiceBar({ services = [], activeIndex, onSelect }) 
             >
               {/* Prominent Service 3D Image */}
               <img
-                src={item.image}
+                src={optimizeCloudinary(item.image, 140)}
                 alt={item.name}
                 className={`w-11 h-11 sm:w-14 sm:h-14 lg:w-16 lg:h-16 object-contain transition-all duration-300 ${
                   isActive
                     ? 'scale-105 drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)]'
                     : 'opacity-75 group-hover:opacity-100 drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)]'
                 }`}
-                loading="eager"
+                loading={idx < 2 ? 'eager' : 'lazy'}
               />
 
               {/* Service Label (Uses API name) */}

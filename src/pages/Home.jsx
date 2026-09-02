@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { SmoothScrollProvider, useSmoothScroll } from '../context/SmoothScrollContext';
 import StyleinLoader, { checkIntroPlayed } from '../components/home/StyleinLoader';
@@ -11,7 +11,8 @@ import AppShowcaseSection from '../components/app-showcase/AppShowcaseSection';
 import FAQSection from '../components/faq/FAQSection';
 import TestimonialsSection from '../components/testimonials/TestimonialsSection';
 import GetAppBanner from '../components/download-banner/GetAppBanner';
-import StyleinFooter from '../components/footer/StyleinFooter';
+
+const StyleinFooter = lazy(() => import('../components/footer/StyleinFooter'));
 
 function HomeContent() {
   const [isReady, setIsReady] = useState(() => checkIntroPlayed());
@@ -109,7 +110,9 @@ function HomeContent() {
             <TestimonialsSection />
             <GetAppBanner />
           </div>
-          <StyleinFooter />
+          <Suspense fallback={<div className="h-[280px] bg-[#0a0b10]" />}>
+            <StyleinFooter />
+          </Suspense>
         </div>
       </motion.main>
     </div>

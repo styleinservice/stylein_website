@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
+import { optimizeCloudinary } from '../../utils/imageOptimizer';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 18, scale: 0.98 },
@@ -53,7 +54,7 @@ export default function ServiceCard({ service, index = 0 }) {
       <div className="h-[54%] w-full bg-[#06080d]/70 p-2 sm:p-3 flex items-center justify-center relative overflow-hidden border-b border-white/[0.04]">
         {service.image ? (
           <img
-            src={service.image}
+            src={optimizeCloudinary(service.image, 380)}
             alt={title}
             className="w-full h-full object-contain group-hover:scale-106 transition-transform duration-300 ease-out select-none pointer-events-none drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)]"
             loading="lazy"

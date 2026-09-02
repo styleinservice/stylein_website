@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { optimizeCloudinary } from '../../utils/imageOptimizer';
 
 export default function ServiceContentCard({
   service,
@@ -70,7 +71,7 @@ export default function ServiceContentCard({
           <div className="absolute -top-12 -right-12 w-36 h-36 bg-stylein-red/15 rounded-full blur-3xl pointer-events-none" />
 
           <img
-            src={service.image}
+            src={optimizeCloudinary(service.image, 450)}
             alt={service.label}
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"

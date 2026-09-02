@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
+import { optimizeCloudinary } from '../../utils/imageOptimizer';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 22 },
@@ -46,7 +47,7 @@ export default function BrandCard({ brand, index, onSelect }) {
           <div className="absolute inset-0 rounded-2xl bg-white/[0.02] animate-pulse" />
         )}
         <img
-          src={brand.image}
+          src={optimizeCloudinary(brand.image, 450)}
           alt={brand.name}
           onLoad={() => setImgLoaded(true)}
           className={`w-full h-full object-contain drop-shadow-[0_12px_25px_rgba(0,0,0,0.9)] group-hover:scale-105 transition-all duration-300 select-none ${
