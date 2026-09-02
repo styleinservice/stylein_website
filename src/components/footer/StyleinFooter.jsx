@@ -1,15 +1,41 @@
-import React from 'react';
+import React, { useRef, useState, useLayoutEffect } from 'react';
 import FooterColumns from './FooterColumns';
 import FooterBottomBar from './FooterBottomBar';
 
 export default function StyleinFooter() {
+  const footerRef = useRef(null);
+  const [footerHeight, setFooterHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    if (!footerRef.current) return;
+    const updateHeight = () => {
+      if (footerRef.current) {
+        setFooterHeight(footerRef.current.offsetHeight);
+      }
+    };
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(footerRef.current);
+    window.addEventListener('resize', updateHeight);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateHeight);
+    };
+  }, []);
+
   return (
     <>
-      {/* Scroll Placeholder Spacer: Generous height on mobile so shutter rolls up fully revealing top logo & store badges */}
-      <div className="relative z-0 h-[640px] sm:h-[460px] lg:h-[300px] w-full pointer-events-none" />
+      {/* Scroll Placeholder Spacer: Dynamically matches exact footer height on any screen */}
+      <div
+        style={{ height: footerHeight > 0 ? `${footerHeight}px` : undefined }}
+        className="relative z-0 h-[520px] sm:h-[440px] lg:h-[280px] w-full pointer-events-none transform-gpu"
+      />
 
       {/* Fixed Parallax Reveal Footer (Curtain / Shutter Reveal) */}
-      <footer className="fixed bottom-0 left-0 right-0 z-0 min-h-[640px] sm:min-h-[460px] lg:min-h-[300px] w-full bg-[#0a0b10] border-t border-white/10 flex flex-col justify-between pt-10 sm:pt-12 pb-6 px-6 sm:px-12 lg:px-16 overflow-hidden">
+      <footer
+        ref={footerRef}
+        className="fixed bottom-0 left-0 right-0 z-0 w-full bg-[#0a0b10] border-t border-white/10 flex flex-col justify-between pt-10 sm:pt-12 pb-6 px-6 sm:px-12 lg:px-16 overflow-hidden transform-gpu will-change-transform"
+      >
         {/* Subtle Deep Red Ambient Back-Glow */}
         <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[700px] h-[300px] rounded-full blur-[160px] bg-[#e50914]/10 pointer-events-none" />
 
@@ -20,10 +46,7 @@ export default function StyleinFooter() {
 
         {/* Content Container */}
         <div className="max-w-[1240px] w-full mx-auto flex flex-col justify-between relative z-10 flex-1">
-          {/* Brand Logo, Reusable App Store Badges & Nav Columns */}
           <FooterColumns />
-
-          {/* Copyright, Terms, Privacy & Socials */}
           <FooterBottomBar />
         </div>
       </footer>

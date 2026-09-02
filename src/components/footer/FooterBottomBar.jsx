@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SOCIAL_ICONS = [
   {
@@ -58,17 +59,33 @@ const SOCIAL_ICONS = [
 ];
 
 export default function FooterBottomBar() {
+  const navigate = useNavigate();
+
+  const handleNav = (path, e) => {
+    e.preventDefault();
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[0.8rem] text-neutral-400 font-body relative z-20">
       {/* Copyright & Legal */}
       <div className="flex items-center gap-6 flex-wrap justify-center sm:justify-start">
         <span>© {new Date().getFullYear()} STYLEIN. All Rights Reserved</span>
-        <span className="text-neutral-500 hover:text-neutral-300 transition-colors">
+        <a
+          href="/terms"
+          onClick={(e) => handleNav('/terms', e)}
+          className="text-neutral-400 hover:text-white no-underline transition-colors cursor-pointer"
+        >
           Terms
-        </span>
-        <span className="text-neutral-500 hover:text-neutral-300 transition-colors">
+        </a>
+        <a
+          href="/privacy"
+          onClick={(e) => handleNav('/privacy', e)}
+          className="text-neutral-400 hover:text-white no-underline transition-colors cursor-pointer"
+        >
           Privacy
-        </span>
+        </a>
       </div>
 
       {/* Official Social Media Links */}

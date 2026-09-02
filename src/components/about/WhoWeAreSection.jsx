@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import aboutImg1 from '../../assets/about/about_1.png';
+import aboutImg2 from '../../assets/about/about_2.png';
 
 const contentVariants = {
   hidden: { opacity: 0, y: 18 },
@@ -81,8 +83,8 @@ export default function WhoWeAreSection() {
               className="w-[80%] sm:w-[78%] relative z-0"
             >
               <img
-                src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80"
-                alt="Precision automotive detailing"
+                src={aboutImg1}
+                alt="STYLEIN automotive excellence"
                 className="w-full aspect-[16/10] object-cover rounded-[18px] sm:rounded-[24px] border border-white/[0.08] shadow-[0_15px_35px_rgba(0,0,0,0.85)]"
                 loading="lazy"
               />
@@ -97,7 +99,7 @@ export default function WhoWeAreSection() {
               className="w-[60%] sm:w-[56%] -mt-10 sm:-mt-14 lg:-mt-16 ml-auto mr-0 sm:mr-2 z-10 relative"
             >
               <img
-                src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80"
+                src={aboutImg2}
                 alt="Luxury vehicle precision craftsmanship"
                 className="w-full aspect-[4/3] object-cover rounded-[16px] sm:rounded-[20px] border border-white/[0.1] shadow-[0_20px_45px_rgba(0,0,0,0.95)]"
                 loading="lazy"

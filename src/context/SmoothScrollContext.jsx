@@ -8,14 +8,18 @@ export function SmoothScrollProvider({ children }) {
   const rafRef = useRef(null);
 
   useEffect(() => {
+    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
     const lenisInstance = new Lenis({
-      duration: 1.1,
+      duration: isTouch ? 0.9 : 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.4,
+      touchMultiplier: 1.0,
+      syncTouch: true,
+      syncTouchLerp: 0.1,
       infinite: false,
     });
 

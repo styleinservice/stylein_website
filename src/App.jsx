@@ -8,6 +8,8 @@ const ServicesPage = lazy(() => import('./pages/Services/index'));
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetail/index'));
 const RescuePage = lazy(() => import('./pages/Rescue/index'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
+const TermsPage = lazy(() => import('./pages/TermsPage'));
+const PrivacyPage = lazy(() => import('./pages/PrivacyPage'));
 
 export default function App() {
   return (
@@ -22,6 +24,8 @@ export default function App() {
           <Route path="/rescue" element={<RescuePage />} />
           <Route path="/faqs" element={<FAQPage />} />
           <Route path="/faq" element={<Navigate to="/faqs" replace />} />
+          <Route path="/terms" element={<TermsPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
