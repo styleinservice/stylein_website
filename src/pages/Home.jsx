@@ -1,7 +1,6 @@
 import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
-import { motion, MotionConfig } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { SmoothScrollProvider, useSmoothScroll } from '../context/SmoothScrollContext';
-import { HomeMotionProvider, useHomeMotion } from '../context/HomeMotionContext';
 import StyleinLoader, { checkIntroPlayed } from '../components/home/StyleinLoader';
 import StyleinNavbar from '../components/home/StyleinNavbar';
 import NavMobileMenu from '../components/home/NavMobileMenu';
@@ -15,7 +14,6 @@ import GetAppBanner from '../components/download-banner/GetAppBanner';
 import StyleinFooter from '../components/footer/StyleinFooter';
 
 function HomeContent() {
-  const isFirstVisit = useHomeMotion();
   const [isReady, setIsReady] = useState(() => checkIntroPlayed());
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
@@ -102,20 +100,15 @@ function HomeContent() {
             isMenuSession={isLockedState}
             onToggleMobileMenu={handleOpenMenu}
           />
-          <MotionConfig
-            reducedMotion={!isFirstVisit ? 'always' : 'user'}
-            transition={!isFirstVisit ? { duration: 0, delay: 0 } : undefined}
-          >
-            <div className="relative z-10 bg-[#07080a] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
-              <HeroSection isReady={isReady} isFirstVisit={isFirstVisit} />
-              <CollectionsShowcase />
-              <FeaturedBrandsShowcase />
-              <AppShowcaseSection />
-              <FAQSection />
-              <TestimonialsSection />
-              <GetAppBanner />
-            </div>
-          </MotionConfig>
+          <div className="relative z-10 bg-[#07080a] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
+            <HeroSection isReady={isReady} />
+            <CollectionsShowcase />
+            <FeaturedBrandsShowcase />
+            <AppShowcaseSection />
+            <FAQSection />
+            <TestimonialsSection />
+            <GetAppBanner />
+          </div>
           <StyleinFooter />
         </div>
       </motion.main>
@@ -126,9 +119,7 @@ function HomeContent() {
 export default function Home() {
   return (
     <SmoothScrollProvider>
-      <HomeMotionProvider>
-        <HomeContent />
-      </HomeMotionProvider>
+      <HomeContent />
     </SmoothScrollProvider>
   );
 }

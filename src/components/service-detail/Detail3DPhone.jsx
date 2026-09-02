@@ -1,11 +1,9 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import PhoneScreenUI from '../app-showcase/PhoneScreenUI';
-import { useRouteMotion } from '../../context/HomeMotionContext';
 
 export default function Detail3DPhone() {
   const containerRef = useRef(null);
-  const isFirstVisit = useRouteMotion();
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -38,13 +36,13 @@ export default function Detail3DPhone() {
     >
       <div className="absolute w-[320px] sm:w-[380px] h-[320px] sm:h-[380px] rounded-full blur-[110px] bg-[#e50914]/15 opacity-55 pointer-events-none" />
 
+      {/* Volumetric 3D Smartphone Gliding In From The Right Side */}
       <motion.div
         style={{ rotateX, rotateY, rotateZ, transformStyle: 'preserve-3d' }}
-        initial={isFirstVisit ? { x: 85, opacity: 0, scale: 0.92, filter: 'blur(10px)' } : false}
-        animate={!isFirstVisit ? { x: 0, opacity: 1, scale: 1, filter: 'blur(0px)' } : undefined}
-        whileInView={isFirstVisit ? { x: 0, opacity: 1, scale: 1, filter: 'blur(0px)' } : undefined}
+        initial={{ x: 85, opacity: 0, scale: 0.92, filter: 'blur(10px)' }}
+        whileInView={{ x: 0, opacity: 1, scale: 1, filter: 'blur(0px)' }}
         viewport={{ once: true, margin: '-50px' }}
-        transition={isFirstVisit ? { duration: 1.05, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
+        transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 w-[245px] sm:w-[265px] h-[485px] sm:h-[520px] rounded-[42px]"
       >
         <div

@@ -4,10 +4,9 @@ import { FAQ_ITEMS } from '../../constants/faqData';
 import FAQHeader from './FAQHeader';
 import FAQAccordionItem from './FAQAccordionItem';
 import { ArrowUpRight } from 'lucide-react';
-import { useHomeMotion } from '../../context/HomeMotionContext';
 
 export default function FAQSection() {
-  const isFirstVisit = useHomeMotion();
+  // All FAQ items closed by default
   const [openId, setOpenId] = useState(null);
 
   const handleToggle = (id) => {
@@ -16,13 +15,17 @@ export default function FAQSection() {
 
   return (
     <section id="faqs" className="w-full pt-1 sm:pt-2 pb-12 sm:pb-16 px-6 sm:px-10 lg:px-14 bg-[#040406] relative z-15 overflow-hidden">
+      {/* Background Radial Glow */}
       <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[450px] h-[450px] rounded-full blur-[130px] bg-stylein-red/5 pointer-events-none" />
 
+      {/* Compact 80% Proportion Container */}
       <div className="max-w-[940px] mx-auto relative z-10 flex flex-col items-center">
+        {/* Header Title & Pill */}
         <div className="w-full">
           <FAQHeader />
         </div>
 
+        {/* Accordion List (All Closed by Default) */}
         <div className="w-full flex flex-col gap-2.5 mb-6">
           {FAQ_ITEMS.map((item, index) => (
             <FAQAccordionItem
@@ -35,12 +38,12 @@ export default function FAQSection() {
           ))}
         </div>
 
+        {/* Bottom CTA Button */}
         <motion.div
-          initial={isFirstVisit ? { opacity: 0, y: 15 } : false}
-          animate={!isFirstVisit ? { opacity: 1, y: 0 } : undefined}
-          whileInView={isFirstVisit ? { opacity: 1, y: 0 } : undefined}
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-30px' }}
-          transition={isFirstVisit ? { duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
+          transition={{ duration: 0.5, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row items-center gap-4"
         >
           <a

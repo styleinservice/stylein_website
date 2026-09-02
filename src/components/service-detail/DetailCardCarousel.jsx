@@ -2,10 +2,8 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import DetailInteractiveCard from './DetailInteractiveCard';
-import { useRouteMotion } from '../../context/HomeMotionContext';
 
 export default function DetailCardCarousel({ items = [] }) {
-  const isFirstVisit = useRouteMotion();
   const scrollRef = useRef(null);
   const [showArrows, setShowArrows] = useState(false);
   const [openCardIndex, setOpenCardIndex] = useState(null);
@@ -39,6 +37,7 @@ export default function DetailCardCarousel({ items = [] }) {
   return (
     <section className="relative w-full py-5 sm:py-8 overflow-hidden select-none">
       <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-8 relative">
+        {/* Left Arrow Icon: Hidden on mobile */}
         {showArrows && (
           <button
             onClick={() => handleScroll('left')}
@@ -49,6 +48,7 @@ export default function DetailCardCarousel({ items = [] }) {
           </button>
         )}
 
+        {/* Right Arrow Icon: Hidden on mobile */}
         {showArrows && (
           <button
             onClick={() => handleScroll('right')}
@@ -59,6 +59,7 @@ export default function DetailCardCarousel({ items = [] }) {
           </button>
         )}
 
+        {/* Card Track: Centered on laptop/desktop, scrollable when overflowing */}
         <div
           ref={scrollRef}
           onScroll={checkScrollable}
@@ -69,11 +70,10 @@ export default function DetailCardCarousel({ items = [] }) {
           {items.map((item, idx) => (
             <motion.div
               key={idx}
-              initial={isFirstVisit ? { opacity: 0, y: 35, scale: 0.94, filter: 'blur(8px)' } : false}
-              animate={!isFirstVisit ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : undefined}
-              whileInView={isFirstVisit ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : undefined}
+              initial={{ opacity: 0, y: 35, scale: 0.94, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={isFirstVisit ? { duration: 0.7, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
+              transition={{ duration: 0.7, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
               className="min-w-[280px] max-w-[300px] sm:min-w-[320px] sm:max-w-[340px] shrink-0 snap-start"
             >
               <DetailInteractiveCard

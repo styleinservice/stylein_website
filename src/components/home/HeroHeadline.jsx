@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DYNAMIC_PHRASES } from '../../constants/heroData';
 
-export default function HeroHeadline({ isReady, isFirstVisit = true }) {
+export default function HeroHeadline({ isReady }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -19,21 +19,21 @@ export default function HeroHeadline({ isReady, isFirstVisit = true }) {
   return (
     <div className="text-center max-w-[880px] mx-auto select-none">
       <h1 className="font-heading tracking-tight mb-8">
-        {/* Line 1: Instant entrance on revisit, silky smooth on first load */}
+        {/* Line 1: Silky Smooth Bottom-to-Top Optical Entrance */}
         <motion.span
-          initial={isFirstVisit ? { opacity: 0, y: 45, filter: 'blur(12px)' } : false}
+          initial={{ opacity: 0, y: 45, filter: 'blur(12px)' }}
           animate={isReady ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 45, filter: 'blur(12px)' }}
-          transition={isFirstVisit ? { duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
+          transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
           className="block font-bold text-[clamp(2.3rem,4.6vw,3.8rem)] leading-[1.18] bg-gradient-to-b from-white via-white to-neutral-200 bg-clip-text text-transparent"
         >
           On-demand luxury care for
         </motion.span>
 
-        {/* Line 2: Animated Dynamic Phrase */}
+        {/* Line 2: Animated Dynamic Phrase with Bottom-to-Top Motion */}
         <motion.span
-          initial={isFirstVisit ? { opacity: 0, y: 50, scale: 0.92, filter: 'blur(12px)' } : false}
+          initial={{ opacity: 0, y: 50, scale: 0.92, filter: 'blur(12px)' }}
           animate={isReady ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : { opacity: 0, y: 50, scale: 0.92, filter: 'blur(12px)' }}
-          transition={isFirstVisit ? { duration: 0.95, delay: 0.55, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
+          transition={{ duration: 0.95, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
           className="block font-extrabold text-[clamp(2.6rem,5vw,4.2rem)] leading-[1.18] text-[#E50914] min-h-[1.25em] mt-1 relative overflow-hidden"
         >
           <AnimatePresence mode="wait">

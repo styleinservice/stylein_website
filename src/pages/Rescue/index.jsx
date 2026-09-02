@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useLayoutEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { motion, MotionConfig } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { fetchRescuePage } from '../../store/rescue/rescueSlice';
 import { SmoothScrollProvider, useSmoothScroll } from '../../context/SmoothScrollContext';
-import { RouteMotionProvider, useRouteMotion } from '../../context/HomeMotionContext';
 import StyleinNavbar from '../../components/home/StyleinNavbar';
 import NavMobileMenu from '../../components/home/NavMobileMenu';
 import RescueHero from '../../components/rescue/RescueHero';
@@ -17,7 +16,6 @@ import StyleinFooter from '../../components/footer/StyleinFooter';
 
 function RescuePageContent() {
   const dispatch = useDispatch();
-  const isFirstVisit = useRouteMotion();
   const { data, loading, fetched, error } = useSelector((state) => state.rescue);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
@@ -30,7 +28,9 @@ function RescuePageContent() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!data && !fetched) loadData();
+    if (!data && !fetched) {
+      loadData();
+    }
   }, [data, fetched, loadData]);
 
   useEffect(() => {
@@ -79,23 +79,23 @@ function RescuePageContent() {
 
         <div style={{ transform: isLockedState ? `translateY(-${capturedScrollY}px)` : 'none' }} className="w-full">
           <StyleinNavbar isReady={true} mobileMenuOpen={mobileMenuOpen} isMenuSession={isLockedState} onToggleMobileMenu={handleOpenMenu} />
-          <MotionConfig reducedMotion={!isFirstVisit ? 'always' : 'user'} transition={!isFirstVisit ? { duration: 0, delay: 0 } : undefined}>
-            <div className="relative z-10 w-full bg-[#050505] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 pt-22 sm:pt-26 lg:pt-28 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
-              {loading && !data ? (
-                <RescueSkeleton />
-              ) : error && !data ? (
-                <RescueError onRetry={loadData} />
-              ) : (
-                <>
-                  <RescueHero heroServices={data?.heroServices} description={data?.description} />
-                  {hasRescueServices && <DetailCardCarousel items={data.rescueServices} />}
-                  <DetailGetStarted getStarted={data?.getStarted} serviceTitle="Rescue" />
-                  <DetailReviews />
-                  <DetailFAQ questions={data?.questionsAnswered} />
-                </>
-              )}
-            </div>
-          </MotionConfig>
+
+          <div className="relative z-10 w-full bg-[#050505] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 pt-22 sm:pt-26 lg:pt-28 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
+            {loading && !data ? (
+              <RescueSkeleton />
+            ) : error && !data ? (
+              <RescueError onRetry={loadData} />
+            ) : (
+              <>
+                <RescueHero heroServices={data?.heroServices} description={data?.description} />
+                {hasRescueServices && <DetailCardCarousel items={data.rescueServices} />}
+                <DetailGetStarted getStarted={data?.getStarted} serviceTitle="Rescue" />
+                <DetailReviews />
+                <DetailFAQ questions={data?.questionsAnswered} />
+              </>
+            )}
+          </div>
+
           <StyleinFooter />
         </div>
       </motion.main>
@@ -106,9 +106,7 @@ function RescuePageContent() {
 export default function RescuePage() {
   return (
     <SmoothScrollProvider>
-      <RouteMotionProvider routeKey="rescue">
-        <RescuePageContent />
-      </RouteMotionProvider>
+      <RescuePageContent />
     </SmoothScrollProvider>
   );
 }

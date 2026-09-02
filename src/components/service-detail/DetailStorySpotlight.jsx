@@ -2,10 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2 } from 'lucide-react';
 import DetailInteractiveCard from './DetailInteractiveCard';
-import { useRouteMotion } from '../../context/HomeMotionContext';
 
 export default function DetailStorySpotlight({ service }) {
-  const isFirstVisit = useRouteMotion();
   if (!service) return null;
 
   const title = service.title || service.serviceName || service.name || 'Automotive Care';
@@ -40,12 +38,12 @@ export default function DetailStorySpotlight({ service }) {
   return (
     <section className="relative w-full py-8 sm:py-12 px-6 sm:px-10 lg:px-12 bg-[#050505] border-t border-white/[0.04]">
       <div className="w-full max-w-[1240px] mx-auto grid grid-cols-1 lg:grid-cols-12 items-center gap-8 lg:gap-12">
+        {/* Left Side (Desktop): The Interactive Hover Card / Top on Mobile */}
         <motion.div
-          initial={isFirstVisit ? { opacity: 0, x: -30, filter: 'blur(8px)' } : false}
-          animate={!isFirstVisit ? { opacity: 1, x: 0, filter: 'blur(0px)' } : undefined}
-          whileInView={isFirstVisit ? { opacity: 1, x: 0, filter: 'blur(0px)' } : undefined}
+          initial={{ opacity: 0, x: -30, filter: 'blur(8px)' }}
+          whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={isFirstVisit ? { duration: 0.75, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
           className="order-1 lg:order-1 lg:col-span-5 w-full flex items-center justify-center"
         >
           <div className="w-full max-w-[340px] sm:max-w-[360px]">
@@ -60,12 +58,12 @@ export default function DetailStorySpotlight({ service }) {
           </div>
         </motion.div>
 
+        {/* Right Side (Desktop): Content / Bottom on Mobile */}
         <motion.div
-          initial={isFirstVisit ? { opacity: 0, x: 30, filter: 'blur(8px)' } : false}
-          animate={!isFirstVisit ? { opacity: 1, x: 0, filter: 'blur(0px)' } : undefined}
-          whileInView={isFirstVisit ? { opacity: 1, x: 0, filter: 'blur(0px)' } : undefined}
+          initial={{ opacity: 0, x: 30, filter: 'blur(8px)' }}
+          whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={isFirstVisit ? { duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
+          transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="order-2 lg:order-2 lg:col-span-7 flex flex-col items-start text-left"
         >
           <span className="text-[0.72rem] sm:text-xs font-bold text-stylein-red uppercase tracking-widest font-heading mb-2">
@@ -80,6 +78,7 @@ export default function DetailStorySpotlight({ service }) {
             {spotlightDesc}
           </p>
 
+          {/* Bullet Points */}
           <div className="flex flex-col gap-3 mt-5 w-full max-w-lg">
             {points.map((pt, idx) => (
               <div key={idx} className="flex items-start gap-3">

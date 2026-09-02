@@ -1,37 +1,33 @@
 import React, { useState } from 'react';
 
-const CLOUDINARY_VIDEO_URL =
-  'https://res.cloudinary.com/hrd4p6l8/video/upload/f_auto,q_auto/v1788351643/WEBSITE_PAGE_VIDEO.mp4';
-const CLOUDINARY_VIDEO_FALLBACK =
-  'https://res.cloudinary.com/hrd4p6l8/video/upload/v1788351643/WEBSITE_PAGE_VIDEO.mp4';
+const VIDEO_URL = 'https://res.cloudinary.com/hrd4p6l8/video/upload/v1788351643/WEBSITE_PAGE_VIDEO.mp4';
+const FALLBACK_POSTER = '/assets/images/stylein-hero-fallback.webp';
 
 export default function HeroVideo() {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#07080a]">
-      {/* High-res Image Fallback */}
+      {/* High-res WebP Fallback Image */}
       <img
-        src="/assets/images/stylein-hero-fallback.webp"
+        src={FALLBACK_POSTER}
         alt="Automotive background"
         className={`absolute inset-0 w-full h-full object-cover scale-112 origin-center transition-opacity duration-800 ease-in-out z-1 ${
           videoLoaded ? 'opacity-0' : 'opacity-100'
         }`}
       />
 
-      {/* Cloudinary CDN Streamed Video */}
+      {/* Cloudinary Autoplay Video Element */}
       <video
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
-        poster="/assets/images/stylein-hero-fallback.webp"
+        poster={FALLBACK_POSTER}
         onLoadedData={() => setVideoLoaded(true)}
         className="absolute inset-0 w-full h-full object-cover scale-112 origin-center z-2"
       >
-        <source src={CLOUDINARY_VIDEO_URL} type="video/mp4" />
-        <source src={CLOUDINARY_VIDEO_FALLBACK} type="video/mp4" />
+        <source src={VIDEO_URL} type="video/mp4" />
       </video>
 
       {/* Light Base Dark Tint */}

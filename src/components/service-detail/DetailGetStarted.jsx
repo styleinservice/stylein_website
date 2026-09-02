@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Detail3DPhone from './Detail3DPhone';
-import { useRouteMotion } from '../../context/HomeMotionContext';
 
 const containerVariants = {
   hidden: { opacity: 0, x: -40 },
@@ -23,8 +22,6 @@ const itemVariants = {
 };
 
 export default function DetailGetStarted({ getStarted, serviceTitle = '' }) {
-  const isFirstVisit = useRouteMotion();
-
   let points = [];
   if (getStarted && Array.isArray(getStarted.points)) {
     points = getStarted.points;
@@ -43,11 +40,11 @@ export default function DetailGetStarted({ getStarted, serviceTitle = '' }) {
   return (
     <section className="relative w-full py-8 sm:py-12 px-6 sm:px-10 lg:px-12 bg-[#040406] border-t border-white/[0.04] overflow-hidden">
       <div className="w-full max-w-[1000px] sm:max-w-[1040px] mx-auto grid grid-cols-1 lg:grid-cols-12 items-center justify-center gap-8 lg:gap-12">
+        {/* Left Column: Heading + QR Code Badge + 3 Steps */}
         <motion.div
           variants={containerVariants}
-          initial={isFirstVisit ? "hidden" : false}
-          animate={!isFirstVisit ? "visible" : undefined}
-          whileInView={isFirstVisit ? "visible" : undefined}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           className="order-2 lg:order-1 lg:col-span-6 flex flex-col items-start text-left max-w-[460px]"
         >
@@ -59,33 +56,36 @@ export default function DetailGetStarted({ getStarted, serviceTitle = '' }) {
             Get started in {points.length} steps
           </motion.h2>
 
+          {/* QR Code Download Badge */}
           <motion.div variants={itemVariants} className="mb-5 flex items-center">
-            <div className="inline-flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-white/[0.06] backdrop-blur-xl border border-white/15 shadow-[0_6px_20px_rgba(0,0,0,0.6)]">
-              <div className="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center shrink-0">
-                <div className="w-full h-full bg-[#050608] rounded-md p-0.5 flex flex-col justify-between">
-                  <div className="flex justify-between">
-                    <div className="w-1.5 h-1.5 bg-white/90 rounded-xs" />
-                    <div className="w-1.5 h-1.5 bg-white/90 rounded-xs" />
-                  </div>
-                  <div className="w-1 h-1 bg-white/70 mx-auto rounded-full" />
-                  <div className="flex justify-between">
-                    <div className="w-1.5 h-1.5 bg-white/90 rounded-xs" />
-                    <div className="w-1.5 h-1.5 bg-white/90 rounded-xs" />
-                  </div>
-                </div>
+            <a
+              href="#download"
+              className="bg-[#0d0f16]/90 backdrop-blur-2xl border border-white/15 hover:border-stylein-red/50 rounded-2xl px-5 py-2.5 inline-flex items-center gap-3.5 shadow-[0_15px_35px_rgba(0,0,0,0.7)] hover:shadow-[0_20px_45px_rgba(229,9,20,0.25)] hover:-translate-y-0.5 transition-all duration-300 group no-underline"
+              aria-label="Scan to download STYLEIN App"
+            >
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-white/12 to-white/5 border border-white/15 flex items-center justify-center p-1.5 group-hover:border-stylein-red/40 transition-colors">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                  <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                  <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                  <path d="M14 14h3v3h-3z" fill="#e50914" stroke="none" />
+                  <path d="M17 17h4v4h-4z" />
+                  <path d="M14 20h3" />
+                </svg>
               </div>
-              <div className="flex flex-col text-left">
-                <span className="text-white text-[0.76rem] font-bold tracking-wide font-heading">
-                  Scan to download
+              <div className="text-left">
+                <span className="text-white text-xs sm:text-sm font-bold block tracking-wider uppercase font-heading">
+                  Scan to get app
                 </span>
-                <span className="text-neutral-400 text-[0.62rem] font-medium font-body">
+                <span className="text-neutral-400 text-[0.68rem] font-medium font-body block">
                   iOS & Android
                 </span>
               </div>
-            </div>
+            </a>
           </motion.div>
 
-          <div className="flex flex-col gap-2.5 w-full">
+          {/* 3 Step Cards */}
+          <div className="flex flex-col gap-3 w-full">
             {points.map((point, idx) => {
               const stepNum = idx + 1;
               const stepText = typeof point === 'string' ? point : point.text || '';
@@ -110,6 +110,7 @@ export default function DetailGetStarted({ getStarted, serviceTitle = '' }) {
           </div>
         </motion.div>
 
+        {/* Right Column: Interactive 3D Tilted Smartphone Mockup */}
         <Detail3DPhone />
       </div>
     </section>

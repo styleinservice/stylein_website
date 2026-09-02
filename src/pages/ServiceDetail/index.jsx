@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef, useLayoutEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import { motion, MotionConfig } from 'framer-motion';
+import { motion } from 'framer-motion';
 import api from '../../api/axios';
 import { SmoothScrollProvider, useSmoothScroll } from '../../context/SmoothScrollContext';
-import { RouteMotionProvider, useRouteMotion } from '../../context/HomeMotionContext';
 import StyleinNavbar from '../../components/home/StyleinNavbar';
 import NavMobileMenu from '../../components/home/NavMobileMenu';
 import DetailHero from '../../components/service-detail/DetailHero';
@@ -28,7 +27,6 @@ function getCachedDetail(id) {
 
 function ServiceDetailContent() {
   const { id } = useParams();
-  const isFirstVisit = useRouteMotion();
   const cached = getCachedDetail(id);
   const [service, setService] = useState(() => cached || null);
   const [loading, setLoading] = useState(() => !cached);
@@ -43,7 +41,8 @@ function ServiceDetailContent() {
     const existing = getCachedDetail(id);
     if (existing) { setService(existing); setLoading(false); return; }
     try {
-      setLoading(true); setError(null);
+      setLoading(true);
+      setError(null);
       const response = await api.get(`/service/${id}`);
       if (response.data && response.data.success !== false) {
         const data = response.data.data || response.data.service || response.data;
@@ -51,12 +50,15 @@ function ServiceDetailContent() {
         try { sessionStorage.setItem(`stylein_detail_${id}`, JSON.stringify(data)); } catch (_) {}
         setService(data);
       } else {
-        setService(null); setError(response.data?.message || 'Service not found');
+        setService(null);
+        setError(response.data?.message || 'Service not found');
       }
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Failed to load service');
       setService(null);
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   }, [id]);
 
   useEffect(() => { fetchServiceDetail(); }, [fetchServiceDetail]);
@@ -105,20 +107,20 @@ function ServiceDetailContent() {
 
         <div style={{ transform: isLockedState ? `translateY(-${capturedScrollY}px)` : 'none' }} className="w-full">
           <StyleinNavbar isReady={true} mobileMenuOpen={mobileMenuOpen} isMenuSession={isLockedState} onToggleMobileMenu={handleOpenMenu} />
-          <MotionConfig reducedMotion={!isFirstVisit ? 'always' : 'user'} transition={!isFirstVisit ? { duration: 0, delay: 0 } : undefined}>
-            <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
-              {loading ? <DetailSkeleton /> : error ? <DetailError error={error} onRetry={fetchServiceDetail} /> : service ? (
-                <>
-                  <DetailHero service={service} />
-                  <DetailCardCarousel service={service} />
-                  <DetailStorySpotlight service={service} />
-                  <DetailGetStarted service={service} />
-                  <DetailReviews service={service} />
-                  <DetailFAQ service={service} />
-                </>
-              ) : null}
-            </div>
-          </MotionConfig>
+
+          <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
+            {loading ? <DetailSkeleton /> : error ? <DetailError error={error} onRetry={fetchServiceDetail} /> : service ? (
+              <>
+                <DetailHero service={service} />
+                <DetailCardCarousel service={service} />
+                <DetailStorySpotlight service={service} />
+                <DetailGetStarted service={service} />
+                <DetailReviews service={service} />
+                <DetailFAQ service={service} />
+              </>
+            ) : null}
+          </div>
+
           <StyleinFooter />
         </div>
       </motion.main>
@@ -126,19 +128,10 @@ function ServiceDetailContent() {
   );
 }
 
-function ServiceDetailPageWrapper() {
-  const { id } = useParams();
-  return (
-    <RouteMotionProvider routeKey={`service_detail_${id || 'default'}`}>
-      <ServiceDetailContent />
-    </RouteMotionProvider>
-  );
-}
-
 export default function ServiceDetailPage() {
   return (
     <SmoothScrollProvider>
-      <ServiceDetailPageWrapper />
+      <ServiceDetailContent />
     </SmoothScrollProvider>
   );
 }

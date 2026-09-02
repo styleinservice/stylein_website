@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import AppQRCodeCard from './AppQRCodeCard';
-import { useHomeMotion } from '../../context/HomeMotionContext';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -56,18 +55,16 @@ const cardVariants = {
 };
 
 export default function AppShowcaseLeft() {
-  const isFirstVisit = useHomeMotion();
-
   return (
     <div className="w-full lg:w-[48%] flex flex-col justify-center gap-4 z-10 items-center lg:items-start text-center lg:text-left">
       <motion.div
         variants={containerVariants}
-        initial={isFirstVisit ? "hidden" : false}
-        animate={!isFirstVisit ? "visible" : undefined}
-        whileInView={isFirstVisit ? "visible" : undefined}
+        initial="hidden"
+        whileInView="visible"
         viewport={{ once: true, margin: '-50px' }}
         className="flex flex-col gap-3.5 items-center lg:items-start w-full"
       >
+        {/* Category Pill without red ping dot */}
         <motion.div variants={pillVariants} className="flex justify-center lg:justify-start w-full">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-stylein-red/10 border border-stylein-red/25 w-fit">
             <span className="text-stylein-red text-[0.7rem] font-bold tracking-widest uppercase font-heading">
@@ -76,6 +73,7 @@ export default function AppShowcaseLeft() {
           </div>
         </motion.div>
 
+        {/* Main Headline */}
         <motion.div variants={headingVariants} className="w-full">
           <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white leading-[1.15] tracking-tight uppercase">
             The everything app <br className="hidden sm:inline" />
@@ -85,12 +83,14 @@ export default function AppShowcaseLeft() {
           </h2>
         </motion.div>
 
+        {/* Description Paragraph */}
         <motion.div variants={textVariants} className="w-full flex justify-center lg:justify-start">
           <p className="text-neutral-300/90 text-[0.84rem] sm:text-[0.88rem] leading-relaxed max-w-md font-body">
             Car wash, tyre fitting, synthetic oil change, battery replacement, and 24/7 emergency rescue — just tap and our mobile units roll directly to wherever you are parked. Skip the service queues. STYLEIN brings automotive excellence straight to you.
           </p>
         </motion.div>
 
+        {/* QR Code & Store Downloads */}
         <motion.div variants={cardVariants} className="pt-1 flex justify-center lg:justify-start w-full">
           <AppQRCodeCard />
         </motion.div>

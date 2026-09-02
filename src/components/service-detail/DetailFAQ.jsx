@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import { useRouteMotion } from '../../context/HomeMotionContext';
 
 export default function DetailFAQ({ questions = [] }) {
-  const isFirstVisit = useRouteMotion();
   const [openIndex, setOpenIndex] = useState(null);
 
   if (!questions || questions.length === 0) return null;
@@ -16,17 +14,17 @@ export default function DetailFAQ({ questions = [] }) {
   return (
     <section className="relative w-full py-8 sm:py-12 px-6 sm:px-10 lg:px-12 bg-[#040406] border-t border-white/[0.04]">
       <motion.div
-        initial={isFirstVisit ? { opacity: 0, y: 24 } : false}
-        animate={!isFirstVisit ? { opacity: 1, y: 0 } : undefined}
-        whileInView={isFirstVisit ? { opacity: 1, y: 0 } : undefined}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={isFirstVisit ? { duration: 0.65, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         className="w-full max-w-[960px] mx-auto text-left"
       >
         <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-8 sm:mb-10">
           Questions? Answered.
         </h2>
 
+        {/* Minimal Accordion List - Closed by default */}
         <div className="flex flex-col divide-y divide-white/[0.08] border-y border-white/[0.08]">
           {questions.map((item, idx) => {
             const isOpen = openIndex === idx;

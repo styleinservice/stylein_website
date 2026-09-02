@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef, useLayoutEffect, useCallback, useMemo } from 'react';
-import { motion, MotionConfig } from 'framer-motion';
+import { motion } from 'framer-motion';
 import api from '../../api/axios';
 import { SmoothScrollProvider, useSmoothScroll } from '../../context/SmoothScrollContext';
-import { RouteMotionProvider, useRouteMotion } from '../../context/HomeMotionContext';
 import StyleinNavbar from '../../components/home/StyleinNavbar';
 import NavMobileMenu from '../../components/home/NavMobileMenu';
 import ServicesHero from '../../components/services/ServicesHero';
@@ -18,7 +17,6 @@ try {
 } catch (_) {}
 
 function ServicesContent() {
-  const isFirstVisit = useRouteMotion();
   const [services, setServices] = useState(() => cachedServices || []);
   const [loading, setLoading] = useState(() => !cachedServices || cachedServices.length === 0);
   const [error, setError] = useState(null);
@@ -30,23 +28,31 @@ function ServicesContent() {
   const lenis = useSmoothScroll();
 
   const fetchServices = useCallback(async () => {
-    if (cachedServices && cachedServices.length > 0) { setLoading(false); return; }
+    if (cachedServices && cachedServices.length > 0) {
+      setLoading(false);
+      return;
+    }
     try {
-      setLoading(true); setError(null);
+      setLoading(true);
+      setError(null);
       const response = await api.get('/service');
       const data = response.data?.data || [];
       cachedServices = data;
-      try { sessionStorage.setItem('stylein_services_catalog_cache', JSON.stringify(data)); } catch (_) {}
+      try {
+        sessionStorage.setItem('stylein_services_catalog_cache', JSON.stringify(data));
+      } catch (_) {}
       setServices(data);
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'Failed to load services');
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   useEffect(() => {
     document.title = 'Services | STYLEIN';
     const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute('content', 'Premium doorstep automotive services.');
+    if (metaDesc) metaDesc.setAttribute('content', 'Premium doorstep automotive services including detailing, battery replacement, oil change, inspections, coatings and emergency assistance.');
     fetchServices();
   }, [fetchServices]);
 
@@ -92,20 +98,31 @@ function ServicesContent() {
 
         <div style={{ transform: isLockedState ? `translateY(-${capturedScrollY}px)` : 'none' }} className="w-full">
           <StyleinNavbar isReady={true} mobileMenuOpen={mobileMenuOpen} isMenuSession={isLockedState} onToggleMobileMenu={handleOpenMenu} />
-          <MotionConfig reducedMotion={!isFirstVisit ? 'always' : 'user'} transition={!isFirstVisit ? { duration: 0, delay: 0 } : undefined}>
-            <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden pb-16 sm:pb-20">
-              <ServicesHero totalCount={services.length} filteredCount={filteredServices.length} searchQuery={searchQuery} onSearchChange={setSearchQuery} loading={loading} />
-              <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
-                {loading ? <ServicesSkeleton /> : error ? <ServicesErrorState error={error} onRetry={fetchServices} /> : (
-                  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4.5 lg:gap-5">
-                    {filteredServices.map((service, index) => (
-                      <ServiceCard key={service._id || service.id || index} service={service} index={index} />
-                    ))}
-                  </div>
-                )}
-              </div>
+
+          <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden pb-16 sm:pb-20">
+            <ServicesHero
+              totalCount={services.length}
+              filteredCount={filteredServices.length}
+              searchQuery={searchQuery}
+              onSearchChange={setSearchQuery}
+              loading={loading}
+            />
+
+            <div className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+              {loading ? (
+                <ServicesSkeleton />
+              ) : error ? (
+                <ServicesErrorState error={error} onRetry={fetchServices} />
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4.5 lg:gap-5">
+                  {filteredServices.map((service, index) => (
+                    <ServiceCard key={service._id || service.id || index} service={service} index={index} />
+                  ))}
+                </div>
+              )}
             </div>
-          </MotionConfig>
+          </div>
+
           <StyleinFooter />
         </div>
       </motion.main>
@@ -116,9 +133,7 @@ function ServicesContent() {
 export default function ServicesPage() {
   return (
     <SmoothScrollProvider>
-      <RouteMotionProvider routeKey="services_catalog">
-        <ServicesContent />
-      </RouteMotionProvider>
+      <ServicesContent />
     </SmoothScrollProvider>
   );
 }
