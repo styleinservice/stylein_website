@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
+import { useRouteMotion } from '../../context/HomeMotionContext';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 18, scale: 0.98 },
@@ -19,6 +20,7 @@ const cardVariants = {
 
 export default function ServiceCard({ service, index = 0 }) {
   const navigate = useNavigate();
+  const isFirstVisit = useRouteMotion();
   if (!service) return null;
 
   const targetId = service.serviceId || service._id || '';
@@ -36,8 +38,9 @@ export default function ServiceCard({ service, index = 0 }) {
     <motion.div
       variants={cardVariants}
       custom={index}
-      initial="hidden"
-      whileInView="visible"
+      initial={isFirstVisit ? "hidden" : false}
+      animate={!isFirstVisit ? "visible" : undefined}
+      whileInView={isFirstVisit ? "visible" : undefined}
       viewport={{ once: true, amount: 0.1 }}
       whileHover={{ y: -5, transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] } }}
       whileTap={{ scale: 0.98 }}
@@ -49,7 +52,6 @@ export default function ServiceCard({ service, index = 0 }) {
       }}
       className="group relative h-[215px] sm:h-[250px] md:h-[275px] lg:h-[295px] rounded-2xl sm:rounded-[22px] overflow-hidden bg-[#090C12] border border-white/[0.08] hover:border-stylein-red/40 flex flex-col justify-between select-none cursor-pointer hover:shadow-[0_18px_40px_rgba(229,9,20,0.18)] will-change-transform"
     >
-      {/* Top 3D Image Showcase Area */}
       <div className="h-[54%] w-full bg-[#06080d]/70 p-2 sm:p-3 flex items-center justify-center relative overflow-hidden border-b border-white/[0.04]">
         {service.image ? (
           <img
@@ -63,7 +65,6 @@ export default function ServiceCard({ service, index = 0 }) {
         )}
       </div>
 
-      {/* Bottom Content Area */}
       <div className="h-[46%] p-2.5 sm:p-3.5 flex flex-col justify-between bg-[#090C12]">
         <div>
           <h3 className="font-heading text-[0.74rem] sm:text-[0.84rem] md:text-[0.92rem] font-bold text-white tracking-tight uppercase line-clamp-1 group-hover:text-white transition-colors">
@@ -74,7 +75,6 @@ export default function ServiceCard({ service, index = 0 }) {
           </p>
         </div>
 
-        {/* Minimal Bottom Action Indicator */}
         <div className="flex items-center justify-between pt-0.5 border-t border-white/[0.03]">
           <span className="text-[0.58rem] sm:text-[0.64rem] font-bold text-white/30 group-hover:text-stylein-red transition-colors uppercase tracking-wider font-heading">
             View Details

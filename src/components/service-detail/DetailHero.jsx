@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
+import { useRouteMotion } from '../../context/HomeMotionContext';
 
 const heroVariants = {
   hidden: { opacity: 0 },
@@ -33,6 +34,7 @@ const imageVariants = {
 
 export default function DetailHero({ service }) {
   const navigate = useNavigate();
+  const isFirstVisit = useRouteMotion();
   if (!service) return null;
 
   const title = service.title || service.serviceName || service.name || 'Automotive Service';
@@ -40,14 +42,12 @@ export default function DetailHero({ service }) {
 
   return (
     <section className="relative w-full pt-24 sm:pt-28 md:pt-32 lg:pt-36 pb-6 sm:pb-8 lg:pb-10 px-6 sm:px-10 lg:px-12 overflow-hidden">
-      {/* Ambient Red Glow */}
       <div className="absolute top-1/2 right-[10%] -translate-y-1/2 w-[450px] h-[350px] rounded-full blur-[160px] bg-stylein-red/10 pointer-events-none z-0" />
 
-      {/* Top Bar: Arrow Button */}
       <motion.div
-        initial={{ opacity: 0, x: -16 }}
+        initial={isFirstVisit ? { opacity: 0, x: -16 } : false}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        transition={isFirstVisit ? { duration: 0.5, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
         className="w-full max-w-[1040px] sm:max-w-[1080px] mx-auto flex justify-start mb-4 sm:mb-6 relative z-10 pl-0 sm:pl-2"
       >
         <button
@@ -59,16 +59,14 @@ export default function DetailHero({ service }) {
         </button>
       </motion.div>
 
-      {/* 2-Column Responsive Layout Horizontally Centered */}
       <motion.div
         variants={heroVariants}
-        initial="hidden"
+        initial={isFirstVisit ? "hidden" : false}
         animate="visible"
+        transition={!isFirstVisit ? { duration: 0 } : undefined}
         className="w-full max-w-[1040px] sm:max-w-[1080px] mx-auto grid grid-cols-1 lg:grid-cols-12 items-center justify-center gap-8 sm:gap-10 lg:gap-12 relative z-10"
       >
-        {/* Left Content on Desktop / Bottom on Mobile with Inset Padding */}
         <div className="order-2 lg:order-1 lg:col-span-6 flex flex-col items-start text-left pl-0 sm:pl-3 lg:pl-6 max-w-[480px]">
-          {/* Small Badge */}
           <motion.div
             variants={itemVariants}
             className="inline-flex items-center px-3 py-0.5 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-2.5"
@@ -76,7 +74,6 @@ export default function DetailHero({ service }) {
             <span>PREMIUM AUTOMOTIVE SERVICE</span>
           </motion.div>
 
-          {/* Heading with Gradient */}
           <motion.h1
             variants={itemVariants}
             className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight max-w-xl leading-[1.14]"
@@ -86,7 +83,6 @@ export default function DetailHero({ service }) {
             </span>
           </motion.h1>
 
-          {/* Subtitle / Description */}
           <motion.p
             variants={itemVariants}
             className="font-body text-neutral-400 text-xs sm:text-sm md:text-base leading-relaxed max-w-lg mt-2.5 sm:mt-3"
@@ -95,7 +91,6 @@ export default function DetailHero({ service }) {
           </motion.p>
         </div>
 
-        {/* Right Image on Desktop / Top on Mobile - Centered & Proportionally Balanced */}
         <motion.div
           variants={imageVariants}
           className="order-1 lg:order-2 lg:col-span-6 w-full flex items-center justify-center lg:justify-end lg:-mt-8 lg:-translate-y-3"

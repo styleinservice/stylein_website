@@ -1,12 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function HeroCTA({ isReady }) {
+export default function HeroCTA({ isReady, isFirstVisit = true }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 35, filter: 'blur(8px)' }}
+      initial={isFirstVisit ? { opacity: 0, y: 35, filter: 'blur(8px)' } : false}
       animate={isReady ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 35, filter: 'blur(8px)' }}
-      transition={{ duration: 0.85, delay: 0.85, ease: [0.16, 1, 0.3, 1] }}
+      transition={isFirstVisit ? { duration: 0.85, delay: 0.85, ease: [0.16, 1, 0.3, 1] } : { duration: 0 }}
       className="text-center mt-2"
     >
       {/* Ultra-Premium Glass QR Code Badge Card */}
@@ -15,7 +15,6 @@ export default function HeroCTA({ isReady }) {
         className="bg-[#0d0f16]/70 backdrop-blur-2xl border border-white/15 border-t-white/25 rounded-2xl px-5 py-3 inline-flex items-center gap-4 shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(229,9,20,0.25)] hover:border-stylein-red/50 hover:-translate-y-1 transition-all duration-300 group no-underline"
         aria-label="Scan to download STYLEIN App"
       >
-        {/* QR Code Icon Frame */}
         <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/12 to-white/5 border border-white/15 flex items-center justify-center relative p-1.5 group-hover:border-stylein-red/40 transition-colors">
           <svg
             width="32"
@@ -37,7 +36,6 @@ export default function HeroCTA({ isReady }) {
           </svg>
         </div>
 
-        {/* Text Label */}
         <div className="text-left">
           <span className="text-white text-sm font-semibold block tracking-wide group-hover:text-neutral-100 transition-colors font-heading">
             Scan to download

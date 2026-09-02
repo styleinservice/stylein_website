@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import logoImg from '../../assets/images/stylein-official-logo.png';
+import logoImg from '../../assets/images/stylein-official-logo.webp';
 
 export default function StyleinLogo({ className = '', size = 'medium' }) {
   const navigate = useNavigate();

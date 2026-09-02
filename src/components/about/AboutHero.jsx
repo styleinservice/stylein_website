@@ -1,6 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import videoFile from '../../assets/videos/WEBSITE_PAGE_VIDEO.mp4';
+
+const CLOUDINARY_VIDEO_URL =
+  'https://res.cloudinary.com/hrd4p6l8/video/upload/f_auto,q_auto/v1788351643/WEBSITE_PAGE_VIDEO.mp4';
+const CLOUDINARY_VIDEO_FALLBACK =
+  'https://res.cloudinary.com/hrd4p6l8/video/upload/v1788351643/WEBSITE_PAGE_VIDEO.mp4';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -52,10 +56,11 @@ export default function AboutHero() {
           muted
           loop
           playsInline
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover scale-105 pointer-events-none"
         >
-          <source src={videoFile} type="video/mp4" />
-          <source src="/assets/videos/WEBSITE_PAGE_VIDEO.mp4" type="video/mp4" />
+          <source src={CLOUDINARY_VIDEO_URL} type="video/mp4" />
+          <source src={CLOUDINARY_VIDEO_FALLBACK} type="video/mp4" />
         </video>
 
         {/* Minimal Soft Dark Overlay */}
@@ -73,67 +78,48 @@ export default function AboutHero() {
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#040406]/50 to-transparent z-20 pointer-events-none" />
 
         {/* Bottom Smooth Dark Gradient Fade */}
-        <div className="absolute inset-x-0 bottom-0 h-44 sm:h-56 lg:h-72 bg-gradient-to-t from-[#040406] via-[#040406]/80 to-transparent z-20 pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-48 sm:h-56 bg-gradient-to-t from-[#040406] via-[#040406]/85 to-transparent z-20 pointer-events-none" />
       </div>
 
-      {/* 2. Refined Luxury Scale Typography Layer & QR Code Badge */}
-      <div className="relative z-30 w-full max-w-[740px] mx-auto px-6 sm:px-8 lg:px-10 pt-16 sm:pt-20 flex flex-col items-center justify-center text-center">
+      {/* 2. Centered Elegant Typography Overlay */}
+      <div className="relative z-30 max-w-[1140px] mx-auto px-6 sm:px-8 text-center flex flex-col items-center justify-center pt-24 sm:pt-28">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex flex-col items-center justify-center w-full"
+          className="flex flex-col items-center max-w-4xl"
         >
-          {/* Headline */}
+          {/* Subtle Category Tag */}
+          <motion.div variants={subheadlineVariants} className="mb-4">
+            <span className="font-heading text-[0.7rem] sm:text-xs font-semibold tracking-[0.25em] text-neutral-300 uppercase px-4 py-1.5 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md">
+              THE VISION BEHIND STYLEIN
+            </span>
+          </motion.div>
+
+          {/* Luxury Main Statement */}
           <motion.h1
             variants={headlineVariants}
-            className="font-heading font-bold text-white text-[1.65rem] sm:text-2xl md:text-3xl lg:text-[2.35rem] xl:text-[2.65rem] leading-[1.16] tracking-tight uppercase max-w-full drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]"
+            className="font-heading text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] font-bold text-white tracking-tight leading-[1.12] sm:leading-[1.1] uppercase"
           >
-            More Than Car Care.
-            <br />
-            A Better{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-stylein-red font-bold">
-              Ownership Experience.
+            Pioneering The Future <br className="hidden sm:inline" />
+            Of{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-stylein-red font-extrabold">
+              Automotive Luxury
             </span>
           </motion.h1>
 
-          {/* Subheadline */}
+          {/* Poetic Sub-copy */}
           <motion.p
             variants={subheadlineVariants}
-            className="font-body text-neutral-200/85 text-xs sm:text-[0.88rem] lg:text-[0.92rem] leading-relaxed max-w-[520px] mt-3 sm:mt-4 tracking-normal drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]"
+            className="font-body text-neutral-300/80 text-xs sm:text-sm md:text-[0.98rem] max-w-xl mx-auto mt-4 sm:mt-5 leading-relaxed font-normal"
           >
-            STYLEIN delivers premium automotive services designed around convenience, quality, and trust — helping vehicle owners keep their cars protected, maintained, and road-ready without disrupting their day.
+            Where cutting-edge technology meets uncompromising artisanal craftsmanship to protect, elevate, and celebrate every journey.
           </motion.p>
-
-          {/* QR Code Download Pill Badge */}
-          <motion.div variants={subheadlineVariants} className="mt-5 sm:mt-7 flex items-center justify-center">
-            <a
-              href="#download"
-              className="bg-[#0d0f16]/75 backdrop-blur-2xl border border-white/15 hover:border-stylein-red/50 rounded-2xl px-4.5 py-2.5 inline-flex items-center gap-3.5 shadow-[0_15px_35px_rgba(0,0,0,0.7)] hover:shadow-[0_20px_45px_rgba(229,9,20,0.25)] hover:-translate-y-1 transition-all duration-300 group no-underline"
-              aria-label="Scan to download STYLEIN App"
-            >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-white/12 to-white/5 border border-white/15 flex items-center justify-center p-1.5 group-hover:border-stylein-red/40 transition-colors">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="3" width="7" height="7" rx="1.5" />
-                  <rect x="14" y="3" width="7" height="7" rx="1.5" />
-                  <rect x="3" y="14" width="7" height="7" rx="1.5" />
-                  <path d="M14 14h3v3h-3z" fill="#e50914" stroke="none" />
-                  <path d="M17 17h4v4h-4z" />
-                  <path d="M14 20h3" />
-                </svg>
-              </div>
-              <div className="text-left">
-                <span className="text-white text-[0.82rem] sm:text-[0.86rem] font-semibold block tracking-wide font-heading">
-                  Scan to download
-                </span>
-                <span className="text-neutral-400 text-[0.68rem] font-medium font-body block">
-                  iOS & Android
-                </span>
-              </div>
-            </a>
-          </motion.div>
         </motion.div>
       </div>
+
+      {/* 3. Bottom Gradient Transition Shield */}
+      <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#040406] to-transparent z-30 pointer-events-none" />
     </section>
   );
 }

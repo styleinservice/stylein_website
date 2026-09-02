@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import aboutImg1 from '../../assets/about/about_1.png';
-import aboutImg2 from '../../assets/about/about_2.png';
+import aboutImg1 from '../../assets/about/about_1.webp';
+import aboutImg2 from '../../assets/about/about_2.webp';
 
 const contentVariants = {
   hidden: { opacity: 0, y: 18 },
@@ -37,7 +37,6 @@ export default function WhoWeAreSection() {
     <section className="relative w-full py-10 sm:py-14 bg-[#040406] text-white overflow-hidden border-t border-white/[0.04]">
       <div className="max-w-[1140px] mx-auto px-6 sm:px-8 lg:px-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 sm:gap-12 lg:gap-14 xl:gap-16">
-          {/* Left Column: Clean Trust-Building Content */}
           <motion.div
             variants={contentVariants}
             initial="hidden"
@@ -45,12 +44,10 @@ export default function WhoWeAreSection() {
             viewport={{ once: true, amount: 0.25 }}
             className="lg:col-span-6 flex flex-col justify-center text-left"
           >
-            {/* Small Label */}
             <span className="font-heading text-[0.74rem] sm:text-[0.8rem] font-semibold tracking-widest uppercase text-neutral-400 mb-2 block">
               ABOUT STYLEIN
             </span>
 
-            {/* Heading with Signature Red Gradient on 'Are' */}
             <h2 className="font-heading text-2xl sm:text-3xl lg:text-[2.25rem] xl:text-[2.45rem] font-bold text-white tracking-tight leading-[1.16] uppercase">
               Who We{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-stylein-red font-bold">
@@ -58,7 +55,6 @@ export default function WhoWeAreSection() {
               </span>
             </h2>
 
-            {/* Paragraphs */}
             <div className="flex flex-col gap-3 sm:gap-3.5 mt-4 sm:mt-5 text-neutral-300/85 font-body text-[0.86rem] sm:text-[0.92rem] lg:text-[0.96rem] leading-relaxed">
               <p>
                 STYLEIN is a technology-driven automotive service platform built to simplify vehicle ownership through premium, on-demand solutions.
@@ -72,9 +68,7 @@ export default function WhoWeAreSection() {
             </div>
           </motion.div>
 
-          {/* Right Column: Layered 2-Image Presentation */}
           <div className="lg:col-span-6 w-full flex flex-col items-start justify-center relative select-none">
-            {/* Primary Image (Top-Left) */}
             <motion.div
               variants={image1Variants}
               initial="hidden"
@@ -90,7 +84,6 @@ export default function WhoWeAreSection() {
               />
             </motion.div>
 
-            {/* Secondary Image */}
             <motion.div
               variants={image2Variants}
               initial="hidden"

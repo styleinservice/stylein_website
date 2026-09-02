@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Smartphone } from 'lucide-react';
+import { useHomeMotion } from '../../context/HomeMotionContext';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -23,15 +24,17 @@ const itemVariants = {
 };
 
 export default function GetAppRightContent() {
+  const isFirstVisit = useHomeMotion();
+
   return (
     <motion.div
       variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
+      initial={isFirstVisit ? "hidden" : false}
+      animate={!isFirstVisit ? "visible" : undefined}
+      whileInView={isFirstVisit ? "visible" : undefined}
       viewport={{ once: true, margin: '-50px' }}
       className="flex-1 flex flex-col justify-center gap-4 text-center lg:text-left items-center lg:items-start z-10 py-4 lg:py-2 w-full"
     >
-      {/* Category Pill with Motion */}
       <motion.div variants={itemVariants} className="flex justify-center lg:justify-start w-full">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stylein-red/15 border border-stylein-red/30 w-fit backdrop-blur-md">
           <Smartphone size={12} className="text-stylein-red" />
@@ -41,7 +44,6 @@ export default function GetAppRightContent() {
         </div>
       </motion.div>
 
-      {/* Main Headline with Motion */}
       <motion.div variants={itemVariants} className="flex flex-col gap-1.5 w-full items-center lg:items-start">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white font-heading tracking-tight leading-tight">
           Get the <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-100 to-stylein-red">STYLEIN App</span>
@@ -51,7 +53,6 @@ export default function GetAppRightContent() {
         </p>
       </motion.div>
 
-      {/* QR Code Glass Pill with Motion */}
       <motion.div variants={itemVariants} className="pt-1 flex justify-center lg:justify-start w-full">
         <div className="inline-flex items-center gap-3 px-3.5 py-2 rounded-2xl bg-white/[0.06] backdrop-blur-xl border border-white/15 shadow-[0_6px_20px_rgba(0,0,0,0.6)] group hover:border-white/30 transition-all">
           <div className="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center shrink-0">
