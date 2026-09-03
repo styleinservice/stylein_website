@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { optimizeCloudinary } from '../../utils/imageOptimizer';
 
 export default function BrandShowcaseCenter({ brand, activeIndex, totalBrands, onPrev, onNext, onSelect }) {
   if (!brand) return null;
@@ -34,11 +35,11 @@ export default function BrandShowcaseCenter({ brand, activeIndex, totalBrands, o
             className="relative z-10 w-full flex items-center justify-center will-change-transform"
           >
             <img
-              src={brand.image}
+              src={optimizeCloudinary(brand.image, 500)}
               alt={brand.name}
               draggable={false}
               className="w-full h-auto max-h-[210px] sm:max-h-[270px] lg:max-h-[305px] object-contain drop-shadow-[0_16px_35px_rgba(0,0,0,0.95)] select-none pointer-events-auto transition-transform duration-300 hover:scale-[1.03]"
-              loading="eager"
+              loading="lazy"
             />
           </motion.div>
         </AnimatePresence>

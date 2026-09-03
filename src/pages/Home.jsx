@@ -20,6 +20,7 @@ function HomeContent() {
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
   const [capturedScrollY, setCapturedScrollY] = useState(0);
   const savedScrollRef = useRef(0);
+  const hasOpenedMenuRef = useRef(false);
   const lenis = useSmoothScroll();
 
   useEffect(() => {
@@ -32,6 +33,7 @@ function HomeContent() {
   }, [isReady, lenis]);
 
   const handleOpenMenu = () => {
+    hasOpenedMenuRef.current = true;
     const scroll = lenis?.scroll ?? window.scrollY ?? document.documentElement.scrollTop ?? 0;
     savedScrollRef.current = scroll;
     setCapturedScrollY(scroll);
@@ -49,7 +51,7 @@ function HomeContent() {
   const isLockedState = mobileMenuOpen || isMenuAnimating;
 
   useLayoutEffect(() => {
-    if (!isLockedState && !mobileMenuOpen) {
+    if (hasOpenedMenuRef.current && !isLockedState && !mobileMenuOpen) {
       const target = savedScrollRef.current;
       window.scrollTo(0, target);
       document.documentElement.scrollTop = target;

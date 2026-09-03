@@ -3,8 +3,9 @@ import StyleinLogo from '../common/StyleinLogo';
 
 export const isBotCrawler = () => {
   if (typeof window === 'undefined' || !window.navigator) return false;
+  if (Boolean(window.navigator.webdriver)) return true;
   const ua = window.navigator.userAgent || '';
-  return /bot|crawler|spider|googlebot|lighthouse|pagespeed|google-inspectiontool|ptst|prerender/i.test(ua);
+  return /bot|crawler|spider|googlebot|lighthouse|pagespeed|google-inspectiontool|ptst|prerender|headless|headlesschromium|phantom/i.test(ua);
 };
 
 let hasPlayedSessionIntro = false;

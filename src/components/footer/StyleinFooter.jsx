@@ -38,10 +38,11 @@ export default function StyleinFooter() {
         {/* Subtle Deep Red Ambient Back-Glow */}
         <div className="absolute -bottom-24 left-1/2 -translate-x-1/2 w-[700px] h-[300px] rounded-full blur-[160px] bg-[#e50914]/10 pointer-events-none" />
 
-        {/* Large Ghost Background Watermark Typography */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 font-heading font-black text-7xl sm:text-[9rem] lg:text-[12rem] text-white/[0.03] tracking-tighter select-none pointer-events-none whitespace-nowrap z-0">
-          STYLEIN
-        </div>
+        {/* Large Ghost Background Watermark Typography (CSS pseudo-content to prevent false LCP capture) */}
+        <div
+          aria-hidden="true"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 font-heading font-black text-7xl sm:text-[9rem] lg:text-[12rem] text-white/[0.03] tracking-tighter select-none pointer-events-none whitespace-nowrap z-0 after:content-['STYLEIN']"
+        />
 
         {/* Content Container */}
         <div className="max-w-[1240px] w-full mx-auto flex flex-col justify-between relative z-10 flex-1">

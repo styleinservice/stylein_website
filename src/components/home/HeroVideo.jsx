@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { isBotCrawler } from './StyleinLoader';
 
 const VIDEO_URL = 'https://res.cloudinary.com/hrd4p6l8/video/upload/v1788351643/WEBSITE_PAGE_VIDEO.mp4';
 const FALLBACK_POSTER = '/assets/images/stylein-hero-fallback.webp';
@@ -7,15 +8,13 @@ export default function HeroVideo() {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [mountVideo, setMountVideo] = useState(() => {
     if (typeof window === 'undefined') return false;
-    const isBot = /bot|crawler|spider|googlebot|lighthouse|pagespeed|google-inspectiontool|ptst/i.test(navigator.userAgent || '');
-    if (isBot) return false;
+    if (isBotCrawler()) return false;
     return window.innerWidth >= 768;
   });
 
   useEffect(() => {
     if (mountVideo) return;
-    const isBot = /bot|crawler|spider|googlebot|lighthouse|pagespeed|google-inspectiontool|ptst/i.test(navigator.userAgent || '');
-    if (isBot) return;
+    if (isBotCrawler()) return;
 
     const timer = setTimeout(() => {
       setMountVideo(true);
