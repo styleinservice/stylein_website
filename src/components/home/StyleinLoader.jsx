@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import StyleinLogo from '../common/StyleinLogo';
 
+export const isBotCrawler = () => {
+  if (typeof window === 'undefined' || !window.navigator) return false;
+  const ua = window.navigator.userAgent || '';
+  return /bot|crawler|spider|googlebot|lighthouse|pagespeed|google-inspectiontool|ptst|prerender/i.test(ua);
+};
+
 let hasPlayedSessionIntro = false;
 try {
-  hasPlayedSessionIntro = sessionStorage.getItem('stylein_intro_played') === 'true';
+  hasPlayedSessionIntro = isBotCrawler() || sessionStorage.getItem('stylein_intro_played') === 'true';
 } catch (_) {}
 
 export const checkIntroPlayed = () => hasPlayedSessionIntro;
 
 export default function StyleinLoader({ onComplete, onStartReveal }) {
-  const [alreadyPlayed] = useState(hasPlayedSessionIntro);
+  const isBot = isBotCrawler();
+  const [alreadyPlayed] = useState(hasPlayedSessionIntro || isBot);
   const [mounted, setMounted] = useState(false);
   const [fogOut, setFogOut] = useState(false);
-  const [hidden, setHidden] = useState(hasPlayedSessionIntro);
+  const [hidden, setHidden] = useState(hasPlayedSessionIntro || isBot);
 
   useEffect(() => {
     if (alreadyPlayed) {

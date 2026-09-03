@@ -6,12 +6,12 @@ import StyleinNavbar from '../components/home/StyleinNavbar';
 import NavMobileMenu from '../components/home/NavMobileMenu';
 import HeroSection from '../components/home/HeroSection';
 import CollectionsShowcase from '../components/showcase/CollectionsShowcase';
-import FeaturedBrandsShowcase from '../components/brands/FeaturedBrandsShowcase';
-import AppShowcaseSection from '../components/app-showcase/AppShowcaseSection';
-import FAQSection from '../components/faq/FAQSection';
-import TestimonialsSection from '../components/testimonials/TestimonialsSection';
-import GetAppBanner from '../components/download-banner/GetAppBanner';
 
+const FeaturedBrandsShowcase = lazy(() => import('../components/brands/FeaturedBrandsShowcase'));
+const AppShowcaseSection = lazy(() => import('../components/app-showcase/AppShowcaseSection'));
+const FAQSection = lazy(() => import('../components/faq/FAQSection'));
+const TestimonialsSection = lazy(() => import('../components/testimonials/TestimonialsSection'));
+const GetAppBanner = lazy(() => import('../components/download-banner/GetAppBanner'));
 const StyleinFooter = lazy(() => import('../components/footer/StyleinFooter'));
 
 function HomeContent() {
@@ -104,11 +104,13 @@ function HomeContent() {
           <div className="relative z-10 bg-[#07080a] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden">
             <HeroSection isReady={isReady} />
             <CollectionsShowcase />
-            <FeaturedBrandsShowcase />
-            <AppShowcaseSection />
-            <FAQSection />
-            <TestimonialsSection />
-            <GetAppBanner />
+            <Suspense fallback={null}>
+              <FeaturedBrandsShowcase />
+              <AppShowcaseSection />
+              <FAQSection />
+              <TestimonialsSection />
+              <GetAppBanner />
+            </Suspense>
           </div>
           <Suspense fallback={<div className="h-[280px] bg-[#0a0b10]" />}>
             <StyleinFooter />
