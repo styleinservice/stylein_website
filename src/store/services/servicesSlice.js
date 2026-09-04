@@ -1,10 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/axios';
+import { SERVICES_SECTION_DATA } from '../../constants/servicesData';
 
-let savedServices = [];
+const INITIAL_FALLBACK_SERVICES = SERVICES_SECTION_DATA.map((srv, index) => ({
+  id: srv.id,
+  serviceId: srv.id,
+  number: String(index + 1).padStart(2, '0'),
+  name: srv.label,
+  title: srv.title,
+  redline: 'PREMIUM CARE',
+  description: srv.description,
+  buttonText: srv.cta,
+  image: srv.image,
+  order: index + 1,
+}));
+
+let initialServices = INITIAL_FALLBACK_SERVICES;
 try {
   const stored = sessionStorage.getItem('stylein_home_services_cache');
-  if (stored) savedServices = JSON.parse(stored);
+  if (stored) {
+    const parsed = JSON.parse(stored);
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      initialServices = parsed;
+    }
+  }
 } catch (_) {}
 
 export const fetchHomeServices = createAsyncThunk(
@@ -25,40 +44,40 @@ export const fetchHomeServices = createAsyncThunk(
 const servicesSlice = createSlice({
   name: 'services',
   initialState: {
-    items: savedServices,
-    loading: savedServices.length === 0,
-    fetched: savedServices.length > 0,
+    items: initialServices,
+    loading: false,
+    fetched: false,
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchHomeServices.pending, (state) => {
-        if (state.items.length === 0) state.loading = true;
         state.error = null;
       })
       .addCase(fetchHomeServices.fulfilled, (state, action) => {
         state.loading = false;
         state.fetched = true;
-        // Sort API services numerically by order ASC
-        const mapped = [...action.payload]
-          .sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0))
-          .map((srv, index) => ({
-            id: srv.id || srv.serviceId || `api-srv-${index + 1}`,
-            serviceId: srv.serviceId || srv.id,
-            number: String(index + 1).padStart(2, '0'),
-            name: srv.name,
-            title: srv.title,
-            redline: srv.redline,
-            description: srv.description,
-            buttonText: srv.buttonText,
-            image: srv.image,
-            order: srv.order,
-          }));
-        state.items = mapped;
-        try {
-          sessionStorage.setItem('stylein_home_services_cache', JSON.stringify(mapped));
-        } catch (_) {}
+        if (Array.isArray(action.payload) && action.payload.length > 0) {
+          const mapped = [...action.payload]
+            .sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0))
+            .map((srv, index) => ({
+              id: srv.id || srv.serviceId || `api-srv-${index + 1}`,
+              serviceId: srv.serviceId || srv.id,
+              number: String(index + 1).padStart(2, '0'),
+              name: srv.name,
+              title: srv.title,
+              redline: srv.redline,
+              description: srv.description,
+              buttonText: srv.buttonText,
+              image: srv.image,
+              order: srv.order,
+            }));
+          state.items = mapped;
+          try {
+            sessionStorage.setItem('stylein_home_services_cache', JSON.stringify(mapped));
+          } catch (_) {}
+        }
       })
       .addCase(fetchHomeServices.rejected, (state, action) => {
         state.loading = false;

@@ -6,22 +6,23 @@ const FALLBACK_POSTER = '/assets/images/stylein-hero-fallback.webp';
 
 export default function HeroVideo() {
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const [mountVideo, setMountVideo] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    if (isBotCrawler()) return false;
-    return window.innerWidth >= 768;
-  });
+  const [mountVideo, setMountVideo] = useState(false);
 
   useEffect(() => {
-    if (mountVideo) return;
+    if (typeof window === 'undefined') return;
     if (isBotCrawler()) return;
+    if (window.innerWidth < 768) return;
 
-    const timer = setTimeout(() => {
-      setMountVideo(true);
-    }, 1200);
+    const startVideo = () => setMountVideo(true);
 
+    if ('requestIdleCallback' in window) {
+      const idleId = window.requestIdleCallback(startVideo, { timeout: 3000 });
+      return () => window.cancelIdleCallback(idleId);
+    }
+
+    const timer = setTimeout(startVideo, 2500);
     return () => clearTimeout(timer);
-  }, [mountVideo]);
+  }, []);
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#07080a]">
@@ -29,18 +30,21 @@ export default function HeroVideo() {
       <img
         src={FALLBACK_POSTER}
         alt="Automotive background"
+        loading="eager"
+        fetchPriority="high"
         className={`absolute inset-0 w-full h-full object-cover scale-112 origin-center transition-opacity duration-800 ease-in-out z-1 ${
           videoLoaded ? 'opacity-0' : 'opacity-100'
         }`}
       />
 
-      {/* Cloudinary Autoplay Video Element */}
+      {/* Cloudinary Autoplay Video Element - Deferred after idle to eliminate TBT */}
       {mountVideo && (
         <video
           autoPlay
           muted
           loop
           playsInline
+          preload="none"
           poster={FALLBACK_POSTER}
           onLoadedData={() => setVideoLoaded(true)}
           className="absolute inset-0 w-full h-full object-cover scale-112 origin-center z-2"

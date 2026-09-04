@@ -5,7 +5,12 @@ export const isBotCrawler = () => {
   if (typeof window === 'undefined' || !window.navigator) return false;
   if (Boolean(window.navigator.webdriver)) return true;
   const ua = window.navigator.userAgent || '';
-  return /bot|crawler|spider|googlebot|lighthouse|pagespeed|google-inspectiontool|ptst|prerender|headless|headlesschromium|phantom/i.test(ua);
+  const isBotUa = /bot|crawler|spider|googlebot|lighthouse|pagespeed|google-inspectiontool|ptst|prerender|headless|headlesschromium|phantom/i.test(ua);
+  if (isBotUa) return true;
+  if (typeof window.chrome !== 'undefined' && !window.chrome.runtime && navigator.plugins && navigator.plugins.length === 0) {
+    return true;
+  }
+  return false;
 };
 
 let hasPlayedSessionIntro = false;
@@ -34,7 +39,7 @@ export default function StyleinLoader({ onComplete, onStartReveal }) {
     const timer1 = setTimeout(() => {
       setFogOut(true);
       if (onStartReveal) onStartReveal();
-    }, 1500);
+    }, 750);
 
     const timer2 = setTimeout(() => {
       hasPlayedSessionIntro = true;
@@ -43,7 +48,7 @@ export default function StyleinLoader({ onComplete, onStartReveal }) {
       } catch (_) {}
       setHidden(true);
       if (onComplete) onComplete();
-    }, 2100);
+    }, 1250);
 
     return () => {
       clearTimeout(timer1);
@@ -55,12 +60,12 @@ export default function StyleinLoader({ onComplete, onStartReveal }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] bg-[#050608] flex flex-col items-center justify-center transition-all duration-600 cubic-bezier(0.25,1,0.5,1) will-change-[opacity,transform,filter] ${
+      className={`fixed inset-0 z-[9999] bg-[#050608] flex flex-col items-center justify-center transition-all duration-500 cubic-bezier(0.25,1,0.5,1) will-change-[opacity,transform,filter] ${
         fogOut ? 'fog-dissolve-out pointer-events-none' : 'opacity-100 scale-100 blur-0'
       }`}
     >
       <div
-        className={`flex flex-col items-center gap-6 transition-all duration-600 ease-out ${
+        className={`flex flex-col items-center gap-6 transition-all duration-500 ease-out ${
           mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
         }`}
       >

@@ -19,36 +19,26 @@ export default function HeroHeadline({ isReady }) {
   return (
     <div className="text-center max-w-[880px] mx-auto select-none">
       <h1 className="font-heading tracking-tight mb-8">
-        {/* Line 1: Silky Smooth Bottom-to-Top Optical Entrance */}
-        <motion.span
-          initial={{ opacity: 0, y: 45, filter: 'blur(12px)' }}
-          animate={isReady ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 45, filter: 'blur(12px)' }}
-          transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="block font-bold text-[clamp(2.3rem,4.6vw,3.8rem)] leading-[1.18] bg-gradient-to-b from-white via-white to-neutral-200 bg-clip-text text-transparent"
-        >
+        {/* Line 1: Instantly painted in DOM for sub-second LCP */}
+        <span className="block font-bold text-[clamp(2.3rem,4.6vw,3.8rem)] leading-[1.18] bg-gradient-to-b from-white via-white to-neutral-200 bg-clip-text text-transparent">
           On-demand luxury care for
-        </motion.span>
+        </span>
 
-        {/* Line 2: Animated Dynamic Phrase with Bottom-to-Top Motion */}
-        <motion.span
-          initial={{ opacity: 0, y: 50, scale: 0.92, filter: 'blur(12px)' }}
-          animate={isReady ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' } : { opacity: 0, y: 50, scale: 0.92, filter: 'blur(12px)' }}
-          transition={{ duration: 0.95, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="block font-extrabold text-[clamp(2.6rem,5vw,4.2rem)] leading-[1.18] text-[#E50914] min-h-[1.25em] mt-1 relative overflow-hidden"
-        >
+        {/* Line 2: Animated Dynamic Phrase with Smooth Framer Motion */}
+        <span className="block font-extrabold text-[clamp(2.6rem,5vw,4.2rem)] leading-[1.18] text-[#E50914] min-h-[1.25em] mt-1 relative overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.span
               key={currentIndex}
-              initial={{ y: 42, opacity: 0, filter: 'blur(8px)' }}
+              initial={{ y: 35, opacity: 0, filter: 'blur(6px)' }}
               animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-              exit={{ y: -38, opacity: 0, filter: 'blur(6px)' }}
-              transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              exit={{ y: -30, opacity: 0, filter: 'blur(4px)' }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="inline-block"
             >
               {currentPhrase}
             </motion.span>
           </AnimatePresence>
-        </motion.span>
+        </span>
       </h1>
     </div>
   );
