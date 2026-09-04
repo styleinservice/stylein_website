@@ -31,13 +31,11 @@ export default function GetAppRightContent() {
       viewport={{ once: true, margin: '-50px' }}
       className="flex-1 flex flex-col justify-center gap-4 text-center lg:text-left items-center lg:items-start z-10 py-4 lg:py-2 w-full"
     >
-      {/* Category Pill with Motion */}
+      {/* Category Label with Motion */}
       <motion.div variants={itemVariants} className="flex justify-center lg:justify-start w-full">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stylein-red/15 border border-stylein-red/30 w-fit backdrop-blur-md">
+        <div className="inline-flex items-center gap-1.5 text-stylein-red text-[0.68rem] font-bold tracking-widest uppercase font-heading">
           <Smartphone size={12} className="text-stylein-red" />
-          <span className="text-stylein-red text-[0.68rem] font-bold tracking-widest uppercase font-heading">
-            MOBILE EXCELLENCE
-          </span>
+          <span>MOBILE EXCELLENCE</span>
         </div>
       </motion.div>
 

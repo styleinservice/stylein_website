@@ -64,13 +64,11 @@ export default function AppShowcaseLeft() {
         viewport={{ once: true, margin: '-50px' }}
         className="flex flex-col gap-3.5 items-center lg:items-start w-full"
       >
-        {/* Category Pill without red ping dot */}
+        {/* Category Label */}
         <motion.div variants={pillVariants} className="flex justify-center lg:justify-start w-full">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-stylein-red/10 border border-stylein-red/25 w-fit">
-            <span className="text-stylein-red text-[0.7rem] font-bold tracking-widest uppercase font-heading">
-              ON-DEMAND DOORSTEP CARE
-            </span>
-          </div>
+          <span className="text-stylein-red text-[0.7rem] font-bold tracking-widest uppercase font-heading">
+            ON-DEMAND DOORSTEP CARE
+          </span>
         </motion.div>
 
         {/* Main Headline */}

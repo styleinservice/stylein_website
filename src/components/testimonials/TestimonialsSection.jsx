@@ -18,12 +18,10 @@ export default function TestimonialsSection() {
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-stylein-red/10 border border-stylein-red/25 w-fit"
+            className="inline-flex items-center gap-1.5 text-stylein-red text-[0.66rem] font-bold tracking-widest uppercase font-heading w-fit"
           >
             <MessageSquareQuote size={12} className="text-stylein-red" />
-            <span className="text-stylein-red text-[0.66rem] font-bold tracking-widest uppercase font-heading">
-              CLIENT EXPERIENCES
-            </span>
+            <span>CLIENT EXPERIENCES</span>
           </motion.div>
 
           {/* Main Title with Bottom-to-Top Optical Blur Reveal */}

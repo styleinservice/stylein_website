@@ -11,12 +11,10 @@ export default function FAQHeader() {
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className="flex flex-col items-center text-center lg:items-start lg:text-left gap-2 mb-5 sm:mb-6 w-full"
     >
-      {/* Category Pill */}
-      <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-stylein-red/10 border border-stylein-red/25 w-fit">
+      {/* Category Label */}
+      <div className="inline-flex items-center gap-1.5 text-stylein-red text-[0.66rem] font-bold tracking-widest uppercase font-heading">
         <HelpCircle size={11} className="text-stylein-red" />
-        <span className="text-stylein-red text-[0.66rem] font-bold tracking-widest uppercase font-heading">
-          FREQUENTLY ASKED QUESTIONS
-        </span>
+        <span>FREQUENTLY ASKED QUESTIONS</span>
       </div>
 
       {/* Scaled-Down Main Title */}
