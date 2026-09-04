@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { isBotCrawler } from './StyleinLoader';
 
 const VIDEO_URL = 'https://res.cloudinary.com/hrd4p6l8/video/upload/v1788351643/WEBSITE_PAGE_VIDEO.mp4';
@@ -7,31 +7,24 @@ const FALLBACK_POSTER = '/assets/images/stylein-hero-fallback.webp';
 export default function HeroVideo() {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [mountVideo, setMountVideo] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if (isBotCrawler()) return;
 
-    let started = false;
-    const startVideo = () => {
-      if (started) return;
-      started = true;
+    const timer = setTimeout(() => {
       setMountVideo(true);
-      window.removeEventListener('scroll', startVideo);
-      window.removeEventListener('touchstart', startVideo);
-    };
+    }, 600);
 
-    window.addEventListener('scroll', startVideo, { passive: true, once: true });
-    window.addEventListener('touchstart', startVideo, { passive: true, once: true });
-
-    const timer = setTimeout(startVideo, 2000);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('scroll', startVideo);
-      window.removeEventListener('touchstart', startVideo);
-    };
+    return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (mountVideo && videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
+  }, [mountVideo]);
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#07080a]">
@@ -49,14 +42,17 @@ export default function HeroVideo() {
       {/* Cloudinary Autoplay Video Element - Plays on Desktop & Mobile */}
       {mountVideo && (
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
           webkit-playsinline="true"
-          preload="none"
+          preload="auto"
           poster={FALLBACK_POSTER}
           onLoadedData={() => setVideoLoaded(true)}
+          onCanPlay={() => setVideoLoaded(true)}
+          onPlaying={() => setVideoLoaded(true)}
           className="absolute inset-0 w-full h-full object-cover scale-112 origin-center z-2"
         >
           <source src={VIDEO_URL} type="video/mp4" />

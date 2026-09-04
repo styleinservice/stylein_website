@@ -1,7 +1,7 @@
 import React, { useState, useRef, useLayoutEffect, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { SmoothScrollProvider, useSmoothScroll } from '../context/SmoothScrollContext';
-import StyleinLoader, { checkIntroPlayed } from '../components/home/StyleinLoader';
+import StyleinLoader, { isBotCrawler } from '../components/home/StyleinLoader';
 import StyleinNavbar from '../components/home/StyleinNavbar';
 import NavMobileMenu from '../components/home/NavMobileMenu';
 import HeroSection from '../components/home/HeroSection';
@@ -15,7 +15,7 @@ const GetAppBanner = lazy(() => import('../components/download-banner/GetAppBann
 const StyleinFooter = lazy(() => import('../components/footer/StyleinFooter'));
 
 function HomeContent() {
-  const [isReady, setIsReady] = useState(() => checkIntroPlayed());
+  const [isReady, setIsReady] = useState(() => isBotCrawler());
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
   const [capturedScrollY, setCapturedScrollY] = useState(0);

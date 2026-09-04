@@ -15,7 +15,7 @@ export default function FAQ({ questions = [] }) {
       <div className="w-full max-w-[900px] mx-auto">
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-3">
+          <div className="inline-flex items-center gap-1.5 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-3 font-heading">
             <HelpCircle size={12} />
             <span>CLARITY & DETAILS</span>
           </div>

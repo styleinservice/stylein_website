@@ -26,13 +26,13 @@ export default function BrandsHero() {
       animate="visible"
       className="relative w-full pt-28 sm:pt-32 pb-8 px-6 sm:px-10 lg:px-12 flex flex-col items-center text-center"
     >
-      {/* Badge */}
-      <motion.div
+      {/* Category Label */}
+      <motion.span
         variants={itemVariants}
-        className="inline-flex items-center px-3 py-0.5 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-3"
+        className="text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase text-stylein-red mb-3 block font-heading"
       >
-        <span>PRECISION AUTOMOTIVE DIRECTORY</span>
-      </motion.div>
+        PRECISION AUTOMOTIVE DIRECTORY
+      </motion.span>
 
       {/* Scaled-down Heading */}
       <motion.h1

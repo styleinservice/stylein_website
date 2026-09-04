@@ -11,15 +11,14 @@ export function SmoothScrollProvider({ children }) {
     const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
     const lenisInstance = new Lenis({
-      duration: isTouch ? 0.9 : 1.1,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.0,
       touchMultiplier: 1.0,
-      syncTouch: true,
-      syncTouchLerp: 0.1,
+      syncTouch: false,
       infinite: false,
     });
 

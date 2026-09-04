@@ -68,13 +68,13 @@ export default function DetailHero({ service }) {
       >
         {/* Left Content on Desktop / Bottom on Mobile with Inset Padding */}
         <div className="order-2 lg:order-1 lg:col-span-6 flex flex-col items-start text-left pl-0 sm:pl-3 lg:pl-6 max-w-[480px]">
-          {/* Small Badge */}
-          <motion.div
+          {/* Section Category Label */}
+          <motion.span
             variants={itemVariants}
-            className="inline-flex items-center px-3 py-0.5 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-2.5"
+            className="text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase text-stylein-red mb-2.5 block font-heading"
           >
-            <span>PREMIUM AUTOMOTIVE SERVICE</span>
-          </motion.div>
+            PREMIUM AUTOMOTIVE SERVICE
+          </motion.span>
 
           {/* Heading with Gradient */}
           <motion.h1

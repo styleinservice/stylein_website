@@ -21,7 +21,7 @@ export default function WhyChooseUs({ servicesImages = [] }) {
       <div className="w-full max-w-[1280px] mx-auto">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-10 sm:mb-14">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-3">
+          <div className="inline-flex items-center gap-1.5 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-3 font-heading">
             <Shield size={12} />
             <span>UNMATCHED QUALITY</span>
           </div>

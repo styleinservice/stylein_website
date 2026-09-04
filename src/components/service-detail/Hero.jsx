@@ -30,7 +30,7 @@ export default function Hero({ service }) {
         {/* Left Column Content */}
         <div className="lg:col-span-7 flex flex-col items-start text-left">
           <div className="flex flex-wrap items-center gap-2.5 mb-4">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase">
+            <div className="inline-flex items-center gap-1.5 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase font-heading">
               <Sparkles size={12} />
               <span>PREMIUM AUTOMOTIVE SERVICE</span>
             </div>

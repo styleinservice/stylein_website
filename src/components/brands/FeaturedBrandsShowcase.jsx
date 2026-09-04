@@ -85,9 +85,9 @@ export default function FeaturedBrandsShowcase() {
 
       <div className="relative z-10 max-w-[1160px] mx-auto flex flex-col items-center gap-5 sm:gap-7 w-full">
         <motion.div variants={headerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} className="text-center flex flex-col items-center max-w-xl">
-          <motion.div variants={itemVariants} className="inline-flex items-center px-3 py-0.5 rounded-full bg-stylein-red/10 border border-stylein-red/25 text-stylein-red text-[0.68rem] sm:text-[0.72rem] font-bold tracking-widest uppercase mb-2">
-            <span>THE PINNACLE OF AUTOMOTIVE CARE</span>
-          </motion.div>
+          <motion.span variants={itemVariants} className="text-[0.68rem] sm:text-[0.72rem] font-bold tracking-widest uppercase text-stylein-red mb-2 block font-heading">
+            THE PINNACLE OF AUTOMOTIVE CARE
+          </motion.span>
           <motion.h2 variants={itemVariants} className="font-heading text-2xl sm:text-3xl lg:text-[2.35rem] font-extrabold text-white tracking-tight uppercase leading-[1.12]">
             LUXURY <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-stylein-red">MARQUES</span>
           </motion.h2>

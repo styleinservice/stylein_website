@@ -5,40 +5,17 @@ export const isBotCrawler = () => {
   if (typeof window === 'undefined' || !window.navigator) return false;
   if (Boolean(window.navigator.webdriver)) return true;
   const ua = window.navigator.userAgent || '';
-  const isBotUa = /bot|crawler|spider|googlebot|lighthouse|pagespeed|google-inspectiontool|ptst|prerender|headless|headlesschromium|phantom/i.test(ua);
-  if (isBotUa) return true;
-
-  // Google PageSpeed / Lighthouse Mobile emulation (Moto G Power profile)
-  if (
-    /Android 10; K/i.test(ua) ||
-    window.devicePixelRatio === 1.75 ||
-    (typeof window.screen !== 'undefined' && window.screen.width === 412 && window.screen.height === 823)
-  ) {
-    return true;
-  }
-
-  if (typeof window.chrome !== 'undefined' && !window.chrome.runtime && navigator.plugins && navigator.plugins.length === 0) {
-    return true;
-  }
-  return false;
+  return /bot|crawler|spider|googlebot|lighthouse|pagespeed|google-inspectiontool|ptst|prerender|headless|headlesschromium|phantom/i.test(ua);
 };
-
-let hasPlayedSessionIntro = false;
-try {
-  hasPlayedSessionIntro = isBotCrawler() || sessionStorage.getItem('stylein_intro_played') === 'true';
-} catch (_) {}
-
-export const checkIntroPlayed = () => hasPlayedSessionIntro;
 
 export default function StyleinLoader({ onComplete, onStartReveal }) {
   const isBot = isBotCrawler();
-  const [alreadyPlayed] = useState(hasPlayedSessionIntro || isBot);
   const [mounted, setMounted] = useState(false);
   const [fogOut, setFogOut] = useState(false);
-  const [hidden, setHidden] = useState(hasPlayedSessionIntro || isBot);
+  const [hidden, setHidden] = useState(isBot);
 
   useEffect(() => {
-    if (alreadyPlayed) {
+    if (isBot) {
       if (onStartReveal) onStartReveal();
       if (onComplete) onComplete();
       return;
@@ -49,24 +26,20 @@ export default function StyleinLoader({ onComplete, onStartReveal }) {
     const timer1 = setTimeout(() => {
       setFogOut(true);
       if (onStartReveal) onStartReveal();
-    }, 750);
+    }, 700);
 
     const timer2 = setTimeout(() => {
-      hasPlayedSessionIntro = true;
-      try {
-        sessionStorage.setItem('stylein_intro_played', 'true');
-      } catch (_) {}
       setHidden(true);
       if (onComplete) onComplete();
-    }, 1250);
+    }, 1100);
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, [alreadyPlayed, onComplete, onStartReveal]);
+  }, [isBot, onComplete, onStartReveal]);
 
-  if (hidden || alreadyPlayed) return null;
+  if (hidden || isBot) return null;
 
   return (
     <div

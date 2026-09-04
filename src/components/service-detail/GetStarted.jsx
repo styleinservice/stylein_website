@@ -23,7 +23,7 @@ export default function GetStarted({ getStarted, serviceTitle = '' }) {
       <div className="w-full max-w-[1280px] mx-auto">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center max-w-xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-3">
+          <div className="inline-flex items-center gap-1.5 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-3 font-heading">
             <Smartphone size={12} />
             <span>SEAMLESS BOOKING</span>
           </div>

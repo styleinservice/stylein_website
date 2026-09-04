@@ -9,7 +9,7 @@ export default function Gallery({ items = [] }) {
       <div className="w-full max-w-[1280px] mx-auto flex flex-col gap-16 sm:gap-24">
         {/* Section Title */}
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-2 sm:mb-6">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-3">
+          <div className="inline-flex items-center gap-1.5 text-stylein-red text-[0.68rem] sm:text-xs font-bold tracking-widest uppercase mb-3 font-heading">
             <Flame size={12} />
             <span>IN-DEPTH SHOWCASE</span>
           </div>

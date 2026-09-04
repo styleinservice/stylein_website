@@ -34,14 +34,14 @@ export default function FAQPageHero() {
         animate="visible"
         className="relative z-10 max-w-[860px] mx-auto flex flex-col items-center"
       >
-        {/* Category Pill */}
-        <motion.div
+        {/* Category Label */}
+        <motion.span
           variants={itemVariants}
-          className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.7rem] sm:text-xs font-bold tracking-widest uppercase mb-4 font-heading"
+          className="inline-flex items-center gap-2 text-[0.7rem] sm:text-xs font-bold tracking-widest uppercase text-stylein-red mb-4 font-heading"
         >
           <HelpCircle size={13} className="text-stylein-red" />
           <span>HELP & KNOWLEDGE BASE</span>
-        </motion.div>
+        </motion.span>
 
         {/* Main Heading with Luxury Red Gradient */}
         <motion.h1

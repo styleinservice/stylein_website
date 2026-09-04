@@ -27,13 +27,13 @@ export default function ServicesHero({ totalCount, filteredCount, searchQuery, o
       animate="visible"
       className="w-full pt-28 sm:pt-32 md:pt-36 lg:pt-38 px-4 sm:px-6 flex flex-col items-center text-center max-w-3xl mx-auto mb-6 sm:mb-10 relative z-10"
     >
-      {/* Badge with red highlight */}
-      <motion.div
+      {/* Category Label */}
+      <motion.span
         variants={itemVariants}
-        className="inline-flex items-center px-3.5 py-1 rounded-full bg-stylein-red/10 border border-stylein-red/30 text-stylein-red text-[0.66rem] sm:text-xs font-bold tracking-widest uppercase mb-3 shadow-[0_0_20px_rgba(229,9,20,0.2)]"
+        className="text-[0.66rem] sm:text-xs font-bold tracking-widest uppercase text-stylein-red mb-3 block font-heading"
       >
-        <span>PREMIUM AUTOMOTIVE SERVICES</span>
-      </motion.div>
+        PREMIUM AUTOMOTIVE SERVICES
+      </motion.span>
 
       {/* Scaled-down Heading with Gradient */}
       <motion.h1
