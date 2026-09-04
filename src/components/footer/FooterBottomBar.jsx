@@ -73,18 +73,11 @@ export default function FooterBottomBar() {
       <div className="flex items-center gap-6 flex-wrap justify-center sm:justify-start">
         <span>© {new Date().getFullYear()} STYLEIN. All Rights Reserved</span>
         <a
-          href="/terms"
-          onClick={(e) => handleNav('/terms', e)}
+          href="/legal"
+          onClick={(e) => handleNav('/legal', e)}
           className="text-neutral-400 hover:text-white no-underline transition-colors cursor-pointer"
         >
-          Terms
-        </a>
-        <a
-          href="/privacy"
-          onClick={(e) => handleNav('/privacy', e)}
-          className="text-neutral-400 hover:text-white no-underline transition-colors cursor-pointer"
-        >
-          Privacy
+          Terms & Privacy
         </a>
       </div>
 
