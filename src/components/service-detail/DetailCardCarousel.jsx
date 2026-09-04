@@ -3,10 +3,14 @@ import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import DetailInteractiveCard from './DetailInteractiveCard';
 
-export default function DetailCardCarousel({ items = [] }) {
+export default function DetailCardCarousel({ items = [], service }) {
   const scrollRef = useRef(null);
   const [showArrows, setShowArrows] = useState(false);
   const [openCardIndex, setOpenCardIndex] = useState(null);
+
+  const cardItems = (Array.isArray(items) && items.length > 0)
+    ? items
+    : (service?.servicesImages || service?.cards || []);
 
   const checkScrollable = useCallback(() => {
     if (scrollRef.current) {
@@ -19,9 +23,9 @@ export default function DetailCardCarousel({ items = [] }) {
     checkScrollable();
     window.addEventListener('resize', checkScrollable);
     return () => window.removeEventListener('resize', checkScrollable);
-  }, [checkScrollable, items]);
+  }, [checkScrollable, cardItems]);
 
-  if (!items || items.length === 0) return null;
+  if (!cardItems || cardItems.length === 0) return null;
 
   const handleToggleCard = (idx) => {
     setOpenCardIndex((prev) => (prev === idx ? null : idx));
@@ -67,7 +71,7 @@ export default function DetailCardCarousel({ items = [] }) {
             showArrows ? 'justify-start' : 'justify-center'
           }`}
         >
-          {items.map((item, idx) => (
+          {cardItems.map((item, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 35, scale: 0.94, filter: 'blur(8px)' }}

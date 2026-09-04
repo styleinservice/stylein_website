@@ -112,7 +112,7 @@ function ServiceDetailContent() {
             {loading ? <DetailSkeleton /> : error ? <DetailError error={error} onRetry={fetchServiceDetail} /> : service ? (
               <>
                 <DetailHero service={service} />
-                <DetailCardCarousel service={service} />
+                <DetailCardCarousel service={service} items={service?.servicesImages} />
                 <DetailStorySpotlight service={service} />
                 <DetailGetStarted service={service} />
                 <DetailReviews service={service} />

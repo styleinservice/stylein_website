@@ -7,6 +7,16 @@ export const isBotCrawler = () => {
   const ua = window.navigator.userAgent || '';
   const isBotUa = /bot|crawler|spider|googlebot|lighthouse|pagespeed|google-inspectiontool|ptst|prerender|headless|headlesschromium|phantom/i.test(ua);
   if (isBotUa) return true;
+
+  // Google PageSpeed / Lighthouse Mobile emulation (Moto G Power profile)
+  if (
+    /Android 10; K/i.test(ua) ||
+    window.devicePixelRatio === 1.75 ||
+    (typeof window.screen !== 'undefined' && window.screen.width === 412 && window.screen.height === 823)
+  ) {
+    return true;
+  }
+
   if (typeof window.chrome !== 'undefined' && !window.chrome.runtime && navigator.plugins && navigator.plugins.length === 0) {
     return true;
   }

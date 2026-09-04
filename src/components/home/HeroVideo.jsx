@@ -11,17 +11,26 @@ export default function HeroVideo() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if (isBotCrawler()) return;
-    if (window.innerWidth < 768) return;
 
-    const startVideo = () => setMountVideo(true);
+    let started = false;
+    const startVideo = () => {
+      if (started) return;
+      started = true;
+      setMountVideo(true);
+      window.removeEventListener('scroll', startVideo);
+      window.removeEventListener('touchstart', startVideo);
+    };
 
-    if ('requestIdleCallback' in window) {
-      const idleId = window.requestIdleCallback(startVideo, { timeout: 3000 });
-      return () => window.cancelIdleCallback(idleId);
-    }
+    window.addEventListener('scroll', startVideo, { passive: true, once: true });
+    window.addEventListener('touchstart', startVideo, { passive: true, once: true });
 
-    const timer = setTimeout(startVideo, 2500);
-    return () => clearTimeout(timer);
+    const timer = setTimeout(startVideo, 2000);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('scroll', startVideo);
+      window.removeEventListener('touchstart', startVideo);
+    };
   }, []);
 
   return (
@@ -37,13 +46,14 @@ export default function HeroVideo() {
         }`}
       />
 
-      {/* Cloudinary Autoplay Video Element - Deferred after idle to eliminate TBT */}
+      {/* Cloudinary Autoplay Video Element - Plays on Desktop & Mobile */}
       {mountVideo && (
         <video
           autoPlay
           muted
           loop
           playsInline
+          webkit-playsinline="true"
           preload="none"
           poster={FALLBACK_POSTER}
           onLoadedData={() => setVideoLoaded(true)}
