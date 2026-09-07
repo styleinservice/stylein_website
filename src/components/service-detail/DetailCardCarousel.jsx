@@ -25,7 +25,10 @@ export default function DetailCardCarousel({ items = [], service }) {
     return () => window.removeEventListener('resize', checkScrollable);
   }, [checkScrollable, cardItems]);
 
-  if (!cardItems || cardItems.length === 0) return null;
+  const title = (service?.title || service?.serviceName || service?.name || '').toLowerCase();
+  const isCarWash = title.includes('wash') || service?._id === '6a65aa710f4632990c8c8973';
+
+  if (!isCarWash || !cardItems || cardItems.length <= 1) return null;
 
   const handleToggleCard = (idx) => {
     setOpenCardIndex((prev) => (prev === idx ? null : idx));
