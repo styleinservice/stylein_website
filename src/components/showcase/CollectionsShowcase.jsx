@@ -23,10 +23,12 @@ export default function CollectionsShowcase() {
     setActiveIndex(idx);
   };
 
-  const isLoading = loading || !fetched || !services || services.length === 0;
-
-  if (isLoading) {
+  if (loading || !fetched) {
     return <ServicesShowcaseSkeleton />;
+  }
+
+  if (!services || services.length === 0) {
+    return null;
   }
 
   const safeIndex = activeIndex < services.length ? activeIndex : 0;

@@ -1,21 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/axios';
-import { SERVICES_SECTION_DATA } from '../../constants/servicesData';
 
-const INITIAL_FALLBACK_SERVICES = SERVICES_SECTION_DATA.map((srv, index) => ({
-  id: srv.id,
-  serviceId: srv.id,
-  number: String(index + 1).padStart(2, '0'),
-  name: srv.label,
-  title: srv.title,
-  redline: 'PREMIUM CARE',
-  description: srv.description,
-  buttonText: srv.cta,
-  image: srv.image,
-  order: index + 1,
-}));
-
-let initialServices = INITIAL_FALLBACK_SERVICES;
+let initialServices = [];
 try {
   const stored = sessionStorage.getItem('stylein_home_services_cache');
   if (stored) {
@@ -45,14 +31,15 @@ const servicesSlice = createSlice({
   name: 'services',
   initialState: {
     items: initialServices,
-    loading: false,
-    fetched: false,
+    loading: initialServices.length === 0,
+    fetched: initialServices.length > 0,
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchHomeServices.pending, (state) => {
+        state.loading = state.items.length === 0;
         state.error = null;
       })
       .addCase(fetchHomeServices.fulfilled, (state, action) => {
@@ -65,18 +52,20 @@ const servicesSlice = createSlice({
               id: srv.id || srv.serviceId || `api-srv-${index + 1}`,
               serviceId: srv.serviceId || srv.id,
               number: String(index + 1).padStart(2, '0'),
-              name: srv.name,
-              title: srv.title,
-              redline: srv.redline,
-              description: srv.description,
-              buttonText: srv.buttonText,
-              image: srv.image,
-              order: srv.order,
+              name: srv.name || srv.title || '',
+              title: srv.title || srv.name || '',
+              redline: srv.redline || 'PREMIUM CARE',
+              description: srv.description || '',
+              buttonText: srv.buttonText || 'Discover Service',
+              image: srv.image || '',
+              order: srv.order ?? index + 1,
             }));
           state.items = mapped;
           try {
             sessionStorage.setItem('stylein_home_services_cache', JSON.stringify(mapped));
           } catch (_) {}
+        } else {
+          state.items = [];
         }
       })
       .addCase(fetchHomeServices.rejected, (state, action) => {

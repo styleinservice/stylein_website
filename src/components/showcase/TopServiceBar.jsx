@@ -22,6 +22,9 @@ export default function TopServiceBar({ services = [], activeIndex, onSelect }) 
               <img
                 src={optimizeCloudinary(item.image, 140)}
                 alt={item.name}
+                onError={(e) => {
+                  e.currentTarget.style.visibility = 'hidden';
+                }}
                 className={`w-11 h-11 sm:w-14 sm:h-14 lg:w-16 lg:h-16 object-contain transition-all duration-300 ${
                   isActive
                     ? 'scale-105 drop-shadow-[0_8px_16px_rgba(0,0,0,0.8)]'
