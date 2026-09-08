@@ -64,7 +64,7 @@ export const FAQ_SUPPORT_CARDS = [
     title: 'WhatsApp Concierge',
     subtitle: 'Chat live with our automotive care team',
     actionText: 'Start Live Chat',
-    actionHref: 'https://wa.me/971507895346?text=Hello%20STYLEIN%20Team%2C%20I%20have%20a%20question%20regarding%20your%20services.',
+    actionHref: 'https://wa.me/971558120570?text=Hello%20STYLEIN%20Team%2C%20I%20have%20a%20question%20regarding%20your%20services.',
     iconName: 'MessageSquare',
   },
   {

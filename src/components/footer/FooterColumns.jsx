@@ -46,7 +46,7 @@ export default function FooterColumns() {
               <Phone size={13} className="text-neutral-400" />
               <span>800 STYLEIN</span>
             </a>
-            <a href="https://wa.me/97180078953" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-neutral-300 hover:text-white no-underline">
+            <a href="https://wa.me/971558120570" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-neutral-300 hover:text-white no-underline">
               <MessageSquare size={13} className="text-emerald-400" />
               <span>WhatsApp</span>
             </a>
@@ -98,7 +98,7 @@ export default function FooterColumns() {
             <Phone size={14} className="text-neutral-400" />
             <span>800 STYLEIN</span>
           </a>
-          <a href="https://wa.me/97180078953" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors">
+          <a href="https://wa.me/971558120570" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors">
             <MessageSquare size={14} className="text-emerald-400" />
             <span>WhatsApp</span>
           </a>
