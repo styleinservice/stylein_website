@@ -105,7 +105,12 @@ export default function NavMobileMenu({ isOpen, onClose }) {
             FAQs
           </a>
 
-          {/* 6. Rescue Me */}
+          {/* 6. Contact */}
+          <a href="/contact" onClick={(e) => handleNavClick('/contact', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
+            Contact
+          </a>
+
+          {/* 7. Rescue Me */}
           <a href="/rescue" onClick={(e) => handleNavClick('/rescue', e)} className="inline-flex items-center gap-2 text-[#FF3B47] text-[0.98rem] font-bold no-underline py-1 mt-0.5 relative cursor-pointer">
             <LifeBuoy size={18} className="text-[#FF3B47]" />
             <span>Rescue me!</span>

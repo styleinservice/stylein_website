@@ -9,6 +9,7 @@ const ServiceDetailPage = lazy(() => import('./pages/ServiceDetail/index'));
 const RescuePage = lazy(() => import('./pages/Rescue/index'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage/index'));
+const ContactPage = lazy(() => import('./pages/ContactPage/index'));
 
 export default function App() {
   return (
@@ -21,6 +22,8 @@ export default function App() {
           <Route path="/brands" element={<BrandsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/rescue" element={<RescuePage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/contact-us" element={<Navigate to="/contact" replace />} />
           <Route path="/faqs" element={<FAQPage />} />
           <Route path="/faq" element={<Navigate to="/faqs" replace />} />
           <Route path="/legal" element={<LegalPage />} />

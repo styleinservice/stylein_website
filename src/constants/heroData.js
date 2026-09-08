@@ -4,6 +4,7 @@ export const NAV_LINKS = [
   { id: 'brands', label: 'Brands', href: '/brands' },
   { id: 'about', label: 'About Us', href: '/about' },
   { id: 'faqs', label: 'FAQs', href: '/faqs' },
+  { id: 'contact', label: 'Contact', href: '/contact' },
 ];
 
 export const DYNAMIC_PHRASES = [
