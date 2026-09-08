@@ -95,14 +95,14 @@ export default function NavMobileMenu({ isOpen, onClose }) {
             Brands
           </a>
 
-          {/* 4. About Us */}
-          <a href="/about" onClick={(e) => handleNavClick('/about', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
-            About Us
-          </a>
-
-          {/* 5. FAQs */}
+          {/* 4. FAQs */}
           <a href="/faqs" onClick={(e) => handleNavClick('/faqs', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
             FAQs
+          </a>
+
+          {/* 5. About Us */}
+          <a href="/about" onClick={(e) => handleNavClick('/about', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
+            About Us
           </a>
 
           {/* 6. Contact */}

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { SERVICE_CATEGORIES, CONTACT_INFO } from '../../constants/contactData';
-import { Send, MessageSquare, CheckCircle, Sparkles } from 'lucide-react';
+import { Send, MessageSquare, CheckCircle } from 'lucide-react';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
     email: '',
-    service: SERVICE_CATEGORIES[0],
+    subject: '',
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
@@ -24,48 +23,43 @@ export default function ContactForm() {
 
   const handleWhatsAppSend = () => {
     const text = encodeURIComponent(
-      `Hello STYLEIN,\n\nName: ${formData.name || 'Not provided'}\nPhone: ${formData.phone || 'Not provided'}\nService: ${formData.service}\nNote: ${formData.message || 'I would like to book a service.'}`
+      `Hello STYLEIN,\nName: ${formData.name || 'Not provided'}\nPhone: ${formData.phone || 'Not provided'}\nSubject: ${formData.subject || 'General Inquiry'}\nNote: ${formData.message || 'I would like to inquire about services.'}`
     );
     window.open(`https://wa.me/971558120570?text=${text}`, '_blank');
   };
 
   return (
-    <div className="w-full bg-[#0b0d14]/90 border border-white/[0.08] rounded-3xl p-6 sm:p-8 lg:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-xl relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-stylein-red/10 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="mb-6 sm:mb-8 text-left">
-        <span className="text-[0.72rem] font-bold tracking-wider text-stylein-red uppercase font-heading flex items-center gap-1.5">
-          <Sparkles size={13} /> Direct Service Inquiry
-        </span>
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white font-heading mt-1">
+    <div className="w-full bg-[#0b0d14]/90 border border-white/[0.08] rounded-2xl p-5 sm:p-6 shadow-[0_15px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl relative overflow-hidden text-left">
+      <div className="mb-4">
+        <h2 className="text-lg sm:text-xl font-bold text-white font-heading">
           Send Us a Message
         </h2>
-        <p className="text-neutral-400 text-xs sm:text-sm mt-1 font-body">
-          Fill out the form below or chat directly on WhatsApp for instantaneous booking.
+        <p className="text-neutral-400 text-xs mt-0.5 font-body">
+          Fill out the details below or message our team directly on WhatsApp.
         </p>
       </div>
 
       {submitted ? (
-        <div className="py-12 px-4 flex flex-col items-center text-center">
-          <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-4 animate-bounce">
-            <CheckCircle size={32} />
+        <div className="py-8 px-2 flex flex-col items-center text-center">
+          <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-3">
+            <CheckCircle size={24} />
           </div>
-          <h3 className="text-xl font-bold text-white font-heading">Thank You!</h3>
-          <p className="text-neutral-300 text-sm max-w-md mt-2 font-body">
-            Your inquiry has been received. Our concierge representative will contact you within 15 minutes.
+          <h3 className="text-base font-bold text-white font-heading">Inquiry Received</h3>
+          <p className="text-neutral-300 text-xs max-w-sm mt-1 font-body">
+            Thank you! Our concierge representative will contact you within 15 minutes.
           </p>
           <button
             onClick={() => setSubmitted(false)}
-            className="mt-6 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-colors"
+            className="mt-4 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-colors cursor-pointer"
           >
             Send Another Message
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-left">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-neutral-300 mb-1.5 font-heading">Your Name *</label>
+              <label className="block text-[0.72rem] font-semibold text-neutral-300 mb-1 font-heading">Your Name *</label>
               <input
                 required
                 type="text"
@@ -73,11 +67,11 @@ export default function ContactForm() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="e.g. Tariq Al Mansoori"
-                className="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF3B47] text-white text-sm outline-none transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF3B47] text-white text-xs sm:text-sm outline-none transition-colors"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-neutral-300 mb-1.5 font-heading">Phone / WhatsApp *</label>
+              <label className="block text-[0.72rem] font-semibold text-neutral-300 mb-1 font-heading">Phone / WhatsApp *</label>
               <input
                 required
                 type="tel"
@@ -85,64 +79,62 @@ export default function ContactForm() {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="+971 50 000 0000"
-                className="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF3B47] text-white text-sm outline-none transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF3B47] text-white text-xs sm:text-sm outline-none transition-colors"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-neutral-300 mb-1.5 font-heading">Email Address</label>
+              <label className="block text-[0.72rem] font-semibold text-neutral-300 mb-1 font-heading">Email Address</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@domain.com"
-                className="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF3B47] text-white text-sm outline-none transition-colors"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF3B47] text-white text-xs sm:text-sm outline-none transition-colors"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-neutral-300 mb-1.5 font-heading">Required Service</label>
-              <select
-                name="service"
-                value={formData.service}
+              <label className="block text-[0.72rem] font-semibold text-neutral-300 mb-1 font-heading">Subject</label>
+              <input
+                type="text"
+                name="subject"
+                value={formData.subject}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-xl bg-[#121520] border border-white/10 focus:border-[#FF3B47] text-white text-sm outline-none transition-colors cursor-pointer"
-              >
-                {SERVICE_CATEGORIES.map((srv, idx) => (
-                  <option key={idx} value={srv} className="bg-[#121520] text-white">{srv}</option>
-                ))}
-              </select>
+                placeholder="e.g. Car Wash, Battery, Service Quote..."
+                className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF3B47] text-white text-xs sm:text-sm outline-none transition-colors"
+              />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-neutral-300 mb-1.5 font-heading">Vehicle Details or Notes</label>
+            <label className="block text-[0.72rem] font-semibold text-neutral-300 mb-1 font-heading">Vehicle Details or Notes</label>
             <textarea
-              rows={3}
+              rows={2}
               name="message"
               value={formData.message}
               onChange={handleChange}
-              placeholder="e.g. Car Model, Location in Ajman/Dubai, preferred arrival time..."
-              className="w-full px-4 py-3 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF3B47] text-white text-sm outline-none transition-colors resize-none"
+              placeholder="e.g. Car Model, Location in Ajman/Dubai..."
+              className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF3B47] text-white text-xs sm:text-sm outline-none transition-colors resize-none"
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row items-center gap-2.5 pt-1">
             <button
               type="submit"
-              className="w-full sm:flex-1 py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#E50914] via-[#FF1F2D] to-[#E50914] text-white font-semibold text-sm flex items-center justify-center gap-2 hover:shadow-[0_4px_25px_rgba(229,9,20,0.5)] transition-all cursor-pointer"
+              className="w-full sm:flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#E50914] via-[#FF1F2D] to-[#E50914] text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 hover:shadow-[0_4px_20px_rgba(229,9,20,0.4)] transition-all cursor-pointer"
             >
-              <Send size={15} />
+              <Send size={14} />
               <span>Submit Inquiry</span>
             </button>
             <button
               type="button"
               onClick={handleWhatsAppSend}
-              className="w-full sm:w-auto py-3.5 px-5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 text-emerald-400 font-semibold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
+              className="w-full sm:w-auto py-2.5 px-4 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 text-emerald-400 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all cursor-pointer"
             >
-              <MessageSquare size={16} />
+              <MessageSquare size={14} />
               <span>Send via WhatsApp</span>
             </button>
           </div>

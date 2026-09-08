@@ -86,20 +86,22 @@ function ContactPageContent() {
             onToggleMobileMenu={handleOpenMenu}
           />
 
-          <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden pb-16 sm:pb-24">
-            <ContactHero />
-            <ContactCards />
+          <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden pb-12 sm:pb-16">
+            <div className="w-full max-w-[860px] mx-auto px-4 sm:px-6 flex flex-col items-center">
+              <ContactHero />
+              <ContactCards />
 
-            <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-              <div className="lg:col-span-7 w-full">
-                <ContactForm />
+              <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-5 items-start">
+                <div className="lg:col-span-7 w-full">
+                  <ContactForm />
+                </div>
+                <div className="lg:col-span-5 w-full">
+                  <ContactHoursMap />
+                </div>
               </div>
-              <div className="lg:col-span-5 w-full">
-                <ContactHoursMap />
-              </div>
+
+              <ContactEmergencyStrip />
             </div>
-
-            <ContactEmergencyStrip />
           </div>
 
           <StyleinFooter />
