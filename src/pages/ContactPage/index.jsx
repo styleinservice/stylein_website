@@ -87,7 +87,7 @@ function ContactPageContent() {
           />
 
           <div className="relative z-10 w-full flex flex-col items-center bg-[#040406] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] overflow-hidden pb-12 sm:pb-16">
-            <div className="w-full max-w-[860px] mx-auto px-4 sm:px-6 flex flex-col items-center">
+            <div className="w-full max-w-[1040px] mx-auto px-4 sm:px-6 flex flex-col items-center">
               <ContactHero />
               <ContactCards />
 

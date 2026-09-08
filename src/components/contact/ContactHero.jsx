@@ -1,10 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, ShieldCheck, MapPin } from 'lucide-react';
 
 export default function ContactHero() {
   return (
-    <section className="w-full pt-24 sm:pt-28 md:pt-32 pb-8 sm:pb-10 flex flex-col items-center text-center px-4 relative z-10">
+    <section className="w-full pt-20 sm:pt-24 md:pt-28 pb-6 sm:pb-8 flex flex-col items-center text-center px-4 relative z-10">
       {/* Ambient background glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[460px] h-[200px] sm:h-[260px] bg-stylein-red/12 rounded-full blur-[120px] pointer-events-none -z-10" />
 
@@ -42,24 +41,6 @@ export default function ContactHero() {
       >
         Need rapid doorstep service, roadside rescue, or a quote in Ajman & across the UAE? Our concierge team is on standby 24/7.
       </motion.p>
-
-      {/* Highlight Badges */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, delay: 0.24 }}
-        className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-5 text-[0.72rem] sm:text-xs text-neutral-300 font-medium"
-      >
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06]">
-          <Zap size={12} className="text-[#FF3B47]" /> 20-Min Response Time
-        </span>
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06]">
-          <ShieldCheck size={12} className="text-emerald-400" /> Certified Technicians
-        </span>
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06]">
-          <MapPin size={12} className="text-amber-400" /> Ajman Hub & Doorstep
-        </span>
-      </motion.div>
     </section>
   );
 }
