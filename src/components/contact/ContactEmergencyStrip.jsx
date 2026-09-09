@@ -7,8 +7,8 @@ export default function ContactEmergencyStrip() {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full mt-6 sm:mt-8">
-      <div className="relative overflow-hidden rounded-2xl p-4 sm:p-5 bg-gradient-to-r from-[#1c0809] via-[#12070a] to-[#0d0e14] border border-[#FF3B47]/30 shadow-[0_8px_30px_rgba(255,59,71,0.12)] flex flex-col md:flex-row items-center justify-between gap-4 text-left">
+    <div className="w-full mt-10 sm:mt-14">
+      <div className="relative overflow-hidden rounded-3xl p-5 sm:p-6 bg-gradient-to-r from-[#1c0809] via-[#12070a] to-[#0d0e14] border border-[#FF3B47]/30 shadow-[0_10px_35px_rgba(255,59,71,0.14)] flex flex-col md:flex-row items-center justify-between gap-5 text-left">
         <div className="flex items-center gap-3 sm:gap-4">
           <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#FF3B47]/15 border border-[#FF3B47]/30 flex items-center justify-center text-[#FF3B47] shrink-0">
             <LifeBuoy size={20} className="animate-spin-slow" />
