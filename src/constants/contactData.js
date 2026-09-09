@@ -6,7 +6,9 @@ export const CONTACT_INFO = {
   email: 'info@styleincar.com',
   emailHref: 'mailto:info@styleincar.com',
   address: 'Shop No. 5, Al Jerf, Industrial Area 1, Near Car Souq, Ajman, United Arab Emirates',
-  mapsHref: 'https://maps.google.com/?q=Al+Jurf+Industrial+1+Ajman+UAE',
+  mapsHref: 'https://www.google.com/maps?q=25.4383233,55.5124383&z=17&hl=en',
+  mapEmbedUrl: 'https://maps.google.com/maps?q=25.4383233,55.5124383&hl=en&z=16&output=embed',
+  coordinates: '25°26\'18.0"N 55°30\'44.8"E',
   license: 'Trade License No. 59292',
 };
 
@@ -52,7 +54,7 @@ export const CONTACT_CARDS = [
     value: 'Al Jerf, Industrial 1, Ajman',
     subtext: 'Near Car Souq, United Arab Emirates',
     actionLabel: 'Get Directions',
-    href: 'https://maps.google.com/?q=Al+Jurf+Industrial+1+Ajman+UAE',
+    href: 'https://www.google.com/maps?q=25.4383233,55.5124383&z=17&hl=en',
     iconName: 'MapPin',
     accentColor: 'amber',
     isExternal: true,
