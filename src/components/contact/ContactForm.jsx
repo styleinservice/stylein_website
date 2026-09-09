@@ -29,7 +29,7 @@ export default function ContactForm() {
   };
 
   return (
-    <div className="w-full bg-[#0b0d14]/90 border border-white/[0.08] rounded-2xl p-6 sm:p-7 shadow-[0_15px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl relative overflow-hidden text-left">
+    <div className="w-full h-full bg-[#0b0d14]/90 border border-white/[0.08] rounded-2xl p-6 sm:p-7 shadow-[0_15px_40px_rgba(0,0,0,0.5)] backdrop-blur-xl relative overflow-hidden text-left">
       <div className="mb-5">
         <h2 className="text-xl sm:text-2xl font-bold text-white font-heading">
           Send Us a Message

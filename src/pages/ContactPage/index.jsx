@@ -90,11 +90,11 @@ function ContactPageContent() {
               <ContactHero />
               <ContactCards />
 
-              <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-                <div className="lg:col-span-7 w-full">
+              <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+                <div className="lg:col-span-7 w-full flex">
                   <ContactForm />
                 </div>
-                <div className="lg:col-span-5 w-full">
+                <div className="lg:col-span-5 w-full flex">
                   <ContactHoursMap />
                 </div>
               </div>
