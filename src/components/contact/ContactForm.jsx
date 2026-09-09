@@ -92,7 +92,7 @@ export default function ContactForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="you@domain.com"
+                placeholder="you@email.com"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF3B47] text-white text-xs sm:text-sm outline-none transition-colors"
               />
             </div>
