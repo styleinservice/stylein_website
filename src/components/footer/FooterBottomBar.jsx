@@ -83,6 +83,7 @@ export default function FooterBottomBar() {
         <span>© {new Date().getFullYear()} STYLEIN. All Rights Reserved</span>
         <a
           href="/legal"
+          title="Terms of Service & Privacy Policy"
           onClick={(e) => handleNav('/legal', e)}
           className="text-neutral-400 hover:text-white no-underline transition-colors cursor-pointer"
         >
@@ -96,6 +97,7 @@ export default function FooterBottomBar() {
           <a
             key={soc.name}
             href={soc.href}
+            title={`Follow STYLEIN on ${soc.name}`}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={soc.name}

@@ -97,6 +97,7 @@ export default function StyleinNavbar({ isReady = true, mobileMenuOpen, isMenuSe
 
         <a
           href="/rescue"
+          title="Emergency Roadside Rescue"
           onClick={(e) => {
             e.preventDefault();
             navigate('/rescue');

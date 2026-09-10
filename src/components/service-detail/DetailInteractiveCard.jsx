@@ -48,6 +48,7 @@ export default function DetailInteractiveCard({
           <img
             src={image}
             alt={title}
+            title={title}
             className="w-full h-full object-cover transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-104 select-none pointer-events-none"
             loading="lazy"
           />

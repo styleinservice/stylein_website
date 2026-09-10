@@ -67,21 +67,16 @@ export default function NavMobileMenu({ isOpen, onClose }) {
                     <a
                       key={srv.id}
                       href={srv.href}
+                      title={srv.title}
                       onClick={(e) => handleNavClick(srv.href, e)}
                       className={`text-[0.84rem] py-1 no-underline font-medium flex items-center justify-between w-full cursor-pointer ${
-                        srv.isRescue
-                          ? 'text-[#FF3B47] font-bold hover:text-red-400'
-                          : 'text-neutral-300 hover:text-stylein-red'
+                        srv.isRescue ? 'text-[#FF3B47] font-bold hover:text-red-400' : 'text-neutral-300 hover:text-stylein-red'
                       }`}
                     >
                       <span>{srv.title}</span>
                     </a>
                   ))}
-                  <a
-                    href="/services"
-                    onClick={(e) => handleNavClick('/services', e)}
-                    className="text-stylein-red text-[0.8rem] font-bold py-1 no-underline flex items-center gap-1 mt-0.5 cursor-pointer"
-                  >
+                  <a href="/services" title="View all STYLEIN Services" onClick={(e) => handleNavClick('/services', e)} className="text-stylein-red text-[0.8rem] font-bold py-1 no-underline flex items-center gap-1 mt-0.5 cursor-pointer">
                     <span>View All Services</span>
                     <ArrowRight size={12} />
                   </a>
@@ -91,22 +86,22 @@ export default function NavMobileMenu({ isOpen, onClose }) {
           </div>
 
           {/* 3. Brands */}
-          <a href="/brands" onClick={(e) => handleNavClick('/brands', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
+          <a href="/brands" title="STYLEIN Brands" onClick={(e) => handleNavClick('/brands', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
             Brands
           </a>
 
           {/* 4. FAQs */}
-          <a href="/faqs" onClick={(e) => handleNavClick('/faqs', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
+          <a href="/faqs" title="STYLEIN FAQs" onClick={(e) => handleNavClick('/faqs', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
             FAQs
           </a>
 
           {/* 5. About Us */}
-          <a href="/about" onClick={(e) => handleNavClick('/about', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
+          <a href="/about" title="About STYLEIN" onClick={(e) => handleNavClick('/about', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
             About Us
           </a>
 
           {/* 6. Contact */}
-          <a href="/contact" onClick={(e) => handleNavClick('/contact', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
+          <a href="/contact" title="Contact STYLEIN" onClick={(e) => handleNavClick('/contact', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
             Contact
           </a>
 

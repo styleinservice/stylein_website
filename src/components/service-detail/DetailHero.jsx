@@ -105,6 +105,7 @@ export default function DetailHero({ service }) {
               <img
                 src={service.image}
                 alt={title}
+                title={title}
                 className="w-full h-full object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)] select-none pointer-events-none hover:scale-105 transition-transform duration-500"
                 loading="eager"
               />

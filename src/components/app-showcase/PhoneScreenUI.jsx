@@ -103,6 +103,7 @@ export default function PhoneScreenUI() {
         <img
           src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=600&auto=format&fit=crop&q=80"
           alt="Service Van"
+          title="STYLEIN Mobile Service Van"
           className="w-full h-full object-cover brightness-60"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent p-2.5 flex flex-col justify-between text-left">
