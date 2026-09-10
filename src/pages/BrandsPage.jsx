@@ -9,6 +9,7 @@ import BrandsHero from '../components/brands/BrandsHero';
 import BrandsGrid from '../components/brands/BrandsGrid';
 import BrandDetailModal from '../components/brands/BrandDetailModal';
 import StyleinFooter from '../components/footer/StyleinFooter';
+import SEO from '../components/common/SEO';
 
 function BrandsPageContent() {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ function BrandsPageContent() {
 
   return (
     <div className="bg-[#05060a] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
+      <SEO pageKey="brands" />
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
       {/* Main Website Canvas: 3D Perspective Scaled Preview Window */}

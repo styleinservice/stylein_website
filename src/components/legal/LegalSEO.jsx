@@ -3,19 +3,6 @@ import { LEGAL_META } from '../../data/legal/legalMeta';
 
 export default function LegalSEO() {
   useEffect(() => {
-    document.title = 'Terms of Service & Privacy Policy | STYLEIN';
-
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.setAttribute('name', 'description');
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute(
-      'content',
-      'Read STYLEIN Terms of Service, Privacy Policy, Refund Policy, Subscription Terms, Warranty Terms and Customer Rights.'
-    );
-
     const schemaData = [
       {
         '@context': 'https://schema.org',

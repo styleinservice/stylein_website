@@ -13,6 +13,7 @@ const FAQSection = lazy(() => import('../components/faq/FAQSection'));
 const TestimonialsSection = lazy(() => import('../components/testimonials/TestimonialsSection'));
 const GetAppBanner = lazy(() => import('../components/download-banner/GetAppBanner'));
 const StyleinFooter = lazy(() => import('../components/footer/StyleinFooter'));
+import SEO from '../components/common/SEO';
 
 function HomeContent() {
   const [isReady, setIsReady] = useState(() => isBotCrawler());
@@ -66,6 +67,7 @@ function HomeContent() {
 
   return (
     <div className={`bg-[#05060a] min-h-screen relative selection:bg-stylein-red selection:text-white ${!isReady ? 'overflow-hidden h-screen' : 'overflow-x-hidden'}`}>
+      <SEO pageKey="home" />
       <div className="fixed top-1/4 left-10 w-[300px] h-[300px] rounded-full blur-[140px] bg-stylein-red/10 pointer-events-none z-0" />
 
       <StyleinLoader onStartReveal={() => setIsReady(true)} onComplete={() => setIsReady(true)} />

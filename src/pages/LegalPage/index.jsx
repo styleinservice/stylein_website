@@ -5,6 +5,7 @@ import StyleinNavbar from '../../components/home/StyleinNavbar';
 import NavMobileMenu from '../../components/home/NavMobileMenu';
 import StyleinFooter from '../../components/footer/StyleinFooter';
 import LegalSEO from '../../components/legal/LegalSEO';
+import SEO from '../../components/common/SEO';
 import LegalHeader from '../../components/legal/LegalHeader';
 import LegalTOC from '../../components/legal/LegalTOC';
 import LegalDocumentView from '../../components/legal/LegalDocumentView';
@@ -97,6 +98,7 @@ function LegalPageContent() {
 
   return (
     <div className="bg-[#05060a] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
+      <SEO pageKey="legal" />
       <LegalSEO />
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 

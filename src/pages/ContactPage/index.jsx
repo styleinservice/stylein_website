@@ -9,6 +9,7 @@ import ContactHero from '../../components/contact/ContactHero';
 import ContactCards from '../../components/contact/ContactCards';
 import ContactForm from '../../components/contact/ContactForm';
 import ContactHoursMap from '../../components/contact/ContactHoursMap';
+import SEO from '../../components/common/SEO';
 
 function ContactPageContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -18,7 +19,6 @@ function ContactPageContent() {
   const lenis = useSmoothScroll();
 
   useEffect(() => {
-    document.title = 'Contact Us | STYLEIN Automotive UAE';
     window.scrollTo(0, 0);
   }, []);
 
@@ -49,6 +49,7 @@ function ContactPageContent() {
 
   return (
     <div className="bg-[#050505] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
+      <SEO pageKey="contact" />
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
       <motion.main

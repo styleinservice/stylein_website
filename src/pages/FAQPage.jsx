@@ -10,6 +10,7 @@ import FAQPageAccordion from '../components/faq-page/FAQPageAccordion';
 import FAQPageSupportCards from '../components/faq-page/FAQPageSupportCards';
 import FAQPageRescueBanner from '../components/faq-page/FAQPageRescueBanner';
 import { STYLEIN_PAGE_FAQS } from '../constants/faqPageData';
+import SEO from '../components/common/SEO';
 
 function FAQPageContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,7 +20,6 @@ function FAQPageContent() {
   const lenis = useSmoothScroll();
 
   useEffect(() => {
-    document.title = 'FAQs | STYLEIN Premium Automotive Services';
     window.scrollTo(0, 0);
   }, []);
 
@@ -50,6 +50,7 @@ function FAQPageContent() {
 
   return (
     <div className="bg-[#050505] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
+      <SEO pageKey="faqs" />
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
       <motion.main

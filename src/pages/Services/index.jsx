@@ -9,6 +9,7 @@ import ServiceCard from '../../components/services/ServiceCard';
 import ServicesSkeleton from '../../components/services/ServicesSkeleton';
 import ServicesErrorState from '../../components/services/ServicesErrorState';
 import StyleinFooter from '../../components/footer/StyleinFooter';
+import SEO from '../../components/common/SEO';
 
 let cachedServices = null;
 try {
@@ -50,9 +51,6 @@ function ServicesContent() {
   }, []);
 
   useEffect(() => {
-    document.title = 'Services | STYLEIN';
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) metaDesc.setAttribute('content', 'Premium doorstep automotive services including detailing, battery replacement, oil change, inspections, coatings and emergency assistance.');
     fetchServices();
   }, [fetchServices]);
 
@@ -85,6 +83,7 @@ function ServicesContent() {
 
   return (
     <div className="bg-[#050505] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
+      <SEO pageKey="services" />
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
       <motion.main

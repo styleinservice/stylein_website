@@ -10,6 +10,7 @@ import HowItWorksSection from '../components/about/HowItWorksSection';
 import OurImpactSection from '../components/about/OurImpactSection';
 import VehiclesCareSection from '../components/about/VehiclesCareSection';
 import StyleinFooter from '../components/footer/StyleinFooter';
+import SEO from '../components/common/SEO';
 
 function AboutPageContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -55,6 +56,7 @@ function AboutPageContent() {
 
   return (
     <div className="bg-[#05060a] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
+      <SEO pageKey="about" />
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={handleCloseMenu} />
 
       {/* Main Website Canvas: 3D Perspective Scaled Preview Window identical to Home */}

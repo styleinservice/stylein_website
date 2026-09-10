@@ -13,6 +13,7 @@ import DetailFAQ from '../../components/service-detail/DetailFAQ';
 import RescueSkeleton from '../../components/rescue/RescueSkeleton';
 import RescueError from '../../components/rescue/RescueError';
 import StyleinFooter from '../../components/footer/StyleinFooter';
+import SEO from '../../components/common/SEO';
 
 function RescuePageContent() {
   const dispatch = useDispatch();
@@ -32,14 +33,6 @@ function RescuePageContent() {
       loadData();
     }
   }, [data, fetched, loadData]);
-
-  useEffect(() => {
-    document.title = 'STYLEIN Rescue Services | 24/7 Roadside Assistance';
-    if (data?.description) {
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) metaDesc.setAttribute('content', data.description.slice(0, 160));
-    }
-  }, [data]);
 
   const handleOpenMenu = () => {
     const scroll = lenis?.scroll ?? window.scrollY ?? document.documentElement.scrollTop ?? 0;
@@ -66,6 +59,7 @@ function RescuePageContent() {
 
   return (
     <div className="bg-[#050505] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
+      <SEO pageKey="rescue" />
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
       <motion.main

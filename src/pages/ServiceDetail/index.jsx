@@ -14,6 +14,7 @@ import DetailFAQ from '../../components/service-detail/DetailFAQ';
 import DetailSkeleton from '../../components/service-detail/DetailSkeleton';
 import DetailError from '../../components/service-detail/DetailError';
 import StyleinFooter from '../../components/footer/StyleinFooter';
+import SEO from '../../components/common/SEO';
 
 const detailCache = new Map();
 function getCachedDetail(id) {
@@ -94,6 +95,12 @@ function ServiceDetailContent() {
 
   return (
     <div className="bg-[#050505] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
+      <SEO
+        pageKey="service-detail"
+        title={service?.title || service?.name ? `${service.title || service.name} | STYLEIN Doorstep Car Care` : undefined}
+        description={service?.description || undefined}
+        ogImage={service?.image || undefined}
+      />
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 
       <motion.main
