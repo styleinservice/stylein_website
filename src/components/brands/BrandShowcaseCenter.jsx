@@ -37,6 +37,7 @@ export default function BrandShowcaseCenter({ brand, activeIndex, totalBrands, o
             <img
               src={optimizeCloudinary(brand.image, 500)}
               alt={brand.name}
+              title={brand.name}
               draggable={false}
               className="w-full h-auto max-h-[210px] sm:max-h-[270px] lg:max-h-[305px] object-contain drop-shadow-[0_16px_35px_rgba(0,0,0,0.95)] select-none pointer-events-auto transition-transform duration-300 hover:scale-[1.03]"
               loading="lazy"

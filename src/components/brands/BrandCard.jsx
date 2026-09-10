@@ -49,6 +49,7 @@ export default function BrandCard({ brand, index, onSelect }) {
         <img
           src={optimizeCloudinary(brand.image, 450)}
           alt={brand.name}
+          title={brand.name}
           onLoad={() => setImgLoaded(true)}
           className={`w-full h-full object-contain drop-shadow-[0_12px_25px_rgba(0,0,0,0.9)] group-hover:scale-105 transition-all duration-300 select-none ${
             imgLoaded ? 'opacity-100' : 'opacity-0'

@@ -120,13 +120,18 @@ export default function StyleinNavbar({ isReady = true, mobileMenuOpen, isMenuSe
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             className="inline-flex items-center gap-1.5 text-[#FF3B47] text-[0.84rem] font-semibold no-underline hover:text-[#ff5c66] transition-colors relative group cursor-pointer"
+            title="Emergency Roadside Rescue"
           >
             <LifeBuoy size={15} className="group-hover:scale-110 transition-transform" />
             <span>Rescue me!</span>
             <span className="w-2 h-2 rounded-full bg-[#FF3B47] animate-ping absolute -top-0.5 -right-1 opacity-80 pointer-events-none" />
           </a>
 
-          <a href="#download" className="inline-flex items-center justify-center bg-gradient-to-r from-[#E50914] via-[#FF1F2D] to-[#E50914] bg-[length:200%_auto] hover:bg-right text-white px-4 py-2 rounded-xl text-[0.82rem] font-semibold no-underline shadow-[0_2px_15px_rgba(229,9,20,0.4)] hover:shadow-[0_4px_25px_rgba(229,9,20,0.6)] hover:-translate-y-0.5 transition-all duration-300">
+          <a
+            href="#download"
+            title="Download STYLEIN App"
+            className="inline-flex items-center justify-center bg-gradient-to-r from-[#E50914] via-[#FF1F2D] to-[#E50914] bg-[length:200%_auto] hover:bg-right text-white px-4 py-2 rounded-xl text-[0.82rem] font-semibold no-underline shadow-[0_2px_15px_rgba(229,9,20,0.4)] hover:shadow-[0_4px_25px_rgba(229,9,20,0.6)] hover:-translate-y-0.5 transition-all duration-300"
+          >
             Download app
           </a>
         </div>

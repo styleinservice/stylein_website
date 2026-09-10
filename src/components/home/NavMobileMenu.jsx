@@ -111,7 +111,12 @@ export default function NavMobileMenu({ isOpen, onClose }) {
           </a>
 
           {/* 7. Rescue Me */}
-          <a href="/rescue" onClick={(e) => handleNavClick('/rescue', e)} className="inline-flex items-center gap-2 text-[#FF3B47] text-[0.98rem] font-bold no-underline py-1 mt-0.5 relative cursor-pointer">
+          <a
+            href="/rescue"
+            title="Emergency Roadside Rescue"
+            onClick={(e) => handleNavClick('/rescue', e)}
+            className="inline-flex items-center gap-2 text-[#FF3B47] text-[0.98rem] font-bold no-underline py-1 mt-0.5 relative cursor-pointer"
+          >
             <LifeBuoy size={18} className="text-[#FF3B47]" />
             <span>Rescue me!</span>
             <span className="w-2.5 h-2.5 rounded-full bg-[#FF3B47] animate-ping ml-1 opacity-80" />
@@ -123,6 +128,7 @@ export default function NavMobileMenu({ isOpen, onClose }) {
         <div className="fixed bottom-6 left-0 right-0 z-[2550] flex justify-center items-center px-6 pointer-events-none lg:hidden">
           <a
             href="#download"
+            title="Download STYLEIN App"
             onClick={onClose}
             className="pointer-events-auto flex items-center justify-center bg-gradient-to-r from-[#E50914] via-[#FF1F2D] to-[#E50914] text-white py-4 px-6 rounded-2xl font-extrabold text-[0.96rem] tracking-wide no-underline w-full max-w-[320px] text-center shadow-[0_6px_25px_rgba(229,9,20,0.55)] active:scale-98 transition-transform"
           >

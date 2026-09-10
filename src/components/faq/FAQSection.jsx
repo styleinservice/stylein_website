@@ -47,7 +47,8 @@ export default function FAQSection() {
           className="flex flex-col sm:flex-row items-center gap-4"
         >
           <a
-            href="#contact"
+            href="/faqs"
+            title="Go to Frequently Asked Questions"
             className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 hover:border-white/30 text-white text-[0.82rem] font-semibold tracking-wide no-underline shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_6px_25px_rgba(229,9,20,0.2)] hover:scale-105 active:scale-95 transition-all duration-300 font-heading"
           >
             <span>Go to FAQs</span>

@@ -12,6 +12,8 @@ export default function TopServiceBar({ services = [], activeIndex, onSelect }) 
             <button
               key={item.id || idx}
               onClick={() => onSelect(idx)}
+              title={item.name}
+              aria-label={item.name}
               className={`w-[22.5%] sm:w-auto flex flex-col items-center justify-center gap-1.5 px-1 sm:px-3.5 py-2 sm:py-2.5 rounded-xl transition-all duration-300 cursor-pointer border shrink-0 ${
                 isActive
                   ? 'bg-[#0b0d14]/95 backdrop-blur-3xl border-white/[0.22] shadow-[0_10px_30px_rgba(0,0,0,0.7)] scale-[1.03]'
@@ -22,6 +24,7 @@ export default function TopServiceBar({ services = [], activeIndex, onSelect }) 
               <img
                 src={optimizeCloudinary(item.image, 140)}
                 alt={item.name}
+                title={item.name}
                 onError={(e) => {
                   e.currentTarget.style.visibility = 'hidden';
                 }}

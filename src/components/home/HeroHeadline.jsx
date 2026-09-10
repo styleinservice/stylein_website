@@ -21,7 +21,7 @@ export default function HeroHeadline({ isReady }) {
       <h1 className="font-heading tracking-tight mb-8">
         {/* Line 1: Instantly painted in DOM for sub-second LCP */}
         <span className="block font-bold text-[clamp(2.3rem,4.6vw,3.8rem)] leading-[1.18] bg-gradient-to-b from-white via-white to-neutral-200 bg-clip-text text-transparent">
-          On-demand luxury care for
+          On-demand luxury care for{' '}
         </span>
 
         {/* Line 2: Animated Dynamic Phrase with Smooth Framer Motion */}

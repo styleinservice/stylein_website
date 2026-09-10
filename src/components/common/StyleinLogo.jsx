@@ -16,12 +16,14 @@ export default function StyleinLogo({ className = '', size = 'medium' }) {
     <a
       href="/"
       onClick={handleClick}
+      title="STYLEIN Home"
       className={`inline-flex items-center gap-2 no-underline group select-none cursor-pointer ${className}`}
       aria-label="STYLEIN Home"
     >
       <img
         src={logoImg}
         alt="STYLEIN Logo"
+        title="STYLEIN - Doorstep Car Care & Detailing"
         className={`object-contain transition-transform duration-300 group-hover:scale-[1.03] ${
           isLarge ? 'h-16 max-w-[260px]' : 'h-8 max-w-[140px]'
         }`}

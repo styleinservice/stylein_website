@@ -79,13 +79,17 @@ export default function FooterNavColumns() {
         <div className="flex flex-col gap-3 text-[0.82rem] text-neutral-400">
           <a
             href="tel:+97180078953"
+            title="Call STYLEIN Helpline"
             className="flex items-center gap-2 text-white font-semibold no-underline hover:text-stylein-red transition-colors"
           >
             <PhoneCall size={14} className="text-stylein-red" />
             <span>+971 800 STYLEIN</span>
           </a>
           <a
-            href="#chat"
+            href="https://wa.me/971558120570"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Live WhatsApp Chat"
             className="flex items-center gap-2 text-neutral-300 no-underline hover:text-white transition-colors"
           >
             <MessageSquare size={14} className="text-emerald-400" />

@@ -57,6 +57,7 @@ export default function ServiceCard({ service, index = 0 }) {
           <img
             src={optimizeCloudinary(service.image, 380)}
             alt={title}
+            title={title}
             className="w-full h-full object-contain group-hover:scale-106 transition-transform duration-300 ease-out select-none pointer-events-none drop-shadow-[0_8px_16px_rgba(0,0,0,0.9)]"
             loading="lazy"
           />

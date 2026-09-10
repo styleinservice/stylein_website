@@ -24,6 +24,7 @@ export default function ServicesDropdown({ onClose }) {
           <a
             key={item.id}
             href={item.href}
+            title={item.title}
             onClick={(e) => handleItemClick(item.href, e)}
             className={`flex items-center justify-between px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 no-underline group cursor-pointer ${
               item.isRescue
@@ -40,6 +41,7 @@ export default function ServicesDropdown({ onClose }) {
       <div className="mt-1.5 pt-1.5 border-t border-white/10">
         <a
           href="/services"
+          title="View All STYLEIN Services"
           onClick={(e) => handleItemClick('/services', e)}
           className="flex items-center justify-between px-3 py-2 rounded-xl bg-stylein-red/10 border border-stylein-red/25 text-stylein-red hover:bg-stylein-red/20 font-semibold text-xs transition-all no-underline group cursor-pointer"
         >

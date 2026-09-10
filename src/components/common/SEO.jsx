@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '../../api/axios';
-import { DEFAULT_SEO_BY_KEY } from '../../constants/seoData';
+import { DEFAULT_SEO_BY_KEY, generateSchemaJsonLd } from '../../constants/seoData';
 
 // Fast in-memory cache for SEO data
 let cachedSeoMap = null;
@@ -17,9 +17,20 @@ function updateOrCreateMetaTag(attribute, attributeValue, content) {
   element.setAttribute('content', content);
 }
 
+function updateOrCreateLinkTag(rel, href) {
+  if (!href) return;
+  let element = document.querySelector(`link[rel="${rel}"]`);
+  if (!element) {
+    element = document.createElement('link');
+    element.setAttribute('rel', rel);
+    document.head.appendChild(element);
+  }
+  element.setAttribute('href', href);
+}
+
 /**
  * Universal SEO component that reads from the admin-managed backend API (/seo)
- * and dynamically injects Title, Meta Description, Meta Keywords, and OG tags into the DOM.
+ * and dynamically injects Title, Meta Description, Meta Keywords, Canonical, Robots, and OG tags into the DOM.
  */
 export default function SEO({
   pageKey = 'home',
@@ -91,26 +102,38 @@ export default function SEO({
       document.title = finalTitle;
     }
 
-    // 2. Standard Meta Tags
+    // 2. Standard Meta & Link Tags
     updateOrCreateMetaTag('name', 'description', finalDescription);
     updateOrCreateMetaTag('name', 'keywords', finalKeywords);
+    updateOrCreateMetaTag('name', 'robots', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
+    updateOrCreateMetaTag('name', 'author', 'STYLEIN');
+    updateOrCreateMetaTag('name', 'publisher', 'STYLEIN Car Services LLC');
+    updateOrCreateLinkTag('canonical', window.location.origin + window.location.pathname);
+    if (finalOgImage) updateOrCreateLinkTag('image_src', finalOgImage);
 
     // 3. OpenGraph Tags (Facebook, WhatsApp, LinkedIn)
     updateOrCreateMetaTag('property', 'og:title', finalTitle);
     updateOrCreateMetaTag('property', 'og:description', finalDescription);
     updateOrCreateMetaTag('property', 'og:url', currentUrl);
     updateOrCreateMetaTag('property', 'og:type', 'website');
-    if (finalOgImage) {
-      updateOrCreateMetaTag('property', 'og:image', finalOgImage);
-    }
+    if (finalOgImage) updateOrCreateMetaTag('property', 'og:image', finalOgImage);
 
     // 4. Twitter Cards
     updateOrCreateMetaTag('name', 'twitter:card', 'summary_large_image');
     updateOrCreateMetaTag('name', 'twitter:title', finalTitle);
     updateOrCreateMetaTag('name', 'twitter:description', finalDescription);
-    if (finalOgImage) {
-      updateOrCreateMetaTag('name', 'twitter:image', finalOgImage);
+    if (finalOgImage) updateOrCreateMetaTag('name', 'twitter:image', finalOgImage);
+
+    // 5. Schema.org JSON-LD
+    const schema = generateSchemaJsonLd(pageKey, finalTitle, finalDescription, currentUrl);
+    let sEl = document.getElementById('stylein-dynamic-schema');
+    if (!sEl) {
+      sEl = document.createElement('script');
+      sEl.id = 'stylein-dynamic-schema';
+      sEl.type = 'application/ld+json';
+      document.head.appendChild(sEl);
     }
+    sEl.textContent = JSON.stringify(schema);
   }, [pageKey, title, description, keywords, ogImage, seoData, fallback]);
 
   return null;

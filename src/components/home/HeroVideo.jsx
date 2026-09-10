@@ -33,6 +33,7 @@ export default function HeroVideo() {
       <img
         src={FALLBACK_POSTER}
         alt="Automotive background"
+        title="STYLEIN Doorstep Automotive Background"
         loading="eager"
         fetchPriority="high"
         className={`absolute inset-0 w-full h-full object-cover scale-112 origin-center transition-opacity duration-800 ease-in-out z-1 ${

@@ -38,16 +38,16 @@ export default function FooterColumns() {
         {/* Column 1: Company Links */}
         <div className="flex flex-col gap-2.5">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Company</span>
-          <a href="/about" onClick={(e) => handleNav('/about', e)} className="text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">About Us</a>
-          <a href="/contact" onClick={(e) => handleNav('/contact', e)} className="text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">Contact Us</a>
-          <a href="/faqs" onClick={(e) => handleNav('/faqs', e)} className="text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">FAQs</a>
+          <a href="/about" title="About STYLEIN" onClick={(e) => handleNav('/about', e)} className="text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">About Us</a>
+          <a href="/contact" title="Contact STYLEIN" onClick={(e) => handleNav('/contact', e)} className="text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">Contact Us</a>
+          <a href="/faqs" title="Frequently Asked Questions" onClick={(e) => handleNav('/faqs', e)} className="text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">FAQs</a>
 
           <div className="flex sm:hidden flex-col gap-2.5 pt-2 border-t border-white/5">
-            <a href="tel:+971558120570" className="flex items-center gap-1.5 text-neutral-300 hover:text-white no-underline">
+            <a href="tel:+971558120570" title="Call STYLEIN Support" className="flex items-center gap-1.5 text-neutral-300 hover:text-white no-underline">
               <Phone size={13} className="text-neutral-400" />
               <span>+971 55 812 0570</span>
             </a>
-            <a href="https://wa.me/971558120570" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-neutral-300 hover:text-white no-underline">
+            <a href="https://wa.me/971558120570" title="Chat on WhatsApp" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-neutral-300 hover:text-white no-underline">
               <MessageSquare size={13} className="text-emerald-400" />
               <span>WhatsApp</span>
             </a>
@@ -58,11 +58,11 @@ export default function FooterColumns() {
         <div className="flex flex-col gap-2.5 sm:hidden">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Services</span>
           {ALL_SERVICES.map((item, idx) => (
-            <a key={idx} href={item.href} onClick={(e) => handleNav(item.href, e)} className={`no-underline transition-colors cursor-pointer ${item.isRescue ? 'text-[#FF3B47] font-bold' : 'text-neutral-300 hover:text-white'}`}>
+            <a key={idx} href={item.href} title={item.label} onClick={(e) => handleNav(item.href, e)} className={`no-underline transition-colors cursor-pointer ${item.isRescue ? 'text-[#FF3B47] font-bold' : 'text-neutral-300 hover:text-white'}`}>
               {item.label}
             </a>
           ))}
-          <a href="/services" onClick={(e) => handleNav('/services', e)} className="text-neutral-400 hover:text-white font-medium flex items-center gap-1 pt-0.5 no-underline text-[0.76rem] cursor-pointer">
+          <a href="/services" title="View all STYLEIN Services" onClick={(e) => handleNav('/services', e)} className="text-neutral-400 hover:text-white font-medium flex items-center gap-1 pt-0.5 no-underline text-[0.76rem] cursor-pointer">
             <span>View all</span>
             <ArrowUpRight size={11} />
           </a>
@@ -72,7 +72,7 @@ export default function FooterColumns() {
         <div className="hidden sm:flex flex-col gap-2.5">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Services</span>
           {ALL_SERVICES.slice(0, 4).map((item, idx) => (
-            <a key={idx} href={item.href} onClick={(e) => handleNav(item.href, e)} className="text-neutral-300 hover:text-white no-underline transition-colors whitespace-nowrap cursor-pointer">{item.label}</a>
+            <a key={idx} href={item.href} title={item.label} onClick={(e) => handleNav(item.href, e)} className="text-neutral-300 hover:text-white no-underline transition-colors whitespace-nowrap cursor-pointer">{item.label}</a>
           ))}
         </div>
 
@@ -80,9 +80,9 @@ export default function FooterColumns() {
         <div className="hidden sm:flex flex-col gap-2.5 pt-5 sm:pt-0">
           <span className="text-transparent text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 select-none hidden sm:block">&nbsp;</span>
           {ALL_SERVICES.slice(4).map((item, idx) => (
-            <a key={idx} href={item.href} onClick={(e) => handleNav(item.href, e)} className={`no-underline transition-colors whitespace-nowrap cursor-pointer ${item.isRescue ? 'text-[#FF3B47] font-bold' : 'text-neutral-300 hover:text-white'}`}>{item.label}</a>
+            <a key={idx} href={item.href} title={item.label} onClick={(e) => handleNav(item.href, e)} className={`no-underline transition-colors whitespace-nowrap cursor-pointer ${item.isRescue ? 'text-[#FF3B47] font-bold' : 'text-neutral-300 hover:text-white'}`}>{item.label}</a>
           ))}
-          <a href="/services" onClick={(e) => handleNav('/services', e)} className="text-neutral-400 hover:text-white font-medium flex items-center gap-1 pt-0.5 no-underline text-[0.78rem] cursor-pointer">
+          <a href="/services" title="View all STYLEIN Services" onClick={(e) => handleNav('/services', e)} className="text-neutral-400 hover:text-white font-medium flex items-center gap-1 pt-0.5 no-underline text-[0.78rem] cursor-pointer">
             <span>View all</span>
             <ArrowUpRight size={12} />
           </a>
@@ -91,19 +91,19 @@ export default function FooterColumns() {
         {/* Column 4 (Desktop): Support */}
         <div className="hidden sm:flex flex-col gap-3">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Support</span>
-          <a href="/contact" onClick={(e) => handleNav('/contact', e)} className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">
+          <a href="/contact" title="Contact STYLEIN Support" onClick={(e) => handleNav('/contact', e)} className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">
             <Phone size={14} className="text-neutral-400" />
             <span>Contact Us</span>
           </a>
-          <a href="/faqs" onClick={(e) => handleNav('/faqs', e)} className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">
+          <a href="/faqs" title="Frequently Asked Questions" onClick={(e) => handleNav('/faqs', e)} className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">
             <HelpCircle size={14} className="text-neutral-400" />
             <span>FAQs</span>
           </a>
-          <a href="tel:+971558120570" className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors">
+          <a href="tel:+971558120570" title="Call STYLEIN Helpline" className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors">
             <Phone size={14} className="text-neutral-400" />
             <span>+971 55 812 0570</span>
           </a>
-          <a href="https://wa.me/971558120570" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors">
+          <a href="https://wa.me/971558120570" title="Chat on WhatsApp" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-neutral-300 hover:text-white no-underline transition-colors">
             <MessageSquare size={14} className="text-emerald-400" />
             <span>WhatsApp</span>
           </a>

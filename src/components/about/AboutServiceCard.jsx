@@ -50,6 +50,7 @@ export default function AboutServiceCard({ service, index }) {
           <img
             src={service.image}
             alt={title}
+            title={title}
             className="w-full h-full object-contain group-hover:scale-108 transition-transform duration-500 select-none drop-shadow-[0_8px_20px_rgba(0,0,0,0.9)]"
             loading="lazy"
           />

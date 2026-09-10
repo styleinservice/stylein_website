@@ -12,6 +12,7 @@ export default function HeroCTA({ isReady }) {
       {/* Ultra-Premium Glass QR Code Badge Card */}
       <a
         href="#download"
+        title="Scan to download STYLEIN App"
         className="bg-[#0d0f16]/70 backdrop-blur-2xl border border-white/15 border-t-white/25 rounded-2xl px-5 py-3 inline-flex items-center gap-4 shadow-[0_15px_40px_rgba(0,0,0,0.6)] hover:shadow-[0_20px_50px_rgba(229,9,20,0.25)] hover:border-stylein-red/50 hover:-translate-y-1 transition-all duration-300 group no-underline"
         aria-label="Scan to download STYLEIN App"
       >

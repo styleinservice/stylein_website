@@ -1,7 +1,7 @@
 export const DEFAULT_SEO_BY_KEY = {
   home: {
     metaTitle: 'STYLEIN | Premium On-Demand Car Services & Mobile Auto Care',
-    metaDescription: 'The all-in-one app for your car. Premium car wash, tyre change, detailing, battery replacement, and roadside assistance delivered directly to you across Dubai & UAE.',
+    metaDescription: 'The all-in-one app for your car. Premium car wash, tyre change, detailing, battery replacement & roadside assistance delivered to your doorstep in UAE.',
     metaKeywords: 'car wash dubai, mobile car detailing uae, tyre replacement, battery jumpstart, doorstep car maintenance, luxury auto care',
     ogTitle: 'STYLEIN | Premium On-Demand Car Services & Mobile Auto Care',
     ogDescription: 'The all-in-one app for your car. Certified automotive care delivered to your doorstep in UAE.',
@@ -72,3 +72,65 @@ export const DEFAULT_SEO_BY_KEY = {
     ogImage: 'https://storage.googleapis.com/stylein_bucket/Home_services/Car_Wash.webp',
   },
 };
+
+export function generateSchemaJsonLd(pageKey, title, description, url) {
+  const baseSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'AutoRepair',
+        '@id': 'https://www.styleincar.com/#autorepair',
+        name: 'STYLEIN | Doorstep Car Care & Roadside Assistance',
+        alternateName: 'STYLEIN Car Services LLC',
+        url: 'https://www.styleincar.com/',
+        logo: 'https://www.styleincar.com/favicon.webp',
+        image: 'https://storage.googleapis.com/stylein_bucket/Home_services/Car_Wash.webp',
+        description: description || 'On-demand doorstep automotive care in UAE. Certified mobile car wash, tyre replacement, oil change, battery service, and 24/7 roadside emergency rescue.',
+        priceRange: '$$',
+        telephone: '+971558120570',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Dubai',
+          addressCountry: 'AE',
+        },
+        areaServed: [
+          { '@type': 'City', name: 'Dubai' },
+          { '@type': 'City', name: 'Abu Dhabi' },
+          { '@type': 'City', name: 'Sharjah' },
+          { '@type': 'City', name: 'Ajman' },
+          { '@type': 'Country', name: 'United Arab Emirates' },
+        ],
+        openingHoursSpecification: {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          opens: '00:00',
+          closes: '23:59',
+        },
+        sameAs: [
+          'https://www.instagram.com/styleincar',
+          'https://www.facebook.com/profile.php?id=61587131289144',
+          'https://www.tiktok.com/discover/stylein-car-services-llc-ajman-uae',
+          'https://www.linkedin.com/in/stylein-car-6a65b93b4/',
+          'https://x.com/StyleinCar',
+          'https://www.youtube.com/@StyleinCar',
+          'https://in.pinterest.com/styleincaar/styleincar-premium-car-detailing-mods/',
+        ],
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${url}#webpage`,
+        url,
+        name: title,
+        description,
+        isPartOf: {
+          '@type': 'WebSite',
+          '@id': 'https://www.styleincar.com/#website',
+          url: 'https://www.styleincar.com/',
+          name: 'STYLEIN',
+        },
+      },
+    ],
+  };
+
+  return baseSchema;
+}
