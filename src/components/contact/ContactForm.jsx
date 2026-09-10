@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Send, MessageSquare, CheckCircle, Loader2 } from 'lucide-react';
 import api from '../../api/axios';
 
+const INITIAL_FORM = { name: '', phone: '', email: '', subject: '', message: '' };
+
 export default function ContactForm() {
-  const [formData, setFormData] = useState({ name: '', phone: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState(INITIAL_FORM);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -12,12 +14,19 @@ export default function ContactForm() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleReset = () => {
+    setFormData(INITIAL_FORM);
+    setErrorMsg('');
+    setSubmitted(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setErrorMsg('');
     try {
       await api.post('/contact', formData);
+      setFormData(INITIAL_FORM);
       setSubmitted(true);
     } catch (err) {
       setErrorMsg(err.response?.data?.message || 'Unable to send email inquiry right now. Please reach us via WhatsApp.');
@@ -54,39 +63,40 @@ export default function ContactForm() {
             Thank you! Our concierge representative will contact you within 15 minutes.
           </p>
           <button
-            onClick={() => { setSubmitted(false); setFormData({ name: '', phone: '', email: '', subject: '', message: '' }); }}
+            type="button"
+            onClick={handleReset}
             className="mt-5 px-5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-colors cursor-pointer"
           >
             Send Another Message
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+        <form onSubmit={handleSubmit} autoComplete="off" className="flex flex-col gap-3.5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
               <label className="block text-xs font-semibold text-neutral-300 mb-1 font-heading">Your Name *</label>
-              <input required type="text" name="name" value={formData.name} onChange={handleChange} placeholder="e.g. Tariq Al Mansoori" className={inputClasses} />
+              <input required type="text" name="name" value={formData.name || ''} onChange={handleChange} placeholder="e.g. Tariq Al Mansoori" className={inputClasses} />
             </div>
             <div>
               <label className="block text-xs font-semibold text-neutral-300 mb-1 font-heading">Phone / WhatsApp *</label>
-              <input required type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+971 50 000 0000" className={inputClasses} />
+              <input required type="tel" name="phone" value={formData.phone || ''} onChange={handleChange} placeholder="+971 50 000 0000" className={inputClasses} />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
               <label className="block text-xs font-semibold text-neutral-300 mb-1 font-heading">Email Address</label>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="you@email.com" className={inputClasses} />
+              <input type="email" name="email" value={formData.email || ''} onChange={handleChange} placeholder="you@email.com" className={inputClasses} />
             </div>
             <div>
               <label className="block text-xs font-semibold text-neutral-300 mb-1 font-heading">Subject</label>
-              <input type="text" name="subject" value={formData.subject} onChange={handleChange} placeholder="e.g. Car Wash, Battery, Service Quote..." className={inputClasses} />
+              <input type="text" name="subject" value={formData.subject || ''} onChange={handleChange} placeholder="e.g. Car Wash, Battery, Service Quote..." className={inputClasses} />
             </div>
           </div>
 
           <div>
             <label className="block text-xs font-semibold text-neutral-300 mb-1 font-heading">Vehicle Details or Notes</label>
-            <textarea rows={3} name="message" value={formData.message} onChange={handleChange} placeholder="e.g. Car Model, Location in Ajman/Dubai..." className={`${inputClasses} resize-none`} />
+            <textarea rows={3} name="message" value={formData.message || ''} onChange={handleChange} placeholder="e.g. Car Model, Location in Ajman/Dubai..." className={`${inputClasses} resize-none`} />
           </div>
 
           {errorMsg && <p className="text-red-400 text-xs font-body">{errorMsg}</p>}
