@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { isBotCrawler } from './StyleinLoader';
 
-const VIDEO_URL = 'https://res.cloudinary.com/hrd4p6l8/video/upload/v1788351643/WEBSITE_PAGE_VIDEO.mp4';
+import { HERO_VIDEO_URL } from '../../constants/videoConfig';
+
 const FALLBACK_POSTER = '/assets/images/stylein-hero-fallback.webp';
 
 export default function HeroVideo() {
@@ -55,7 +56,7 @@ export default function HeroVideo() {
           onPlaying={() => setVideoLoaded(true)}
           className="absolute inset-0 w-full h-full object-cover scale-112 origin-center z-2"
         >
-          <source src={VIDEO_URL} type="video/mp4" />
+          <source src={HERO_VIDEO_URL} type="video/mp4" />
         </video>
       )}
 

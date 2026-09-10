@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
-const VIDEO_URL = 'https://res.cloudinary.com/hrd4p6l8/video/upload/v1788351643/WEBSITE_PAGE_VIDEO.mp4';
+import { HERO_VIDEO_URL } from '../../constants/videoConfig';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -55,7 +54,7 @@ export default function AboutHero() {
           playsInline
           className="absolute inset-0 w-full h-full object-cover scale-105 pointer-events-none"
         >
-          <source src={VIDEO_URL} type="video/mp4" />
+          <source src={HERO_VIDEO_URL} type="video/mp4" />
         </video>
 
         {/* Minimal Soft Dark Overlay */}
