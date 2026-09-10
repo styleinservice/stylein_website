@@ -25,6 +25,13 @@ export default function DetailCardCarousel({ items = [], service }) {
     return () => window.removeEventListener('resize', checkScrollable);
   }, [checkScrollable, cardItems]);
 
+  const serviceName = (service?.title || service?.name || service?.serviceName || '').toLowerCase();
+  const isCarWash = serviceName.includes('wash');
+  const isRescue = serviceName.includes('rescue') || !service;
+
+  // Show top carousel only for Car Wash and Rescue
+  if (!isCarWash && !isRescue) return null;
+
   if (!cardItems || cardItems.length === 0) return null;
 
   const handleToggleCard = (idx) => {
