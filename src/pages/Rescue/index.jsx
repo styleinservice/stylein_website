@@ -29,10 +29,8 @@ function RescuePageContent() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!data && !fetched) {
-      loadData();
-    }
-  }, [data, fetched, loadData]);
+    loadData();
+  }, [loadData]);
 
   const handleOpenMenu = () => {
     const scroll = lenis?.scroll ?? window.scrollY ?? document.documentElement.scrollTop ?? 0;

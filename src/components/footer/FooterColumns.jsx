@@ -5,12 +5,12 @@ import FooterStoreBadges from './FooterStoreBadges';
 import { HelpCircle, Phone, MessageSquare, ArrowUpRight } from 'lucide-react';
 
 const ALL_SERVICES = [
-  { label: 'Car Wash', href: '/services/6a65aa710f4632990c8c8973' },
-  { label: 'Battery', href: '/services/6a799b466c4b83aa31e54872' },
+  { label: 'Car Wash', href: '/services/car-wash' },
+  { label: 'Battery', href: '/services/battery' },
   { label: 'Tyres', href: '/rescue' },
-  { label: 'Engine Oil', href: '/services/6a6d9260e47c7f8b06cde650' },
-  { label: 'Glass Coating', href: '/services/6a6d921ce47c7f8b06cde633' },
-  { label: 'Car Inspection', href: '/services/6a6728c9184f2d233de52e38' },
+  { label: 'Engine Oil', href: '/services/oil-change' },
+  { label: 'Glass Coating', href: '/services/glass-coating' },
+  { label: 'Car Inspection', href: '/services/car-inspection' },
   { label: 'Rescue', href: '/rescue', isRescue: true },
 ];
 

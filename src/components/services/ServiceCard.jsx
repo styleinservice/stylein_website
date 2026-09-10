@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { optimizeCloudinary } from '../../utils/imageOptimizer';
+import { getServiceSlug } from '../../utils/serviceSlug';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 18, scale: 0.98 },
@@ -22,13 +23,13 @@ export default function ServiceCard({ service, index = 0 }) {
   const navigate = useNavigate();
   if (!service) return null;
 
-  const targetId = service.serviceId || service._id || '';
+  const targetSlug = getServiceSlug(service);
   const title = service.title || service.name || 'Automotive Service';
   const description = service.description || service.redline || '';
 
   const handleClick = () => {
-    if (targetId) {
-      navigate(`/services/${targetId}`);
+    if (targetSlug) {
+      navigate(`/services/${targetSlug}`);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };

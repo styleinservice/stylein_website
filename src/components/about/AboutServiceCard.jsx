@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { getServiceSlug } from '../../utils/serviceSlug';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 18 },
@@ -24,10 +25,9 @@ export default function AboutServiceCard({ service, index }) {
     const nameLower = title.toLowerCase();
     if (nameLower.includes('rescue') || nameLower.includes('tyre') || service.isRescue) {
       navigate('/rescue');
-    } else if (service.serviceId) {
-      navigate(`/services/${service.serviceId}`);
     } else {
-      navigate('/services');
+      const slug = getServiceSlug(service);
+      navigate(slug ? `/services/${slug}` : '/services');
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

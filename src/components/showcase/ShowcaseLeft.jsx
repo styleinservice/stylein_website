@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronDown } from 'lucide-react';
+import { getServiceSlug } from '../../utils/serviceSlug';
 
 export default function ShowcaseLeft({ collection, services = [], activeIndex, onSelect }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -16,10 +17,9 @@ export default function ShowcaseLeft({ collection, services = [], activeIndex, o
     e.preventDefault();
     if (isRescue || isTyres) {
       navigate('/rescue');
-    } else if (collection.serviceId) {
-      navigate(`/services/${collection.serviceId}`);
     } else {
-      navigate('/services');
+      const slug = getServiceSlug(collection);
+      navigate(slug ? `/services/${slug}` : '/services');
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
