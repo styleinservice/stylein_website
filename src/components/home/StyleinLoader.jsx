@@ -21,17 +21,18 @@ export default function StyleinLoader({ onComplete, onStartReveal }) {
       return;
     }
 
+    // Immediately trigger start reveal so hero content is ready in DOM
+    if (onStartReveal) onStartReveal();
     requestAnimationFrame(() => setMounted(true));
 
     const timer1 = setTimeout(() => {
       setFogOut(true);
-      if (onStartReveal) onStartReveal();
-    }, 700);
+    }, 400);
 
     const timer2 = setTimeout(() => {
       setHidden(true);
       if (onComplete) onComplete();
-    }, 1100);
+    }, 750);
 
     return () => {
       clearTimeout(timer1);
@@ -43,12 +44,12 @@ export default function StyleinLoader({ onComplete, onStartReveal }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] bg-[#050608] flex flex-col items-center justify-center transition-all duration-500 cubic-bezier(0.25,1,0.5,1) will-change-[opacity,transform,filter] ${
+      className={`fixed inset-0 z-[9999] bg-[#050608] flex flex-col items-center justify-center transition-all duration-400 cubic-bezier(0.25,1,0.5,1) will-change-[opacity,transform,filter] ${
         fogOut ? 'fog-dissolve-out pointer-events-none' : 'opacity-100 scale-100 blur-0'
       }`}
     >
       <div
-        className={`flex flex-col items-center gap-6 transition-all duration-500 ease-out ${
+        className={`flex flex-col items-center gap-6 transition-all duration-400 ease-out ${
           mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
         }`}
       >

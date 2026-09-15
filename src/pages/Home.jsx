@@ -1,7 +1,7 @@
 import React, { useState, useRef, useLayoutEffect, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { SmoothScrollProvider, useSmoothScroll } from '../context/SmoothScrollContext';
-import StyleinLoader, { isBotCrawler } from '../components/home/StyleinLoader';
+import StyleinLoader from '../components/home/StyleinLoader';
 import StyleinNavbar from '../components/home/StyleinNavbar';
 import NavMobileMenu from '../components/home/NavMobileMenu';
 import HeroSection from '../components/home/HeroSection';
@@ -16,7 +16,7 @@ const StyleinFooter = lazy(() => import('../components/footer/StyleinFooter'));
 import SEO from '../components/common/SEO';
 
 function HomeContent() {
-  const [isReady, setIsReady] = useState(() => isBotCrawler());
+  const [isReady, setIsReady] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
   const [capturedScrollY, setCapturedScrollY] = useState(0);

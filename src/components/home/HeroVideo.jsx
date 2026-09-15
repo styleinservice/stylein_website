@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { isBotCrawler } from './StyleinLoader';
-
 import { HERO_VIDEO_URL } from '../../constants/videoConfig';
 
 const FALLBACK_POSTER = '/assets/images/stylein-hero-fallback.webp';
@@ -14,11 +13,36 @@ export default function HeroVideo() {
     if (typeof window === 'undefined') return;
     if (isBotCrawler()) return;
 
-    const timer = setTimeout(() => {
-      setMountVideo(true);
-    }, 600);
+    // Mobile & Save-Data Optimization: Do not stream 10MB video on mobile
+    const isMobile = window.innerWidth < 768;
+    const isSaveData = Boolean(navigator.connection && navigator.connection.saveData);
+    if (isMobile || isSaveData) return;
 
-    return () => clearTimeout(timer);
+    // Desktop: Defer video mount until browser idle/after load
+    const mountCallback = () => {
+      const timer = setTimeout(() => {
+        setMountVideo(true);
+      }, 1500);
+      return timer;
+    };
+
+    let timerId;
+    if (document.readyState === 'complete') {
+      timerId = mountCallback();
+    } else {
+      const handleLoad = () => {
+        timerId = mountCallback();
+      };
+      window.addEventListener('load', handleLoad, { once: true });
+      return () => {
+        window.removeEventListener('load', handleLoad);
+        if (timerId) clearTimeout(timerId);
+      };
+    }
+
+    return () => {
+      if (timerId) clearTimeout(timerId);
+    };
   }, []);
 
   useEffect(() => {
@@ -29,19 +53,19 @@ export default function HeroVideo() {
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#07080a]">
-      {/* High-res WebP Fallback Image */}
+      {/* High-res WebP Fallback Image - Instant LCP */}
       <img
         src={FALLBACK_POSTER}
-        alt="Automotive background"
+        alt="STYLEIN Doorstep Automotive Care"
         title="STYLEIN Doorstep Automotive Background"
         loading="eager"
         fetchPriority="high"
-        className={`absolute inset-0 w-full h-full object-cover scale-112 origin-center transition-opacity duration-800 ease-in-out z-1 ${
+        className={`absolute inset-0 w-full h-full object-cover scale-112 origin-center transition-opacity duration-1000 ease-in-out z-1 ${
           videoLoaded ? 'opacity-0' : 'opacity-100'
         }`}
       />
 
-      {/* Cloudinary Autoplay Video Element - Plays on Desktop & Mobile */}
+      {/* Cloudinary Autoplay Video Element - Desktop only deferred */}
       {mountVideo && (
         <video
           ref={videoRef}
@@ -55,7 +79,9 @@ export default function HeroVideo() {
           onLoadedData={() => setVideoLoaded(true)}
           onCanPlay={() => setVideoLoaded(true)}
           onPlaying={() => setVideoLoaded(true)}
-          className="absolute inset-0 w-full h-full object-cover scale-112 origin-center z-2"
+          className={`absolute inset-0 w-full h-full object-cover scale-112 origin-center transition-opacity duration-1000 z-2 ${
+            videoLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
         >
           <source src={HERO_VIDEO_URL} type="video/mp4" />
         </video>
