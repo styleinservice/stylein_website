@@ -50,14 +50,6 @@ export default function FeaturedBrandsShowcase() {
     ? allBrands.filter((b) => b.featured === true && !b.deleted && b.active).sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0))
     : [];
 
-  useEffect(() => {
-    if (featuredBrands.length > 0) {
-      featuredBrands.forEach((b) => {
-        if (b.image) { const img = new Image(); img.src = b.image; }
-      });
-    }
-  }, [featuredBrands]);
-
   const isLoading = loading || !fetched || featuredBrands.length === 0;
 
   if (isLoading) {

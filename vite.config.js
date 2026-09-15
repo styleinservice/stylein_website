@@ -9,6 +9,7 @@ export default defineConfig({
     tailwindcss(),
   ],
   build: {
+    target: 'es2022',
     sourcemap: false,
     chunkSizeWarningLimit: 600,
     rollupOptions: {

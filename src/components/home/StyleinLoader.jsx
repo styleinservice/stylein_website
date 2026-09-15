@@ -10,37 +10,39 @@ export const isBotCrawler = () => {
 
 export default function StyleinLoader({ onComplete, onStartReveal }) {
   const isBot = isBotCrawler();
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const skipLoader = isBot || isMobile;
+
   const [mounted, setMounted] = useState(false);
-  const [fogOut, setFogOut] = useState(false);
-  const [hidden, setHidden] = useState(isBot);
+  const [fogOut, setFogOut] = useState(skipLoader);
+  const [hidden, setHidden] = useState(skipLoader);
 
   useEffect(() => {
-    if (isBot) {
+    if (skipLoader) {
       if (onStartReveal) onStartReveal();
       if (onComplete) onComplete();
       return;
     }
 
-    // Immediately trigger start reveal so hero content is ready in DOM
     if (onStartReveal) onStartReveal();
     requestAnimationFrame(() => setMounted(true));
 
     const timer1 = setTimeout(() => {
       setFogOut(true);
-    }, 400);
+    }, 250);
 
     const timer2 = setTimeout(() => {
       setHidden(true);
       if (onComplete) onComplete();
-    }, 750);
+    }, 550);
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, [isBot, onComplete, onStartReveal]);
+  }, [skipLoader, onComplete, onStartReveal]);
 
-  if (hidden || isBot) return null;
+  if (hidden || skipLoader) return null;
 
   return (
     <div
