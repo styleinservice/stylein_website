@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 export default function HeroCTA({ isReady }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      initial={false}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className="text-center mt-2"
     >
       {/* Ultra-Premium Glass QR Code Badge Card */}

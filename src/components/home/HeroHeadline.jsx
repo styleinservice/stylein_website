@@ -26,10 +26,10 @@ export default function HeroHeadline({ isReady }) {
 
         {/* Line 2: Animated Dynamic Phrase with Smooth Framer Motion */}
         <span className="block font-extrabold text-[clamp(2.6rem,5vw,4.2rem)] leading-[1.18] text-[#E50914] min-h-[1.25em] mt-1 relative overflow-hidden">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false}>
             <motion.span
               key={currentIndex}
-              initial={{ y: 35, opacity: 0, filter: 'blur(6px)' }}
+              initial={currentIndex === 0 ? false : { y: 35, opacity: 0, filter: 'blur(6px)' }}
               animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
               exit={{ y: -30, opacity: 0, filter: 'blur(4px)' }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
