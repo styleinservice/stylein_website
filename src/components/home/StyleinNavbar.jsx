@@ -74,12 +74,12 @@ export default function StyleinNavbar({ isReady = true, mobileMenuOpen, isMenuSe
       </motion.button>
 
       <header
-        className={`fixed top-4 sm:top-5 z-[1990] backdrop-blur-3xl border border-white/[0.08] hover:border-white/[0.16] rounded-2xl px-4 sm:px-5 py-2.5 sm:py-3 flex items-center justify-between gap-4 sm:gap-6 bg-[#0b0d14]/75 hover:bg-[#0b0d14]/85 shadow-[0_15px_40px_rgba(0,0,0,0.55)] ${
+        className={`fixed top-4 sm:top-5 z-[1990] backdrop-blur-3xl border border-white/[0.08] hover:border-white/[0.16] rounded-2xl px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-4 sm:gap-6 bg-[#0b0d14]/75 hover:bg-[#0b0d14]/85 shadow-[0_15px_40px_rgba(0,0,0,0.55)] ${
           isMenuSession ? '!transition-none' : 'transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]'
         } ${
           activeTop
-            ? 'left-1/2 -translate-x-1/2 w-[92%] sm:w-[90%] max-w-[830px] lg:absolute lg:top-5'
-            : 'left-1/2 -translate-x-1/2 w-[92%] sm:w-[90%] max-w-[830px] lg:fixed lg:top-5 lg:left-[76px] lg:translate-x-0 lg:w-[calc(100%-92px)] lg:max-w-[810px] xl:left-1/2 xl:-translate-x-1/2'
+            ? 'left-1/2 -translate-x-1/2 w-[95%] sm:w-[92%] max-w-[940px] lg:absolute lg:top-5'
+            : 'left-1/2 -translate-x-1/2 w-[95%] sm:w-[92%] max-w-[940px] lg:fixed lg:top-5 lg:left-[76px] lg:translate-x-0 lg:w-[calc(100%-92px)] lg:max-w-[920px] xl:left-1/2 xl:-translate-x-1/2'
         } ${isDesktopVisible ? 'lg:opacity-100 lg:translate-y-0 lg:pointer-events-auto' : 'lg:opacity-0 lg:-translate-y-8 lg:pointer-events-none'} ${
           isMobileShown ? 'max-lg:opacity-100 max-lg:translate-y-0 max-lg:pointer-events-auto' : 'max-lg:opacity-0 max-lg:-translate-y-24 max-lg:pointer-events-none'
         }`}

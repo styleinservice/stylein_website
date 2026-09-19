@@ -8,6 +8,8 @@ const ServicesPage = lazy(() => import('./pages/Services/index'));
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetail/index'));
 const RescuePage = lazy(() => import('./pages/Rescue/index'));
 const FAQPage = lazy(() => import('./pages/FAQPage'));
+const BlogsPage = lazy(() => import('./pages/BlogsPage/index'));
+const BlogDetailPage = lazy(() => import('./pages/BlogDetailPage/index'));
 const LegalPage = lazy(() => import('./pages/LegalPage/index'));
 const ContactPage = lazy(() => import('./pages/ContactPage/index'));
 
@@ -20,6 +22,10 @@ export default function App() {
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/:id" element={<ServiceDetailPage />} />
           <Route path="/brands" element={<BrandsPage />} />
+          <Route path="/blogs" element={<BlogsPage />} />
+          <Route path="/blog" element={<Navigate to="/blogs" replace />} />
+          <Route path="/blog/:slug" element={<BlogDetailPage />} />
+          <Route path="/blogs/:slug" element={<BlogDetailPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/rescue" element={<RescuePage />} />
           <Route path="/contact" element={<ContactPage />} />

@@ -58,9 +58,25 @@ export const DEFAULT_SEO_BY_KEY = {
   faqs: {
     metaTitle: 'FAQs | Answers About STYLEIN Doorstep Car Services',
     metaDescription: 'Find answers to common questions about booking, pricing, service timings, technician certifications, coverage areas across Dubai and UAE.',
-    metaKeywords: 'stylein faqs, car service questions, mobile car wash prices dubai, doorstep booking help',
-    ogTitle: 'Frequently Asked Questions | STYLEIN',
-    ogDescription: 'Everything you need to know about STYLEIN automotive services.',
+    metaKeywords: 'stylein faqs, car wash questions dubai, mobile service booking faq, roadside rescue help',
+    ogTitle: 'FAQs | STYLEIN Customer Help Center',
+    ogDescription: 'Got questions? Find clear answers on our services, pricing, and coverage.',
+    ogImage: 'https://storage.googleapis.com/stylein_bucket/Home_services/Car_Wash.webp',
+  },
+  blogs: {
+    metaTitle: 'STYLEIN Journal | Auto Care Tips, Detailing Guides & UAE Car News',
+    metaDescription: 'Expert automotive advice, ceramic coating tips, desert heat protection, battery maintenance, and car care guides from STYLEIN certified specialists.',
+    metaKeywords: 'car care tips dubai, auto detailing blog uae, ceramic coating maintenance, desert car care, luxury auto maintenance',
+    ogTitle: 'STYLEIN Journal | Expert Car Care & Auto Insights',
+    ogDescription: 'Explore expert car care articles, detailing guides, and automotive news in Dubai & UAE.',
+    ogImage: 'https://storage.googleapis.com/stylein_bucket/Home_services/Car_Wash.webp',
+  },
+  'blog-detail': {
+    metaTitle: 'Auto Care Insights & Guides | STYLEIN Journal',
+    metaDescription: 'Read the latest in-depth car care guides, detailing tips, and automotive maintenance advice from STYLEIN specialists.',
+    metaKeywords: 'car care guide, mobile detailing uae, car maintenance tips, luxury auto care',
+    ogTitle: 'STYLEIN Auto Care Journal',
+    ogDescription: 'Read the latest automotive insights and maintenance guides.',
     ogImage: 'https://storage.googleapis.com/stylein_bucket/Home_services/Car_Wash.webp',
   },
   legal: {

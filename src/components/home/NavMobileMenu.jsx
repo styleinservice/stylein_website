@@ -90,7 +90,12 @@ export default function NavMobileMenu({ isOpen, onClose }) {
             Brands
           </a>
 
-          {/* 4. FAQs */}
+          {/* 4. Blogs */}
+          <a href="/blogs" title="STYLEIN Journal & Blogs" onClick={(e) => handleNavClick('/blogs', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
+            Blogs
+          </a>
+
+          {/* 5. FAQs */}
           <a href="/faqs" title="STYLEIN FAQs" onClick={(e) => handleNavClick('/faqs', e)} className="text-white text-[1.05rem] font-semibold no-underline hover:text-stylein-red py-1 font-heading tracking-wide cursor-pointer">
             FAQs
           </a>

@@ -39,6 +39,7 @@ export default function FooterColumns() {
         <div className="flex flex-col gap-2.5">
           <span className="text-white text-[0.78rem] font-bold uppercase tracking-wider font-heading mb-0.5 opacity-70">Company</span>
           <a href="/about" title="About STYLEIN" onClick={(e) => handleNav('/about', e)} className="text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">About Us</a>
+          <a href="/blogs" title="STYLEIN Blog & Insights" onClick={(e) => handleNav('/blogs', e)} className="text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">Blog & News</a>
           <a href="/contact" title="Contact STYLEIN" onClick={(e) => handleNav('/contact', e)} className="text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">Contact Us</a>
           <a href="/faqs" title="Frequently Asked Questions" onClick={(e) => handleNav('/faqs', e)} className="text-neutral-300 hover:text-white no-underline transition-colors cursor-pointer">FAQs</a>
 

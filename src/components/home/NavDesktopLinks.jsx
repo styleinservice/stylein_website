@@ -21,7 +21,7 @@ export default function NavDesktopLinks({ servicesOpen, setServicesOpen, handleH
   };
 
   return (
-    <nav className="hidden lg:flex items-center gap-4.5">
+    <nav className="hidden lg:flex items-center gap-3.5 xl:gap-4.5">
       {NAV_LINKS.map((link) => {
         const isServices = link.id === 'services';
         return (
@@ -35,7 +35,7 @@ export default function NavDesktopLinks({ servicesOpen, setServicesOpen, handleH
               href={link.href}
               title={`STYLEIN ${link.label}`}
               onClick={(e) => handleLinkClick(link, e)}
-              className={`text-neutral-200 text-[0.86rem] font-medium no-underline inline-flex items-center gap-1.5 relative group hover:text-white transition-colors cursor-pointer ${
+              className={`text-neutral-200 text-[0.84rem] xl:text-[0.86rem] font-medium no-underline inline-flex items-center gap-1 relative group hover:text-white transition-colors cursor-pointer ${
                 isServices && servicesOpen ? 'text-white' : ''
               }`}
             >

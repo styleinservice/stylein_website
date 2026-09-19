@@ -11,6 +11,7 @@ const FeaturedBrandsShowcase = lazy(() => import('../components/brands/FeaturedB
 const AppShowcaseSection = lazy(() => import('../components/app-showcase/AppShowcaseSection'));
 const FAQSection = lazy(() => import('../components/faq/FAQSection'));
 const TestimonialsSection = lazy(() => import('../components/testimonials/TestimonialsSection'));
+const RecentBlogsSection = lazy(() => import('../components/blogs/RecentBlogsSection'));
 const GetAppBanner = lazy(() => import('../components/download-banner/GetAppBanner'));
 const StyleinFooter = lazy(() => import('../components/footer/StyleinFooter'));
 import SEO from '../components/common/SEO';
@@ -113,6 +114,7 @@ function HomeContent() {
               <AppShowcaseSection />
               <FAQSection />
               <TestimonialsSection />
+              <RecentBlogsSection />
               <GetAppBanner />
             </Suspense>
           </div>
