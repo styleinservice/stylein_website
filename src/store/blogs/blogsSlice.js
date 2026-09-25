@@ -1,4 +1,4 @@
-﻿import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../api/axios';
 
 // 1. Fetch Top Recent Blogs for Homepage / Sidebar
@@ -7,10 +7,8 @@ export const fetchRecentBlogs = createAsyncThunk(
   async ({ limit = 3 } = {}, { rejectWithValue }) => {
     try {
       const response = await api.get(`/blog/recent?limit=${limit}`);
-      if (response.data?.status && Array.isArray(response.data?.data)) {
-        return response.data.data;
-      }
-      return [];
+      const data = response.data?.data || response.data?.blogs || (Array.isArray(response.data) ? response.data : []);
+      return Array.isArray(data) ? data : [];
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
@@ -29,15 +27,14 @@ export const fetchBlogsList = createAsyncThunk(
       if (search && search.trim()) params.append('search', search.trim());
 
       const response = await api.get(`/blog?${params.toString()}`);
-      return {
-        blogs: response.data?.data || [],
-        pagination: response.data?.extra?.pagination || {
-          totalDocs: 0,
-          totalPages: 1,
-          currentPage: page,
-          limit,
-        },
+      const blogs = response.data?.data || response.data?.blogs || (Array.isArray(response.data) ? response.data : []);
+      const pagination = response.data?.pagination || response.data?.extra?.pagination || {
+        totalDocs: blogs.length,
+        totalPages: 1,
+        currentPage: page,
+        limit,
       };
+      return { blogs, pagination };
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
@@ -50,10 +47,16 @@ export const fetchBlogBySlug = createAsyncThunk(
   async (slug, { rejectWithValue }) => {
     try {
       const response = await api.get(`/blog/${slug}`);
-      if (response.data?.status && response.data?.data) {
+      if (response.data?.data) {
         return response.data.data;
       }
-      return null;
+      if (response.data?.blog) {
+        return response.data.blog;
+      }
+      if (response.data && typeof response.data === 'object' && response.data.title) {
+        return response.data;
+      }
+      return rejectWithValue('Blog post not found');
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }

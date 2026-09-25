@@ -2,7 +2,7 @@ import React from 'react';
 import BlogCard from './BlogCard';
 import { SearchX } from 'lucide-react';
 
-export default function BlogsGrid({ blogs, loading, onClearFilters }) {
+export default function BlogsGrid({ blogs, loading, onClearFilters, onSelectBlog }) {
   if (loading) {
     return (
       <div className="w-full max-w-[1180px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -39,7 +39,7 @@ export default function BlogsGrid({ blogs, loading, onClearFilters }) {
   return (
     <div className="w-full max-w-[1180px] mx-auto px-6 pt-2 pb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
       {blogs.map((blog, idx) => (
-        <BlogCard key={blog._id || idx} blog={blog} index={idx} />
+        <BlogCard key={blog._id || idx} blog={blog} index={idx} onSelect={onSelectBlog} />
       ))}
     </div>
   );

@@ -8,7 +8,16 @@ export function SmoothScrollProvider({ children }) {
   const rafRef = useRef(null);
 
   useEffect(() => {
-    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const isTouch =
+      typeof window !== 'undefined' &&
+      ('ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        window.innerWidth < 1024);
+
+    if (isTouch) {
+      // Allow 100% native GPU momentum scrolling on touch & mobile devices
+      return;
+    }
 
     const lenisInstance = new Lenis({
       duration: 1.1,
@@ -17,7 +26,7 @@ export function SmoothScrollProvider({ children }) {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.0,
+      touchMultiplier: 0,
       syncTouch: false,
       infinite: false,
     });

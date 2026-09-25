@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Send, MessageSquare, CheckCircle, Loader2 } from 'lucide-react';
 import api from '../../api/axios';
 
 const INITIAL_FORM = { name: '', phone: '', email: '', subject: '', message: '' };
 
 export default function ContactForm() {
+  const { data: contact } = useSelector((state) => state.contact || {});
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -36,10 +38,11 @@ export default function ContactForm() {
   };
 
   const handleWhatsAppSend = () => {
+    const cleanWhatsapp = (contact?.whatsapp || '+971 50 999 8877').replace(/[^0-9]/g, '');
     const text = encodeURIComponent(
       `Hello STYLEIN,\nName: ${formData.name || 'N/A'}\nPhone: ${formData.phone || 'N/A'}\nSubject: ${formData.subject || 'General Inquiry'}\nNote: ${formData.message || 'Service inquiry'}`
     );
-    window.open(`https://wa.me/971558120570?text=${text}`, '_blank');
+    window.open(`https://wa.me/${cleanWhatsapp}?text=${text}`, '_blank');
   };
 
   const inputClasses = "w-full px-3.5 py-2.5 rounded-xl bg-black/40 border border-white/10 focus:border-[#FF3B47] text-white text-xs sm:text-sm outline-none transition-colors";

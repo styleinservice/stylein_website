@@ -24,8 +24,8 @@ export default function App() {
           <Route path="/brands" element={<BrandsPage />} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blog" element={<Navigate to="/blogs" replace />} />
-          <Route path="/blog/:slug" element={<BlogDetailPage />} />
-          <Route path="/blogs/:slug" element={<BlogDetailPage />} />
+          <Route path="/blog/:slug" element={<BlogsPage />} />
+          <Route path="/blogs/:slug" element={<BlogsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/rescue" element={<RescuePage />} />
           <Route path="/contact" element={<ContactPage />} />

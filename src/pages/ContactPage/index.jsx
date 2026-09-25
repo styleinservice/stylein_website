@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useLayoutEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { motion } from 'framer-motion';
+import { fetchContactDetails } from '../../store/contact/contactSlice';
 import { SmoothScrollProvider, useSmoothScroll } from '../../context/SmoothScrollContext';
 import StyleinNavbar from '../../components/home/StyleinNavbar';
 import NavMobileMenu from '../../components/home/NavMobileMenu';
@@ -12,6 +14,7 @@ import ContactHoursMap from '../../components/contact/ContactHoursMap';
 import SEO from '../../components/common/SEO';
 
 function ContactPageContent() {
+  const dispatch = useDispatch();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
   const [capturedScrollY, setCapturedScrollY] = useState(0);
@@ -20,7 +23,8 @@ function ContactPageContent() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    dispatch(fetchContactDetails());
+  }, [dispatch]);
 
   const handleOpenMenu = () => {
     const scroll = lenis?.scroll ?? window.scrollY ?? document.documentElement.scrollTop ?? 0;
@@ -67,7 +71,10 @@ function ContactPageContent() {
         onAnimationComplete={() => {
           if (!mobileMenuOpen) setIsMenuAnimating(false);
         }}
-        style={{ transformOrigin: 'center center' }}
+        style={{
+          transformOrigin: 'center center',
+          transform: !mobileMenuOpen && !isLockedState ? 'none' : undefined,
+        }}
         className={`w-full bg-[#030406] z-30 transition-[border-radius] ${
           isLockedState
             ? 'h-[100dvh] max-h-[100dvh] overflow-hidden fixed top-0 bottom-0 left-0 right-0 m-auto pointer-events-none lg:pointer-events-auto'

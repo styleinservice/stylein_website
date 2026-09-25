@@ -1,15 +1,16 @@
-﻿import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { fetchRecentBlogs } from '../../store/blogs/blogsSlice';
 import RecentBlogCard from './RecentBlogCard';
+import BlogDetailModal from './BlogDetailModal';
 import { ArrowRight, BookOpen } from 'lucide-react';
 
 export default function RecentBlogsSection() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { recentBlogs, recentLoading, recentFetched } = useSelector((state) => state.blogs);
+  const [selectedBlog, setSelectedBlog] = useState(null);
 
   useEffect(() => {
     if (!recentFetched) {
@@ -43,9 +44,6 @@ export default function RecentBlogsSection() {
             <h2 className="font-heading text-2xl sm:text-3xl lg:text-[2.25rem] font-extrabold text-white tracking-tight leading-[1.15] uppercase">
               EXPERT CAR CARE <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-stylein-red">GUIDES</span>
             </h2>
-            <p className="font-body text-[0.82rem] sm:text-sm text-neutral-400 mt-2">
-              Stay ahead with master detailing tips, summer maintenance advice, and luxury automotive insights from Dubai certified experts.
-            </p>
           </div>
 
           <a
@@ -65,10 +63,17 @@ export default function RecentBlogsSection() {
                 <div key={i} className="h-96 rounded-2xl bg-white/[0.03] border border-white/[0.06] animate-pulse" />
               ))
             : recentBlogs.slice(0, 3).map((blog, idx) => (
-                <RecentBlogCard key={blog._id || idx} blog={blog} index={idx} />
+                <RecentBlogCard key={blog._id || idx} blog={blog} index={idx} onSelect={setSelectedBlog} />
               ))}
         </div>
       </div>
+
+      {/* Blog Details Modal Popup */}
+      <BlogDetailModal
+        blog={selectedBlog}
+        isOpen={Boolean(selectedBlog)}
+        onClose={() => setSelectedBlog(null)}
+      />
     </section>
   );
 }

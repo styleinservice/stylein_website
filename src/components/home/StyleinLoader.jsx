@@ -10,15 +10,12 @@ export const isBotCrawler = () => {
 
 export default function StyleinLoader({ onComplete, onStartReveal }) {
   const isBot = isBotCrawler();
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-  const skipLoader = isBot || isMobile;
-
   const [mounted, setMounted] = useState(false);
-  const [fogOut, setFogOut] = useState(skipLoader);
-  const [hidden, setHidden] = useState(skipLoader);
+  const [fogOut, setFogOut] = useState(false);
+  const [hidden, setHidden] = useState(isBot);
 
   useEffect(() => {
-    if (skipLoader) {
+    if (isBot) {
       if (onStartReveal) onStartReveal();
       if (onComplete) onComplete();
       return;
@@ -29,20 +26,20 @@ export default function StyleinLoader({ onComplete, onStartReveal }) {
 
     const timer1 = setTimeout(() => {
       setFogOut(true);
-    }, 250);
+    }, 400);
 
     const timer2 = setTimeout(() => {
       setHidden(true);
       if (onComplete) onComplete();
-    }, 550);
+    }, 750);
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, [skipLoader, onComplete, onStartReveal]);
+  }, [isBot, onComplete, onStartReveal]);
 
-  if (hidden || skipLoader) return null;
+  if (hidden || isBot) return null;
 
   return (
     <div

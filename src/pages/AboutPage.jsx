@@ -78,7 +78,10 @@ function AboutPageContent() {
         }
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         onAnimationComplete={handleAnimationComplete}
-        style={{ transformOrigin: 'center center' }}
+        style={{
+          transformOrigin: 'center center',
+          transform: !mobileMenuOpen && !isLockedState ? 'none' : undefined,
+        }}
         className={`w-full bg-[#030406] z-30 transition-[border-radius] ${
           isLockedState
             ? 'h-[100dvh] max-h-[100dvh] overflow-hidden fixed top-0 bottom-0 left-0 right-0 m-auto pointer-events-none lg:pointer-events-auto'

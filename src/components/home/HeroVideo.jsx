@@ -4,7 +4,7 @@ import { HERO_VIDEO_URL } from '../../constants/videoConfig';
 export default function HeroVideo() {
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#07080a]">
-      {/* Direct Autoplay Video Element with Instant WebP Poster */}
+      {/* Direct Autoplay Video Element */}
       <video
         autoPlay
         muted
@@ -12,7 +12,6 @@ export default function HeroVideo() {
         playsInline
         webkit-playsinline="true"
         preload="metadata"
-        poster="/assets/images/stylein-hero-fallback.webp"
         className="absolute inset-0 w-full h-full object-cover scale-105 pointer-events-none z-1"
       >
         <source src={HERO_VIDEO_URL} type="video/mp4" />

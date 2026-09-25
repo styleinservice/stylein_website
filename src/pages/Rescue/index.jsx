@@ -64,7 +64,7 @@ function RescuePageContent() {
         animate={mobileMenuOpen ? { x: '44%', scale: 0.62, borderRadius: '32px', boxShadow: '-25px 0 70px rgba(0,0,0,0.98), 0 0 0 1px rgba(255,255,255,0.18)' } : { x: '0%', scale: 1, borderRadius: '0px', boxShadow: 'none' }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         onAnimationComplete={() => { if (!mobileMenuOpen) setIsMenuAnimating(false); }}
-        style={{ transformOrigin: 'center center' }}
+        style={{ transformOrigin: 'center center', transform: !mobileMenuOpen && !isLockedState ? 'none' : undefined }}
         className={`w-full bg-[#030406] z-30 transition-[border-radius] ${isLockedState ? 'h-[100dvh] max-h-[100dvh] overflow-hidden fixed top-0 bottom-0 left-0 right-0 m-auto pointer-events-none lg:pointer-events-auto' : 'relative min-h-screen'}`}
       >
         {mobileMenuOpen && <div aria-label="Scaled website view" className="absolute inset-0 z-[2500] pointer-events-auto cursor-default bg-black/15 select-none" />}
