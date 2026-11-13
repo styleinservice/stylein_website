@@ -19,6 +19,32 @@
       ]
     },
     {
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=1800, s-maxage=3600, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=86400"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
@@ -36,7 +62,43 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/blog/:slug",
+      "destination": "https://www.styleincar.com/blogs/:slug",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog",
+      "destination": "https://www.styleincar.com/blogs",
+      "statusCode": 301
+    },
+    {
+      "source": "/brand/:slug",
+      "destination": "https://www.styleincar.com/brands/:slug",
+      "statusCode": 301
+    },
+    {
+      "source": "/brand",
+      "destination": "https://www.styleincar.com/brands",
+      "statusCode": 301
+    },
+    {
+      "source": "/brands/audi-old",
+      "destination": "https://www.styleincar.com/brands/audi",
+      "statusCode": 301
+    },
+    {
+      "source": "/brands/bmw-old",
+      "destination": "https://www.styleincar.com/brands/bmw-x5",
+      "statusCode": 301
+    }
+  ],
   "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"

@@ -41,25 +41,71 @@ export const fetchBlogsList = createAsyncThunk(
   }
 );
 
-// 3. Fetch Single Blog Detail by Slug
+// 3. Fetch Single Blog Detail by Slug (with Automatic Fallback & Structured Redirect Support)
 export const fetchBlogBySlug = createAsyncThunk(
   'blogs/fetchBlogBySlug',
   async (slug, { rejectWithValue }) => {
+    if (!slug) return rejectWithValue('Slug parameter is required');
+
+    let response = null;
+    const cleanSlug = encodeURIComponent(String(slug).trim());
+
+    // Try /api/blogs/slug/:slug first, then fallback to /blogs/:slug and /blog/:slug
     try {
-      const response = await api.get(`/blog/${slug}`);
-      if (response.data?.data) {
-        return response.data.data;
+      response = await api.get(`/api/blogs/slug/${cleanSlug}`);
+    } catch (err1) {
+      try {
+        response = await api.get(`/blogs/${cleanSlug}`);
+      } catch (err2) {
+        try {
+          response = await api.get(`/blog/${cleanSlug}`);
+        } catch (err3) {
+          const errMsg = err3.response?.data?.message || err2.response?.data?.message || err1.response?.data?.message || 'Blog post not found';
+          return rejectWithValue(errMsg);
+        }
       }
-      if (response.data?.blog) {
-        return response.data.blog;
-      }
-      if (response.data && typeof response.data === 'object' && response.data.title) {
-        return response.data;
-      }
-      return rejectWithValue('Blog post not found');
-    } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
     }
+
+    if (!response || !response.data) {
+      return rejectWithValue('Blog post not found');
+    }
+
+    const resData = response.data;
+
+    // Check for structured redirect response (HTTP 301 / oldSlug -> newSlug)
+    const isRedirect = Boolean(
+      resData?.extra?.isRedirect ||
+      resData?.statusCode === 301 ||
+      resData?.data?.isRedirect ||
+      (resData?.extra?.newSlug && resData.extra.newSlug !== slug)
+    );
+
+    if (isRedirect) {
+      const newSlug = resData?.extra?.newSlug || resData?.data?.newSlug;
+      const canonicalUrl = resData?.extra?.canonicalUrl || (newSlug ? `https://www.styleincar.com/blogs/${newSlug}` : null);
+      const redirectUrl = resData?.extra?.redirectUrl || (newSlug ? `/blogs/${newSlug}` : null);
+      return {
+        isRedirect: true,
+        statusCode: 301,
+        oldSlug: resData?.extra?.oldSlug || slug,
+        newSlug,
+        canonicalUrl,
+        redirectUrl,
+        blog: resData?.data?.title ? resData.data : null,
+      };
+    }
+
+    // Normal blog payload
+    const blog = resData.data || resData.blog || (resData.title ? resData : null);
+    if (blog && (blog.title || blog._id)) {
+      return {
+        isRedirect: false,
+        blog,
+        extra: resData.extra || null,
+      };
+    }
+
+    return rejectWithValue('Blog post not found');
   }
 );
 
@@ -76,12 +122,14 @@ const blogsSlice = createSlice({
     listError: null,
 
     currentBlog: null,
+    redirectInfo: null,
     detailLoading: false,
     detailError: null,
   },
   reducers: {
     clearCurrentBlog: (state) => {
       state.currentBlog = null;
+      state.redirectInfo = null;
       state.detailError = null;
     },
   },
@@ -118,14 +166,23 @@ const blogsSlice = createSlice({
       .addCase(fetchBlogBySlug.pending, (state) => {
         state.detailLoading = true;
         state.detailError = null;
+        state.redirectInfo = null;
       })
       .addCase(fetchBlogBySlug.fulfilled, (state, action) => {
         state.detailLoading = false;
-        state.currentBlog = action.payload;
+        if (action.payload?.isRedirect) {
+          state.redirectInfo = action.payload;
+          state.currentBlog = action.payload.blog || null;
+        } else {
+          state.redirectInfo = null;
+          state.currentBlog = action.payload?.blog || action.payload;
+        }
       })
       .addCase(fetchBlogBySlug.rejected, (state, action) => {
         state.detailLoading = false;
         state.detailError = action.payload;
+        state.currentBlog = null;
+        state.redirectInfo = null;
       });
   },
 });

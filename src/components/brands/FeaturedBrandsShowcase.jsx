@@ -43,8 +43,8 @@ export default function FeaturedBrandsShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    if (!fetched) dispatch(fetchBrands());
-  }, [dispatch, fetched]);
+    dispatch(fetchBrands());
+  }, [dispatch]);
 
   const featuredBrands = allBrands
     ? allBrands.filter((b) => b.featured === true && !b.deleted && b.active).sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0))

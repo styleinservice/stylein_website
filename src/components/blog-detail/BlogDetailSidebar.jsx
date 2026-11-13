@@ -1,12 +1,11 @@
 ﻿import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { fetchRecentBlogs } from '../../store/blogs/blogsSlice';
-import { Phone, MessageSquare, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Phone, MessageSquare, ShieldCheck } from 'lucide-react';
 
 export default function BlogDetailSidebar({ currentSlug }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { recentBlogs, recentFetched } = useSelector((state) => state.blogs);
 
   useEffect(() => {
@@ -18,12 +17,6 @@ export default function BlogDetailSidebar({ currentSlug }) {
   const related = (recentBlogs || [])
     .filter((b) => (b.slug || b._id) !== currentSlug)
     .slice(0, 3);
-
-  const handleArticleClick = (slug, e) => {
-    e.preventDefault();
-    navigate(`/blog/${slug}`);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <aside className="w-full flex flex-col gap-8">
@@ -39,10 +32,10 @@ export default function BlogDetailSidebar({ currentSlug }) {
             {related.map((item, idx) => {
               const itemSlug = item.slug || item._id;
               return (
-                <a
+                <Link
                   key={item._id || idx}
-                  href={`/blog/${itemSlug}`}
-                  onClick={(e) => handleArticleClick(itemSlug, e)}
+                  to={`/blogs/${itemSlug}`}
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   className="flex items-center gap-3.5 group no-underline text-left"
                 >
                   <img
@@ -58,7 +51,7 @@ export default function BlogDetailSidebar({ currentSlug }) {
                       {item.title}
                     </h4>
                   </div>
-                </a>
+                </Link>
               );
             })}
           </div>

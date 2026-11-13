@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 const Home = lazy(() => import('./pages/Home'));
 const BrandsPage = lazy(() => import('./pages/BrandsPage'));
+const BrandDetailPage = lazy(() => import('./pages/BrandDetailPage/index'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ServicesPage = lazy(() => import('./pages/Services/index'));
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetail/index'));
@@ -22,10 +23,13 @@ export default function App() {
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/:id" element={<ServiceDetailPage />} />
           <Route path="/brands" element={<BrandsPage />} />
+          <Route path="/brands/:slug" element={<BrandDetailPage />} />
+          <Route path="/brand" element={<Navigate to="/brands" replace />} />
+          <Route path="/brand/:slug" element={<BrandDetailPage />} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blog" element={<Navigate to="/blogs" replace />} />
-          <Route path="/blog/:slug" element={<BlogsPage />} />
-          <Route path="/blogs/:slug" element={<BlogsPage />} />
+          <Route path="/blog/:slug" element={<BlogDetailPage />} />
+          <Route path="/blogs/:slug" element={<BlogDetailPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/rescue" element={<RescuePage />} />
           <Route path="/contact" element={<ContactPage />} />
@@ -35,6 +39,8 @@ export default function App() {
           <Route path="/legal" element={<LegalPage />} />
           <Route path="/terms" element={<Navigate to="/legal" replace />} />
           <Route path="/privacy" element={<Navigate to="/legal" replace />} />
+          {/* Fallback 404 Route */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

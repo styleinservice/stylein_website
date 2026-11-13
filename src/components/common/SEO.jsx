@@ -6,9 +6,17 @@ import { DEFAULT_SEO_BY_KEY, generateSchemaJsonLd } from '../../constants/seoDat
 let cachedSeoMap = null;
 let pendingSeoPromise = null;
 
+const CANONICAL_ORIGIN = 'https://www.styleincar.com';
+
 function updateOrCreateMetaTag(attribute, attributeValue, content) {
   if (!content) return;
-  let element = document.querySelector(`meta[${attribute}="${attributeValue}"]`);
+  const elements = document.querySelectorAll(`meta[${attribute}="${attributeValue}"]`);
+  if (elements.length > 1) {
+    for (let i = 1; i < elements.length; i++) {
+      elements[i].parentNode.removeChild(elements[i]);
+    }
+  }
+  let element = elements[0];
   if (!element) {
     element = document.createElement('meta');
     element.setAttribute(attribute, attributeValue);
@@ -19,7 +27,13 @@ function updateOrCreateMetaTag(attribute, attributeValue, content) {
 
 function updateOrCreateLinkTag(rel, href) {
   if (!href) return;
-  let element = document.querySelector(`link[rel="${rel}"]`);
+  const elements = document.querySelectorAll(`link[rel="${rel}"]`);
+  if (elements.length > 1) {
+    for (let i = 1; i < elements.length; i++) {
+      elements[i].parentNode.removeChild(elements[i]);
+    }
+  }
+  let element = elements[0];
   if (!element) {
     element = document.createElement('link');
     element.setAttribute('rel', rel);
@@ -38,6 +52,7 @@ export default function SEO({
   description,
   keywords,
   ogImage,
+  canonicalUrl,
 }) {
   const fallback = DEFAULT_SEO_BY_KEY[pageKey] || DEFAULT_SEO_BY_KEY.home;
   const [seoData, setSeoData] = useState(() => {
@@ -95,7 +110,8 @@ export default function SEO({
     const finalDescription = description || seoData.metaDescription || fallback.metaDescription;
     const finalKeywords = keywords || seoData.metaKeywords || fallback.metaKeywords;
     const finalOgImage = ogImage || seoData.ogImage || fallback.ogImage;
-    const currentUrl = window.location.href;
+    const cleanPath = window.location.pathname.replace(/\/+$/, '') || '/';
+    const finalCanonical = canonicalUrl || `${CANONICAL_ORIGIN}${cleanPath === '/' ? '' : cleanPath}`;
 
     // 1. Update Title
     if (finalTitle) {
@@ -108,13 +124,13 @@ export default function SEO({
     updateOrCreateMetaTag('name', 'robots', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
     updateOrCreateMetaTag('name', 'author', 'STYLEIN');
     updateOrCreateMetaTag('name', 'publisher', 'STYLEIN Car Services LLC');
-    updateOrCreateLinkTag('canonical', window.location.origin + window.location.pathname);
+    updateOrCreateLinkTag('canonical', finalCanonical);
     if (finalOgImage) updateOrCreateLinkTag('image_src', finalOgImage);
 
     // 3. OpenGraph Tags (Facebook, WhatsApp, LinkedIn)
     updateOrCreateMetaTag('property', 'og:title', finalTitle);
     updateOrCreateMetaTag('property', 'og:description', finalDescription);
-    updateOrCreateMetaTag('property', 'og:url', currentUrl);
+    updateOrCreateMetaTag('property', 'og:url', finalCanonical);
     updateOrCreateMetaTag('property', 'og:type', 'website');
     if (finalOgImage) updateOrCreateMetaTag('property', 'og:image', finalOgImage);
 
@@ -125,7 +141,7 @@ export default function SEO({
     if (finalOgImage) updateOrCreateMetaTag('name', 'twitter:image', finalOgImage);
 
     // 5. Schema.org JSON-LD
-    const schema = generateSchemaJsonLd(pageKey, finalTitle, finalDescription, currentUrl);
+    const schema = generateSchemaJsonLd(pageKey, finalTitle, finalDescription, finalCanonical);
     let sEl = document.getElementById('stylein-dynamic-schema');
     if (!sEl) {
       sEl = document.createElement('script');
@@ -134,7 +150,7 @@ export default function SEO({
       document.head.appendChild(sEl);
     }
     sEl.textContent = JSON.stringify(schema);
-  }, [pageKey, title, description, keywords, ogImage, seoData, fallback]);
+  }, [pageKey, title, description, keywords, ogImage, canonicalUrl, seoData, fallback]);
 
   return null;
 }

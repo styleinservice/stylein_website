@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import { fetchBlogsList } from '../../store/blogs/blogsSlice';
@@ -11,10 +11,9 @@ import SEO from '../../components/common/SEO';
 import BlogsHero from '../../components/blogs-page/BlogsHero';
 import BlogsGrid from '../../components/blogs-page/BlogsGrid';
 import BlogsPagination from '../../components/blogs-page/BlogsPagination';
-import BlogDetailModal from '../../components/blogs/BlogDetailModal';
 
 function BlogsPageContent() {
-  const { slug } = useParams();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const { list: blogs, pagination, listLoading } = useSelector((state) => state.blogs);
@@ -22,7 +21,6 @@ function BlogsPageContent() {
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [page, setPage] = useState(1);
-  const [selectedBlog, setSelectedBlog] = useState(null);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
@@ -30,14 +28,13 @@ function BlogsPageContent() {
   const savedScrollRef = useRef(0);
   const lenis = useSmoothScroll();
 
-  // Handle direct slug route (/blogs/:slug or ?slug=...)
+  // If someone accessed legacy query param (?slug=...), redirect cleanly to /blogs/:slug
   useEffect(() => {
-    const targetSlug = slug || searchParams.get('slug');
-    if (targetSlug) {
-      const existing = blogs.find((b) => b.slug === targetSlug || b._id === targetSlug);
-      setSelectedBlog(existing || { slug: targetSlug });
+    const querySlug = searchParams.get('slug');
+    if (querySlug) {
+      navigate(`/blogs/${querySlug}`, { replace: true });
     }
-  }, [slug, searchParams, blogs]);
+  }, [searchParams, navigate]);
 
   // Search Debounce (400ms)
   useEffect(() => {
@@ -108,20 +105,13 @@ function BlogsPageContent() {
           <div className="relative z-10 w-full flex flex-col items-center bg-[#07080a] shadow-[0_20px_40px_rgba(0,0,0,0.8)] border-b border-white/5 rounded-b-[32px] sm:rounded-b-[40px] md:rounded-b-[48px] lg:rounded-b-[56px] pb-16 overflow-hidden">
             <BlogsHero search={search} onSearchChange={setSearch} onSearchClear={() => setSearch('')} />
             <div className="w-full">
-              <BlogsGrid blogs={blogs} loading={listLoading} onClearFilters={handleClearFilters} onSelectBlog={setSelectedBlog} />
+              <BlogsGrid blogs={blogs} loading={listLoading} onClearFilters={handleClearFilters} />
             </div>
             <BlogsPagination pagination={pagination} onPageChange={handlePageChange} />
           </div>
           <StyleinFooter />
         </div>
       </motion.main>
-
-      {/* Blog Details Modal Popup */}
-      <BlogDetailModal
-        blog={selectedBlog}
-        isOpen={Boolean(selectedBlog)}
-        onClose={() => setSelectedBlog(null)}
-      />
     </div>
   );
 }

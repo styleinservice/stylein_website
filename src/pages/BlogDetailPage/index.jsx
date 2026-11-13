@@ -19,7 +19,12 @@ function BlogDetailPageContent() {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { currentBlog: blog, detailLoading: loading, detailError: error } = useSelector((state) => state.blogs);
+  const {
+    currentBlog: blog,
+    redirectInfo,
+    detailLoading: loading,
+    detailError: error,
+  } = useSelector((state) => state.blogs);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
@@ -27,6 +32,7 @@ function BlogDetailPageContent() {
   const savedScrollRef = useRef(0);
   const lenis = useSmoothScroll();
 
+  // 1. Fetch blog by slug on mount or slug parameter change
   useEffect(() => {
     if (slug) {
       dispatch(fetchBlogBySlug(slug));
@@ -35,6 +41,22 @@ function BlogDetailPageContent() {
       dispatch(clearCurrentBlog());
     };
   }, [dispatch, slug]);
+
+  // 2. Handle structured redirect response (HTTP 301 from old slug to new canonical slug)
+  useEffect(() => {
+    if (redirectInfo?.isRedirect && redirectInfo?.newSlug && redirectInfo.newSlug !== slug) {
+      navigate(`/blogs/${redirectInfo.newSlug}`, { replace: true });
+    }
+  }, [redirectInfo, slug, navigate]);
+
+  // 3. Enforce canonical route if accessed via alias (/blog/:slug -> /blogs/:slug) or by ID when slug is available
+  useEffect(() => {
+    if (window.location.pathname.startsWith('/blog/')) {
+      navigate(`/blogs/${slug}`, { replace: true });
+    } else if (blog?.slug && blog.slug !== slug && !redirectInfo?.isRedirect) {
+      navigate(`/blogs/${blog.slug}`, { replace: true });
+    }
+  }, [blog, slug, navigate, redirectInfo]);
 
   const handleOpenMenu = () => {
     const scroll = lenis?.scroll ?? window.scrollY ?? document.documentElement.scrollTop ?? 0;
@@ -59,13 +81,17 @@ function BlogDetailPageContent() {
     }
   }, [isLockedState, mobileMenuOpen, lenis]);
 
+  const canonicalUrl = `https://www.styleincar.com/blogs/${blog?.slug || slug || ''}`;
+
   return (
     <div className="bg-[#05060a] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
       <SEO
         pageKey="blog-detail"
-        title={blog?.title ? `${blog.title} | STYLEIN Dubai` : 'Auto Care Article | STYLEIN Journal'}
-        description={blog?.shortDescription || 'Read this comprehensive auto care guide from STYLEIN specialists.'}
-        ogImage={blog?.image}
+        title={blog?.metaTitle || (blog?.title ? `${blog.title} | STYLEIN Dubai` : 'Auto Care Article | STYLEIN Journal')}
+        description={blog?.metaDescription || blog?.shortDescription || 'Read this comprehensive auto care guide from STYLEIN specialists.'}
+        keywords={blog?.metaKeywords || 'car care tips dubai, auto detailing uae, mobile car repair, styleincar'}
+        ogImage={blog?.ogImage || blog?.image}
+        canonicalUrl={canonicalUrl}
       />
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
 

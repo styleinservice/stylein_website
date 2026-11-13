@@ -39,6 +39,14 @@ export const DEFAULT_SEO_BY_KEY = {
     ogDescription: 'Trusted care for the world\'s most prestigious automotive marques.',
     ogImage: 'https://storage.googleapis.com/stylein_bucket/Home_services/Car_Wash.webp',
   },
+  'brand-detail': {
+    metaTitle: 'Luxury Car Models & Specifications | StyleinCar',
+    metaDescription: 'Explore luxury cars, available models, specifications, bespoke care highlights, and details at StyleinCar.',
+    metaKeywords: 'car brand, luxury auto detailing, bespoke car care, vehicle specifications, styleincar',
+    ogTitle: 'Luxury Car Profiles | StyleinCar',
+    ogDescription: 'Explore luxury cars, available models, specifications, and details at StyleinCar.',
+    ogImage: 'https://storage.googleapis.com/stylein_bucket/Home_services/Car_Wash.webp',
+  },
   about: {
     metaTitle: 'About STYLEIN | Redefining Automotive Convenience in UAE',
     metaDescription: 'Learn about STYLEIN\'s mission to revolutionize automotive car care with certified technicians, eco-friendly products, and fully equipped mobile workshops.',
@@ -147,6 +155,26 @@ export function generateSchemaJsonLd(pageKey, title, description, url) {
       },
     ],
   };
+
+  if (pageKey === 'blog-detail') {
+    baseSchema['@graph'].push({
+      '@type': 'BlogPosting',
+      '@id': `${url}#article`,
+      isPartOf: { '@id': `${url}#webpage` },
+      headline: title,
+      description,
+      url,
+      mainEntityOfPage: url,
+      publisher: {
+        '@type': 'Organization',
+        name: 'STYLEIN Car Services LLC',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://www.styleincar.com/favicon.webp',
+        },
+      },
+    });
+  }
 
   return baseSchema;
 }
