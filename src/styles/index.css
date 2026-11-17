@@ -108,3 +108,159 @@ html.lenis, html.lenis body {
   background-color: #e50914;
   color: #ffffff;
 }
+
+/* ==========================================================================
+   Blog Article Typography & Contrast System
+   Ensures all blog content (past, present, and future) renders in StyleinCar's
+   clean, high-contrast dark automotive aesthetic, regardless of editor source.
+   ========================================================================== */
+.blog-article-content {
+  color: #d4d4d4 !important;
+  font-family: var(--font-body, inherit);
+  line-height: 1.8;
+}
+
+.blog-article-content h1,
+.blog-article-content h2 {
+  font-family: var(--font-heading, inherit) !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  letter-spacing: -0.025em;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.5rem !important;
+}
+
+@media (min-width: 640px) {
+  .blog-article-content h1,
+  .blog-article-content h2 {
+    font-size: 1.8rem !important;
+  }
+}
+
+.blog-article-content h3 {
+  font-family: var(--font-heading, inherit) !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem !important;
+}
+
+.blog-article-content h4,
+.blog-article-content h5,
+.blog-article-content h6 {
+  font-family: var(--font-heading, inherit) !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem !important;
+}
+
+/* Ensure any nested span inside headings stays pure white */
+.blog-article-content h1 *,
+.blog-article-content h2 *,
+.blog-article-content h3 *,
+.blog-article-content h4 *,
+.blog-article-content h5 *,
+.blog-article-content h6 * {
+  color: #ffffff !important;
+}
+
+/* All body copy, paragraphs, spans, lists, divs */
+.blog-article-content p,
+.blog-article-content span,
+.blog-article-content li,
+.blog-article-content td,
+.blog-article-content th,
+.blog-article-content div {
+  color: #d4d4d4 !important;
+  background-color: transparent !important;
+}
+
+.blog-article-content p {
+  line-height: 1.85 !important;
+  margin-bottom: 1.25rem !important;
+  font-size: 1rem !important;
+}
+
+@media (min-width: 640px) {
+  .blog-article-content p {
+    font-size: 1.05rem !important;
+  }
+}
+
+.blog-article-content strong,
+.blog-article-content b {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* Lists styling */
+.blog-article-content ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.blog-article-content ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.blog-article-content li {
+  color: #d4d4d4 !important;
+  line-height: 1.8 !important;
+  margin-bottom: 0.6rem !important;
+}
+
+.blog-article-content li * {
+  color: inherit !important;
+}
+
+.blog-article-content li strong,
+.blog-article-content li b {
+  color: #ffffff !important;
+}
+
+/* Links */
+.blog-article-content a,
+.blog-article-content a * {
+  color: #e50914 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
+  transition: color 0.2s ease !important;
+}
+
+.blog-article-content a:hover,
+.blog-article-content a:hover * {
+  color: #ff1f2d !important;
+}
+
+/* Blockquotes */
+.blog-article-content blockquote {
+  border-left: 4px solid #e50914 !important;
+  padding: 0.75rem 1.25rem !important;
+  margin: 1.75rem 0 !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border-radius: 0 0.75rem 0.75rem 0 !important;
+  color: #e5e5e5 !important;
+  font-style: italic !important;
+}
+
+/* Media & Images */
+.blog-article-content img {
+  border-radius: 1rem !important;
+  margin: 2rem 0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.6) !important;
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+}
