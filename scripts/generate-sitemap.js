@@ -40,31 +40,52 @@ function fetchJson(url) {
   });
 }
 
-// Fallback active brands from database in case network is offline during build
-const FALLBACK_BRANDS = [
-  'toyota-land-cruiser-300',
-  'nissan-gt-r',
-  'kia-sportage',
-  'hyundai-elantra',
-  'tesla-cybertruck',
-  'bmw-x5',
-  'suzuki-jimny',
-  'mitsubishi-lancer-evolution-evo',
-  'mercedes-benz-amg-gt-4-door-coupe',
-  'porsche-911-gt3-rs',
-  'mg-cyberster',
-  'rolls-royce-phantom',
-  'bentley-continental-gt',
-  'byd-seal',
-  'audi',
-  'bmw',
-  'mercedes-benz',
+// Fallback active services (all 14 canonical service routes)
+const FALLBACK_SERVICES = [
+  'car-wash',
+  'battery',
+  'oil-change',
+  'car-inspection',
+  'glass-coating',
+  'ppf-suv',
+  'ppf-sedan-car',
+  'rim-ceramic-coating',
+  'fabric-protection',
+  'odor-removal',
+  'pet-hair-removal',
+  'leather-conditioning',
+  'headlight-restoration',
+  'engine-bay-detailing',
 ];
 
+// Fallback active brands from database in case network is offline during build
+const FALLBACK_BRANDS = [
+  'audi',
+  'bentley-continental-gt',
+  'bmw',
+  'bmw-x5',
+  'byd-seal',
+  'hyundai-elantra',
+  'kia-sportage',
+  'mercedes-benz',
+  'mercedes-benz-amg-gt-4-door-coupe',
+  'mg-cyberster',
+  'mitsubishi-lancer-evolution-evo',
+  'nissan-gt-r',
+  'porsche-911-gt3-rs',
+  'rolls-royce-phantom',
+  'suzuki-jimny',
+  'tesla-cybertruck',
+  'toyota-land-cruiser-300',
+];
+
+// Fallback active blogs from database
 const FALLBACK_BLOGS = [
-  'ppf-services-in-ajman-clear-ppf-aed-3-300-color-ppf-aed-3-999-styleincar',
-  'who-is-stylein-car-services-l-l-c-in-the-uae',
   'car-service-in-the-uae-one-doorstep-at-a-time-stylein-car',
+  'meet-the-founder-of-styleincar-premium-car-care-across-ajman-sharjah-dubai-and-all-uae',
+  'ppf-services-in-ajman-clear-ppf-aed-3-300-color-ppf-aed-3-999-styleincar',
+  'stylein-app-is-now-live-on-google-play-doorstep-car-wash-and-detailing-across-the-uae',
+  'who-is-stylein-car-services-l-l-c-in-the-uae',
 ];
 
 async function generate() {
@@ -83,7 +104,10 @@ async function generate() {
     { loc: '/legal', priority: '0.5', changefreq: 'monthly' },
   ];
 
-  // 1. Fetch dynamic brands
+  // 1. Services
+  const serviceSlugs = new Set(FALLBACK_SERVICES);
+
+  // 2. Fetch dynamic brands
   const brandSlugs = new Set();
   const brandsData = await fetchJson(`${BACKEND_BASE}/brand`);
   if (brandsData?.data && Array.isArray(brandsData.data)) {
@@ -94,11 +118,9 @@ async function generate() {
       }
     });
   }
-
-  // Ensure default/fallback active marques are present
   FALLBACK_BRANDS.forEach((s) => brandSlugs.add(s));
 
-  // 2. Fetch dynamic blogs
+  // 3. Fetch dynamic blogs
   const blogSlugs = new Set();
   const blogsData = await fetchJson(`${BACKEND_BASE}/blog`);
   if (blogsData?.data && Array.isArray(blogsData.data)) {
@@ -108,8 +130,6 @@ async function generate() {
       }
     });
   }
-
-  // Ensure default/fallback active blogs are present
   FALLBACK_BLOGS.forEach((s) => blogSlugs.add(s));
 
   // Build XML
@@ -123,6 +143,16 @@ async function generate() {
     xml += `    <lastmod>${today}</lastmod>\n`;
     xml += `    <changefreq>${page.changefreq}</changefreq>\n`;
     xml += `    <priority>${page.priority}</priority>\n`;
+    xml += `  </url>\n`;
+  }
+
+  // Active Service URLs
+  for (const slug of Array.from(serviceSlugs).sort()) {
+    xml += `  <url>\n`;
+    xml += `    <loc>${CANONICAL_BASE}/services/${slug}</loc>\n`;
+    xml += `    <lastmod>${today}</lastmod>\n`;
+    xml += `    <changefreq>weekly</changefreq>\n`;
+    xml += `    <priority>0.85</priority>\n`;
     xml += `  </url>\n`;
   }
 
@@ -155,7 +185,7 @@ async function generate() {
 
   const sitemapPath = path.join(publicDir, 'sitemap.xml');
   fs.writeFileSync(sitemapPath, xml, 'utf8');
-  console.log(`✅ Sitemap created at: ${sitemapPath} (${brandSlugs.size} brands, ${blogSlugs.size} blogs)`);
+  console.log(`✅ Sitemap created at: ${sitemapPath} (${serviceSlugs.size} services, ${brandSlugs.size} brands, ${blogSlugs.size} blogs)`);
 
   // Also ensure robots.txt exists
   const robotsPath = path.join(publicDir, 'robots.txt');

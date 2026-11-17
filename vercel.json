@@ -92,6 +92,11 @@
       "source": "/brands/bmw-old",
       "destination": "https://www.styleincar.com/brands/bmw-x5",
       "statusCode": 301
+    },
+    {
+      "source": "/blogs/meet-the-founder-of-styleincar-premium-carcare-across-ajman-sharjah-dubai-and-all-uae",
+      "destination": "https://www.styleincar.com/blogs/meet-the-founder-of-styleincar-premium-car-care-across-ajman-sharjah-dubai-and-all-uae",
+      "statusCode": 301
     }
   ],
   "rewrites": [

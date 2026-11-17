@@ -4,8 +4,9 @@
  * 1. Enforces genuine HTTP 301 Permanent Redirects for old/legacy brand slugs to canonical destination:
  *    https://www.styleincar.com/brands/{currentSlug}
  * 2. Enforces genuine HTTP 301 for legacy /brand/:slug -> /brands/:slug
- * 3. Dynamically serves always-fresh sitemap.xml directly from active database records,
- *    so new brands added in Admin Panel appear instantly without rebuilding or manual code changes.
+ * 3. Enforces genuine HTTP 301 for legacy /blog/:slug -> /blogs/:slug and old blog slugs
+ * 4. Dynamically serves always-fresh sitemap.xml directly from active database records,
+ *    including all 14 service routes, 17 brand routes, and 5 blog routes.
  */
 
 const CANONICAL_BASE = 'https://www.styleincar.com';
@@ -22,6 +23,51 @@ export const config = {
     '/sitemap.xml',
   ],
 };
+
+const FALLBACK_SERVICES = [
+  'car-wash',
+  'battery',
+  'oil-change',
+  'car-inspection',
+  'glass-coating',
+  'ppf-suv',
+  'ppf-sedan-car',
+  'rim-ceramic-coating',
+  'fabric-protection',
+  'odor-removal',
+  'pet-hair-removal',
+  'leather-conditioning',
+  'headlight-restoration',
+  'engine-bay-detailing',
+];
+
+const FALLBACK_BRANDS = [
+  'audi',
+  'bentley-continental-gt',
+  'bmw',
+  'bmw-x5',
+  'byd-seal',
+  'hyundai-elantra',
+  'kia-sportage',
+  'mercedes-benz',
+  'mercedes-benz-amg-gt-4-door-coupe',
+  'mg-cyberster',
+  'mitsubishi-lancer-evolution-evo',
+  'nissan-gt-r',
+  'porsche-911-gt3-rs',
+  'rolls-royce-phantom',
+  'suzuki-jimny',
+  'tesla-cybertruck',
+  'toyota-land-cruiser-300',
+];
+
+const FALLBACK_BLOGS = [
+  'car-service-in-the-uae-one-doorstep-at-a-time-stylein-car',
+  'meet-the-founder-of-styleincar-premium-car-care-across-ajman-sharjah-dubai-and-all-uae',
+  'ppf-services-in-ajman-clear-ppf-aed-3-300-color-ppf-aed-3-999-styleincar',
+  'stylein-app-is-now-live-on-google-play-doorstep-car-wash-and-detailing-across-the-uae',
+  'who-is-stylein-car-services-l-l-c-in-the-uae',
+];
 
 function generateSlug(text) {
   if (!text) return '';
@@ -49,34 +95,27 @@ async function resolveOldSlug(slug) {
 
   // 1. Try public backend slug endpoint with ?redirect=false
   try {
-    const res = await fetch(`${BACKEND_BASE}/api/brands/slug/${encodeURIComponent(clean)}?redirect=false`, {
+    const res = await fetch(`${BACKEND_BASE}/brand/slug/${encodeURIComponent(clean)}?redirect=false`, {
       headers: { 'Accept': 'application/json' },
     });
-
-    if (res.status === 301) {
-      const json = await res.json().catch(() => null);
-      if (json?.data?.currentSlug && json.data.currentSlug !== clean) {
-        return json.data.currentSlug;
-      }
-    }
-
     if (res.ok) {
       const json = await res.json().catch(() => null);
-      if (json?.data?.isRedirect && json.data.currentSlug && json.data.currentSlug !== clean) {
-        return json.data.currentSlug;
+      if (json?.data?.isRedirect && json.data.currentSlug && json.data.currentSlug.toLowerCase() !== clean) {
+        return json.data.currentSlug.toLowerCase();
+      }
+      if (json?.data?.canonicalSlug && json.data.canonicalSlug.toLowerCase() !== clean) {
+        return json.data.canonicalSlug.toLowerCase();
       }
     }
   } catch (_) {}
 
-  // 2. Fallback: check brand catalog for oldSlugs history
+  // 2. Fallback: inspect full brand list for oldSlugs matches
   try {
-    const catRes = await fetch(`${BACKEND_BASE}/brand`, {
-      headers: { 'Accept': 'application/json' },
-    });
-    if (catRes.ok) {
-      const catJson = await catRes.json().catch(() => null);
-      const brands = catJson?.data;
-      if (Array.isArray(brands)) {
+    const listRes = await fetch(`${BACKEND_BASE}/brand`);
+    if (listRes.ok) {
+      const listJson = await listRes.json().catch(() => null);
+      const brands = Array.isArray(listJson?.data) ? listJson.data : [];
+      if (brands.length > 0) {
         for (const b of brands) {
           if (!b.deleted && b.active) {
             const canonical = b.slug ? b.slug.toLowerCase().trim() : generateSlug(b.name);
@@ -100,6 +139,11 @@ async function resolveOldSlug(slug) {
 async function resolveOldBlogSlug(slug) {
   if (!slug) return null;
   const clean = slug.trim().toLowerCase();
+
+  // Known typos / redirects
+  if (clean === 'meet-the-founder-of-styleincar-premium-carcare-across-ajman-sharjah-dubai-and-all-uae') {
+    return 'meet-the-founder-of-styleincar-premium-car-care-across-ajman-sharjah-dubai-and-all-uae';
+  }
 
   // Try backend SEO slug endpoint
   try {
@@ -139,24 +183,6 @@ async function resolveOldBlogSlug(slug) {
 async function handleSitemap() {
   const today = new Date().toISOString().split('T')[0];
 
-  // Try backend dynamic sitemap first
-  try {
-    const backendSitemap = await fetch(`${BACKEND_BASE}/sitemap.xml`);
-    if (backendSitemap.ok) {
-      const xml = await backendSitemap.text();
-      if (xml && xml.includes('<urlset')) {
-        return new Response(xml, {
-          status: 200,
-          headers: {
-            'Content-Type': 'application/xml; charset=utf-8',
-            'Cache-Control': 'public, max-age=1800, s-maxage=3600, stale-while-revalidate=86400',
-          },
-        });
-      }
-    }
-  } catch (_) {}
-
-  // Generate on-the-fly from live active brands and blogs
   const staticRoutes = [
     { loc: '/', priority: '1.0', changefreq: 'weekly' },
     { loc: '/services', priority: '0.9', changefreq: 'weekly' },
@@ -169,7 +195,9 @@ async function handleSitemap() {
     { loc: '/legal', priority: '0.5', changefreq: 'monthly' },
   ];
 
-  const brandSlugs = new Set();
+  const serviceSlugs = new Set(FALLBACK_SERVICES);
+
+  const brandSlugs = new Set(FALLBACK_BRANDS);
   try {
     const res = await fetch(`${BACKEND_BASE}/brand`);
     if (res.ok) {
@@ -185,7 +213,7 @@ async function handleSitemap() {
     }
   } catch (_) {}
 
-  const blogSlugs = new Set();
+  const blogSlugs = new Set(FALLBACK_BLOGS);
   try {
     const res = await fetch(`${BACKEND_BASE}/blog`);
     if (res.ok) {
@@ -205,6 +233,10 @@ async function handleSitemap() {
 
   for (const page of staticRoutes) {
     xml += `  <url>\n    <loc>${CANONICAL_BASE}${page.loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${page.changefreq}</changefreq>\n    <priority>${page.priority}</priority>\n  </url>\n`;
+  }
+
+  for (const slug of Array.from(serviceSlugs).sort()) {
+    xml += `  <url>\n    <loc>${CANONICAL_BASE}/services/${slug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.85</priority>\n  </url>\n`;
   }
 
   for (const slug of Array.from(brandSlugs).sort()) {

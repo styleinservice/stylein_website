@@ -99,9 +99,18 @@ function ServiceDetailContent() {
     }
   }, [isLockedState, mobileMenuOpen, lenis]);
 
+  const serviceSlug = service ? getServiceSlug(service) : id;
+  const canonicalUrl = `https://www.styleincar.com/services/${serviceSlug}`;
+
   return (
     <div className="bg-[#050505] min-h-screen relative overflow-x-hidden selection:bg-stylein-red selection:text-white">
-      <SEO pageKey="service-detail" title={service?.title || service?.name ? `${service.title || service.name} | STYLEIN Doorstep Car Care` : undefined} description={service?.description || undefined} ogImage={service?.image || undefined} />
+      <SEO
+        pageKey="service-detail"
+        title={service?.title || service?.name ? `${service.title || service.name} | STYLEIN Doorstep Car Care` : undefined}
+        description={service?.description || undefined}
+        ogImage={service?.image || undefined}
+        canonicalUrl={canonicalUrl}
+      />
       <NavMobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
       <motion.main
         animate={mobileMenuOpen ? { x: '44%', scale: 0.62, borderRadius: '32px', boxShadow: '-25px 0 70px rgba(0,0,0,0.98), 0 0 0 1px rgba(255,255,255,0.18)' } : { x: '0%', scale: 1, borderRadius: '0px', boxShadow: 'none' }}

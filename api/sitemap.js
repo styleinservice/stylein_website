@@ -1,6 +1,23 @@
 const CANONICAL_BASE = 'https://www.styleincar.com';
 const BACKEND_BASE = 'https://stylein-backend-334136272370.asia-south1.run.app';
 
+const FALLBACK_SERVICES = [
+  'car-wash',
+  'battery',
+  'oil-change',
+  'car-inspection',
+  'glass-coating',
+  'ppf-suv',
+  'ppf-sedan-car',
+  'rim-ceramic-coating',
+  'fabric-protection',
+  'odor-removal',
+  'pet-hair-removal',
+  'leather-conditioning',
+  'headlight-restoration',
+  'engine-bay-detailing',
+];
+
 const FALLBACK_BRANDS = [
   'audi',
   'bentley-continental-gt',
@@ -23,7 +40,9 @@ const FALLBACK_BRANDS = [
 
 const FALLBACK_BLOGS = [
   'car-service-in-the-uae-one-doorstep-at-a-time-stylein-car',
+  'meet-the-founder-of-styleincar-premium-car-care-across-ajman-sharjah-dubai-and-all-uae',
   'ppf-services-in-ajman-clear-ppf-aed-3-300-color-ppf-aed-3-999-styleincar',
+  'stylein-app-is-now-live-on-google-play-doorstep-car-wash-and-detailing-across-the-uae',
   'who-is-stylein-car-services-l-l-c-in-the-uae',
 ];
 
@@ -57,6 +76,8 @@ export default async function handler(req, res) {
     { loc: '/faqs', priority: '0.7', changefreq: 'monthly' },
     { loc: '/legal', priority: '0.5', changefreq: 'monthly' },
   ];
+
+  const serviceSlugs = new Set(FALLBACK_SERVICES);
 
   const brandSlugs = new Set(FALLBACK_BRANDS);
   try {
@@ -100,6 +121,10 @@ export default async function handler(req, res) {
 
   for (const page of staticRoutes) {
     xml += `  <url>\n    <loc>${CANONICAL_BASE}${page.loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${page.changefreq}</changefreq>\n    <priority>${page.priority}</priority>\n  </url>\n`;
+  }
+
+  for (const slug of Array.from(serviceSlugs).sort()) {
+    xml += `  <url>\n    <loc>${CANONICAL_BASE}/services/${slug}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.85</priority>\n  </url>\n`;
   }
 
   for (const slug of Array.from(brandSlugs).sort()) {
